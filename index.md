@@ -4,11 +4,13 @@ layout: default
 
 # Welcome to my NEW Github Page
 
-I will **soon** have my programming resources lsited here that I use in my classroom.
+I will **soon** have my programming resources listed here that I use in my classroom.
 
-My main site is here: [Check it out!](https://mrteasdale.com).
+My main resource site is here: [Check it out!](https://mrteasdale.com).
 
-### Some scripts
+
+
+### Example Python Script
 
 ```python
 # Code to check if a string or number is a Palindrome.
