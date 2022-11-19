@@ -8,7 +8,12 @@ I will **soon** have my programming resources listed here that I use in my class
 
 My main resource site is here: [Check it out!](https://mrteasdale.com).
 
+## Year 8
+Open [this link](./year8.md)
 
+## Edexcel CS
+
+## IGCSE CS
 
 ### Example Python Script
 
