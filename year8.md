@@ -31,8 +31,6 @@ Here are a list of Repls used in my class.
     - [Y8-Obj3-Basic-Loops](https://replit.com/@MrTeasdaleCS/Y8-Obj3-Basic-Loops){:target='_blank'}
     - [Y8-Obj3-Challenge-Nursery-Rhyme-Task](https://replit.com/@MrTeasdaleCS/Y8-Obj3-Challenge-Nursery-Rhyme-Task){:target='_blank'}
 
-
-
 - **Challenges**
     - [9](https://replit.com/@MrTeasdaleCS/Y8-Challenge-ArithmeticQuiz){:target="_blank"} 
     - [10](https://replit.com/@MrTeasdaleCS/Y8-Challenge-8Ball-1){:target="_blank"} 
