@@ -32,9 +32,8 @@ Here are a list of Repls used in my class.
     - [Y8-Obj3-Challenge-Nursery-Rhyme-Task](https://replit.com/@MrTeasdaleCS/Y8-Obj3-Challenge-Nursery-Rhyme-Task){:target='_blank'}
 
 - **Challenges**
-    - [9](https://replit.com/@MrTeasdaleCS/Y8-Challenge-ArithmeticQuiz){:target="_blank"} 
-    - [10](https://replit.com/@MrTeasdaleCS/Y8-Challenge-8Ball-1){:target="_blank"} 
-    - [11](https://replit.com/@MrTeasdaleCS/8Ball#main.py){:target="_blank"} – FULL code
-    - [12](https://replit.com/@MrTeasdaleCS/Magic8Ball#main.py){:target="_blank"} – 8 Ball Using lists
+    - [Challenge-ArithmeticQuiz](https://replit.com/@MrTeasdaleCS/Y8-Challenge-ArithmeticQuiz){:target="_blank"} 
+    - [Challenge-8 Ball](https://replit.com/@MrTeasdaleCS/8Ball#main.py){:target="_blank"} – FULL code
+    - [Challenge-8 Ball (USING LISTS)](https://replit.com/@MrTeasdaleCS/Magic8Ball#main.py){:target="_blank"} – 8 Ball Using lists
 
 [back](./)
