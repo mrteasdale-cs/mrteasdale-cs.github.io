@@ -11,18 +11,8 @@ My main resource site is here: [Check it out!](https://mrteasdale.com).
 ## Year 8
 Open [this link](./year8.md)
 
-## Edexcel CS
-Coming soon...
-
-## IGCSE CS
-
-### How to code in Python Solutions
-**Examples**
-  - [Open](https://replit.com/@MrTeasdaleCS/How-to-code-in-Python-Examples){:target='_blank'}
-
-**Programming Challenges**
-  - [Open](https://replit.com/@MrTeasdaleCS/Programming-Challenges){:target='_blank'}
-
+## GCSE CS
+Open [this link](./gcse-cs.md)
 
 ### Example Python Script
 
