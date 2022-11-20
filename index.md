@@ -31,6 +31,6 @@ check = 1223221
 output = Solution()
 print(output.isPalindrome(check))
 ```
-<iframe src="https://editor.p5js.org/mrteasdale-cs/full/e9IQnrqdU"></iframe>
+<iframe height = "450" width = "660" src="https://editor.p5js.org/mrteasdale-cs/full/e9IQnrqdU"></iframe>
 
 ![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
