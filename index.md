@@ -15,7 +15,12 @@ Open [this link](./year8.md)
 Coming soon...
 
 ## IGCSE CS
-Coming soon...
+**Examples**
+  - [Open](https://replit.com/@MrTeasdaleCS/How-to-code-in-Python-Examples){:target='_blank'}
+
+**Programming Challenges**
+  - [Open](https://replit.com/@MrTeasdaleCS/Programming-Challenges){:target='_blank'}
+
 
 ### Example Python Script
 
