@@ -12,8 +12,10 @@ My main resource site is here: [Check it out!](https://mrteasdale.com).
 Open [this link](./year8.md)
 
 ## Edexcel CS
+Coming soon...
 
 ## IGCSE CS
+Coming soon...
 
 ### Example Python Script
 
