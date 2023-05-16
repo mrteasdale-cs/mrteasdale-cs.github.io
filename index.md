@@ -7,6 +7,8 @@ layout: default
 I will **soon** have my programming resources listed here that I use in my classroom.
 
 My main resource site is here: [Check it out!](https://mrteasdale.com).
+## Cybersecurity
+Open [this link](./cyber-security.md)
 
 ## Year 8
 Open [this link](./year8.md)
