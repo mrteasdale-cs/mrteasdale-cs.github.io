@@ -15,7 +15,7 @@ The router will assign each device on the internal network with a unique IP that
 ## 5.5 VPN
 A virtual private network VPN is a remote-access connection that uses encryption
 
-Use IPSec over L2TP - MSv2CHAP is insecure
+Use IPSec over L2TP - PPTP with MSv2CHAP is insecure!
 
 ## 5.6 Web Threat Protection
 
