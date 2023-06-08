@@ -18,6 +18,7 @@ Use IPSec over L2TP - PPTP with MSv2CHAP is insecure!
 ## 5.6 Web Threat Protection
 
 Website/URL content filtering - prevents a user from visiting restricted websites. Specific websites are identified as restricted; employees are not able to view the sites on their browsers. Used to enforce the organization's internet usage policy.Helps to increase bandwidth availability.
+![Web filter](./images/web-filter.png)
 
 Web threat filtering - prevents a user from visiting websites with known malicious content. It maintains a list of websites with known malicious content.
 
