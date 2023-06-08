@@ -10,7 +10,7 @@ layout: default
 
 Network address translation occurs due to a limitation in the IPv4 networking scheme. The interent is a public network and needs a routable IP that is registered. Not all devices can have one - ISPs will provide this to a customer.
 
-The router will assign each device on the internal network with a unique IP that is then converted into a routable IP once it leaves the LAN to go into the WAN
+The router will assign each device on the internal network with a unique IP that is then converted into a routable IP once it leaves the LAN to go into the WAN.
 
 ## 5.5 VPN
 A virtual private network VPN is a remote-access connection that uses encryption
