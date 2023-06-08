@@ -4,9 +4,9 @@ layout: default
 
 # Cyber Security
 
-# Networks and Hosts Design and Diagnostics
+# 4 Networks and Hosts Design and Diagnostics
 
-# - [5 Devices & Infrastructure](./devices-and-infrastructure.md)
+# 5 - [Devices & Infrastructure](./devices-and-infrastructure.md)
 
 # 6 Identity, Access, and Account Management
 
