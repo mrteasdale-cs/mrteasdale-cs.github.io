@@ -4,12 +4,20 @@ layout: default
 
 # Cyber Security
 
-## VPN
+# Devices & Infrastructure
+
+## 5.4 NAT
+
+Network address translation occurs due to a limitation in the IPv4 networking scheme. The interent is a public network and needs a routable IP that is registered. Not all devices can have one - ISPs will provide this to a customer.
+
+The router will assign each device on the internal network with a unique IP that is then converted into a routable IP once it leaves the LAN to go into the WAN
+
+## 5.5 VPN
 A virtual private network VPN is a remote-access connection that uses encryption
 
 Use IPSec over L2TP - MSv2CHAP is insecure
 
-## Web Threat Protection
+## 5.6 Web Threat Protection
 
 Website/URL content filtering - prevents a user from visiting restricted websites. Specific websites are identified as restricted; employees are not able to view the sites on their browsers. Used to enforce the organization's internet usage policy.Helps to increase bandwidth availability.
 
