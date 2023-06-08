@@ -2,8 +2,6 @@
 layout: default
 ---
 
-# Cyber Security
-
 # Devices & Infrastructure
 
 ## 5.4 NAT
