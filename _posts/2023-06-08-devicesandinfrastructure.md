@@ -2,7 +2,7 @@
 layout: post
 title:  "Sec+ Devices and Infrastructure"
 ---
-
+ 
 # Cyber Security
 
 ## VPN
