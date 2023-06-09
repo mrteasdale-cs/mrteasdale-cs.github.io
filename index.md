@@ -9,7 +9,7 @@ My main resource site is here: [Check it out!](https://mrteasdale.com).
   <div class="column">
     <a href="./cyber-security.html">
       <div class="box">
-          <img src="./images/cysec-bg.png" height=180px width=300px/>
+          <img src="./images/cysec-bg.png" height=120px width=260px/>
           <p>Sec+ Cybersecurity Ramblings (Notes)</p>
       </div>
     </a>
@@ -23,7 +23,7 @@ My main resource site is here: [Check it out!](https://mrteasdale.com).
   <div class="column">
     <a href="./gcse-cs.html">
       <div class="box">
-        <img src="./images/cpu-bg.png" height=180px width=300px/>
+        <img src="./images/cpu-bg.png" height=120px width=260px/>
         <p>GCSE CS</p>
       </div>
     </a>
