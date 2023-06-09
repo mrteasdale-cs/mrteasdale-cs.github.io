@@ -12,6 +12,7 @@ layout: default
 </head>
 <body>
   <h1>Welcome to my Github Page</h1>
+  <p>My main resource site is here: [Check it out!](https://mrteasdale.com).</p>
   <div class="container">
     <div class="column">
       <a href="./cyber-security.md"><div class="box"></div></a>
