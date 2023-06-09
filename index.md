@@ -51,6 +51,8 @@ output = Solution()
 print(output.isPalindrome(check))
 ```
 
+## Want to play a game?
+
 <iframe height = "450" width = "660" src="https://editor.p5js.org/mrteasdale-cs/full/e9IQnrqdU"></iframe>
 
 ![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
