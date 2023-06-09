@@ -10,7 +10,7 @@ My main resource site is here: [Check it out!](https://mrteasdale.com).
     <a href="./cyber-security.html">
       <div class="box">
           <img src="./images/cysec-bg.png" width=300px/>
-          <p>Cybersecurity Ramblings</p>
+          <p>Sec+ Cybersecurity Ramblings (Notes)</p>
       </div>
     </a>
     <a href="./year-8.html">
