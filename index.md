@@ -12,7 +12,7 @@ My main resource site is here: <a href="https://mrteasdale.com" target="_blank">
   <div class="column">
     <a href="./cyber-security.html">
       <div class="box">
-          <img src="./images/cysec-bg.png" height=120px width=260px/>
+          <img src="./images/cysec-bg.png" height=140px width=260px/>
           <p>Sec+ Cybersecurity</p>
       </div>
     </a>
@@ -26,7 +26,7 @@ My main resource site is here: <a href="https://mrteasdale.com" target="_blank">
   <div class="column">
     <a href="./gcse-cs.html">
       <div class="box">
-        <img src="./images/cpu-bg.png" height=120px width=260px/>
+        <img src="./images/cpu-bg.png" height=140px width=260px/>
         <p>GCSE CS</p>
       </div>
     </a>
