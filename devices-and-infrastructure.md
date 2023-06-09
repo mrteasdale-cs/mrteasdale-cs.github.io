@@ -70,21 +70,22 @@ NAC Goals are to prevent zero-day attacks, give role-based controls, encrypt tra
 ---
 ## 5.8 Network Threats Facts
 
-Network segmentation - secure network-architecture concept. Idea is that if certain parts of a system are compromised, then the rest of the network is okay. Makes it much easier to identify suspicious network traffic.
+### Network segmentation
+secure network-architecture concept. Idea is that if certain parts of a system are compromised, then the rest of the network is okay. Makes it much easier to identify suspicious network traffic.
 
 Most common method is to setup VLANS (Virtual Local Area Networks) - separate these into zones (low, medium, high), etc.  Example of a low-trust zone could be a web server. This kind of zone is also referred to as a DMZ, or demilitarized zone.
 
-Types of network attack
+### Types of network attack
 - Active : are when perpetrators attempt to compromise or affect the operations of a system in some way. 
 - Passive : occur when perpetrators attempt to gather information without affecting the flow of that information from the targeted network. 
 - External
 - Inside : people inside the network security perimeter
 
-User Education and Training
+### User Education and Training
 
 training is very important - phishing is a big concern, therefore educating an organisations employees is beneficial.
 
-Threat focus points
+### Threat focus points
 
 - Entry points - regonise possible entry points for attacks. Public servers, WIFI, personal devices tc.
 - Inherent vulnerabilities - systems that lack proper security controls (older versions of Windows / other SW)
