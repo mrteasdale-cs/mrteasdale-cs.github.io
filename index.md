@@ -1,9 +1,7 @@
 ---
 layout: default
 ---
-<html>
-<head>
-  <title>Mr Teasdale CS</title>
+
   <style>
     .container {display: flex;}.column {flex: 1;padding: 10px;}.box {background-color: #ccc;height: 100px;margin-bottom: 10px;}
   </style>
