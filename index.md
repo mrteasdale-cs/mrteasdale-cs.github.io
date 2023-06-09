@@ -4,14 +4,13 @@ layout: default
 {% include head-custom.html %}
 <h1>Welcome to my Github Page</h1>
 My main resource site is here: [Check it out!](https://mrteasdale.com).
+<div class="stuff">
 <div class="container">
   <div class="column">
     <a href="./cyber-security.html">
       <div class="box">
-        <div class="stuff">
           <img src="./images/cysec-bg.png" width=200px/>
           <p>Cybersecurity Ramblings</p>
-        </div>
       </div>
     </a>
     <a href="./year-8.html">
@@ -30,4 +29,5 @@ My main resource site is here: [Check it out!](https://mrteasdale.com).
     <div class="box"></div>
     <div class="box"></div>
   </div>
+</div>
 </div>
