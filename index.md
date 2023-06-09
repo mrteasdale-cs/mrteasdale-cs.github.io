@@ -23,6 +23,7 @@ My main resource site is here: [Check it out!](https://mrteasdale.com).
   <div class="column">
     <a href="./gcse-cs.html">
       <div class="box">
+        <img src="./images/cpu-bg.png" width=200px/>
         <p>GCSE CS</p>
       </div>
     </a>
