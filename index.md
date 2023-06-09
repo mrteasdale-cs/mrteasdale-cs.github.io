@@ -8,8 +8,10 @@ My main resource site is here: [Check it out!](https://mrteasdale.com).
   <div class="column">
     <a href="./cyber-security.html">
       <div class="box">
-        <img src="./images/cysec-bg.png" width=200px/>
-        <p>Cybersecurity Ramblings</p>
+        <div class="stuff">
+          <img src="./images/cysec-bg.png" width=200px/>
+          <p>Cybersecurity Ramblings</p>
+        </div>
       </div>
     </a>
     <a href="./year-8.html">
