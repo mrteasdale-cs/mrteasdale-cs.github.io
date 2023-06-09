@@ -32,3 +32,25 @@ My main resource site is here: [Check it out!](https://mrteasdale.com).
   </div>
 </div>
 </div>
+
+### Example Python Script
+
+```python
+# Code to check if a string or number is a Palindrome.
+class Solution:
+    def isPalindrome(self, x: int):
+
+        new_X = str(x)
+        if new_X == new_X[::-1]:
+            return True
+        else:
+            return False
+
+check = 1223221
+output = Solution()
+print(output.isPalindrome(check))
+```
+
+<iframe height = "450" width = "660" src="https://editor.p5js.org/mrteasdale-cs/full/e9IQnrqdU"></iframe>
+
+![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
