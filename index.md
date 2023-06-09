@@ -1,8 +1,6 @@
 ---
 layout: default
 ---
-
-<!DOCTYPE html>
 <html>
 <head>
   <title>Mr Teasdale CS</title>
@@ -12,7 +10,7 @@ layout: default
 </head>
 <body>
   <h1>Welcome to my Github Page</h1>
-  <p>My main resource site is here: [Check it out!](https://mrteasdale.com).</p>
+  My main resource site is here: [Check it out!](https://mrteasdale.com).
   <div class="container">
     <div class="column">
       <a href="./cyber-security.html"><div class="box">Cybersecurity Ramblings</div></a>
