@@ -2,7 +2,10 @@
 layout: default
 ---
 {% include head-custom.html %}
-<h1>Welcome to my Github Page</h1>
+<div class="stuff">
+  <h1>Welcome to my Github Page</h1>
+  ![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
+</div>
 My main resource site is here: [Check it out!](https://mrteasdale.com).
 <div class="stuff">
 <div class="homegrid">
@@ -55,6 +58,4 @@ print(output.isPalindrome(check))
 
 <div class="stuff">
   <iframe height = "450" width = "660" src="https://editor.p5js.org/mrteasdale-cs/full/e9IQnrqdU"></iframe>
-
-  ![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
 </div>
