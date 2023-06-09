@@ -17,7 +17,21 @@ Use IPSec over L2TP - PPTP with MSv2CHAP is insecure!
 
 ## 5.6 Web Threat Protection
 
-Website/URL content filtering - prevents a user from visiting restricted websites. Specific websites are identified as restricted; employees are not able to view the sites on their browsers. Used to enforce the organization's internet usage policy.Helps to increase bandwidth availability.
+
+### Threat types
+- Mass emails
+- Bad links
+- Nefarious websites
+
+Web threat devices;
+- save money, time and reportaiton
+- hardware-based devices (either All in one / Unified Threat Protection)
+- DMZ or internal netowrk
+- Policy driven
+
+### Types of Protection Devices
+
+Website/URL content filtering - prevents a user from visiting restricted websites. Specific websites are identified as restricted; employees are not able to view the sites on their browsers. Used to enforce the organization's internet usage policy. Helps to increase bandwidth availability. Does not protect against malcious sites.
 
 ![Web filter](./images/web-filter.png)
 ===
@@ -33,6 +47,25 @@ Encryption - causes data, such as the content of an email, to be unintelligible 
 Proxies	
 - Transparent proxies are located between a user and the internet, and they can redirect requests without changing the request.
 - Forward proxies can be used to filter web content, but can also be used to mask a user's identity for anonymity.
+
+
+### Blocking sites via pfSense
+
+![Alt text](rules-pfsense.png)
+
+Add packages
+![Alt text](./images/image.png)
+
+## 5.7 Network access control
+
+- Network access control - A policy-driven control process that allows or denies network access to devices connecting to a network.
+- Bring your own device -	A policy that allows an employee to use a personal device, such as a laptop computer or phone, to connect to the organization's network to accomplish daily work tasks.
+
+Can be used to setup admission criteria to the network - if a device does not satisfy a certain criteria it will be placeed onto a restricted network until issues are resolved (device has access to updates and other necessary things to make it conform to the network).
+
+NAC Goals are to prevent zero-day attacks, give role-based controls, encrypt traffic and manage identity / enforce policies.
+
+![Alt text](./images/image-1.png)
 
 
 
