@@ -15,7 +15,7 @@ layout: default
   <p>My main resource site is here: [Check it out!](https://mrteasdale.com).</p>
   <div class="container">
     <div class="column">
-      <a href="./cyber-security.md"><div class="box"></div></a>
+      <a href="./cyber-security.html"><div class="box">Cybersecurity Ramblings</div></a>
       <div class="box"></div>
       <div class="box"></div>
     </div>
