@@ -91,6 +91,8 @@ Threat focus points
 - Documentation - document all asssets to ensure you are securing ===EVERYTHING===.
 - Network baseline - identify a normal pattern of usage (server load, net activity etc) so you can detect anomolies or atypical usage.
 
+![Alt text](images/image2.png)
+
 
 
 
