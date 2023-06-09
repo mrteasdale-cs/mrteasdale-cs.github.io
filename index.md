@@ -4,7 +4,7 @@ layout: default
 {% include head-custom.html %}
 <div class="stuff">
   <h1>Welcome to my Github Page</h1>
-  <img src=https://github.githubassets.com/images/icons/emoji/octocat.png)/>
+  <img src="https://github.githubassets.com/images/icons/emoji/octocat.png"/>
 </div>
 My main resource site is here: [Check it out!](https://mrteasdale.com).
 <div class="stuff">
