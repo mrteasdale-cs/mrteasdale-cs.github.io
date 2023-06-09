@@ -5,7 +5,7 @@ layout: default
 <h1>Welcome to my Github Page</h1>
 My main resource site is here: [Check it out!](https://mrteasdale.com).
 <div class="stuff">
-<div class="container">
+<div class="homegrid">
   <div class="column">
     <a href="./cyber-security.html">
       <div class="box">
