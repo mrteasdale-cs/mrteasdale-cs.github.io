@@ -1,0 +1,41 @@
+---
+layout: default
+---
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Div Boxes Example</title>
+  <style>
+    .container {
+      display: flex;
+    }
+
+    .column {
+      flex: 1;
+      padding: 10px;
+    }
+
+    .box {
+      background-color: #ccc;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="column">
+      <div class="box"></div>
+      <div class="box"></div>
+    </div>
+    <div class="column">
+      <div class="box"></div>
+    </div>
+    <div class="column">
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+    </div>
+  </div>
+</body>
+</html>
