@@ -13,13 +13,17 @@ My main resource site is here: [Check it out!](https://mrteasdale.com).
       </div>
     </a>
     <a href="./year-8.html">
-      <div class="box">Year 8</div>
+      <div class="box">
+        <p>Year 8</p>
+      </div>
     </a>
     <div class="box"></div>
   </div>
   <div class="column">
     <a href="./gcse-cs.html">
-      <div class="box">GCSE CS</div>
+      <div class="box">
+        <p>GCSE CS</p>
+      </div>
     </a>
     <div class="box"></div>
     <div class="box"></div>
