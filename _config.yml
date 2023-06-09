@@ -3,7 +3,6 @@ plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
 include:
 - _posts
-- _layouts
 
 title: CS with Mr Teasdale
 description: CS, Programming, and CySec stuff...

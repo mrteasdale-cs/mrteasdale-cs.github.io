@@ -51,7 +51,7 @@ Proxies
 
 ### Blocking sites via pfSense
 
-![Alt text](rules-pfsense.png)
+![Alt text](./images/rules-pfsense.png)
 
 Add packages
 ![Alt text](./images/image.png)
