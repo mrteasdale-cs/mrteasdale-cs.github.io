@@ -54,7 +54,8 @@ def binarysearch(nameList,target):
 
     return -1
 
-names = ["Aaron","Beth","Clive","Dennis","Egbert","Francis","Gillian","Hugh","Icarus","Jeremy","Kyle","Lachina"]
+names = ["Aaron","Beth","Clive","Dennis","Egbert","Francis",
+        "Gillian","Hugh","Icarus","Jeremy","Kyle","Lachina"]
 ages = [33,56,34,56,75,34,24,87,34,44,50,40]
 toFind = str(input("Enter a name"))
 position = binarysearch(names,toFind)
@@ -87,13 +88,25 @@ print(userName)
 ```python
 # Standard Algorithm
 # Input Validation
-
+# Range Check
 number = int(input("Enter a value between 0 and 10"))
 while number < 0 or number > 10:
     print("Your value was not between 0 and 10")
     number = int(input("Enter value again"))
 
 print("Number =",number)
+
+#  Presence Check
+response = input("Do you agree with the terms and conditions?")
+confirm = False
+while not True:
+  response = input("Do you agree with the terms and conditions?")
+  if response == "y":
+    confirm = True
+    
+print("Thank you for confirming")
+
+
 ```
 
 [Go Home](./)
