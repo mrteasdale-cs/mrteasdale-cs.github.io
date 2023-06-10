@@ -5,7 +5,7 @@ layout: default
 <div class="stuff">
   <h1>Welcome to my Github Page</h1>
   <p><img src="https://github.githubassets.com/images/icons/emoji/octocat.png"/></p>
-My main resource site is here: <a href="https://mrteasdale.com" target="_blank">Check it out!</a>.
+My main website is here: <a href="https://mrteasdale.com" target="_blank">Check it out mrteasdale.com!</a>.
 </div>
 <div class="stuff">
 <div class="homegrid">
