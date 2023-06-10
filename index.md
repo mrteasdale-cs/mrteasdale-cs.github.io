@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-{% include head-custom.html %}
+
 <div class="stuff">
   <h1>Welcome to my Github Page</h1>
   <p><img src="https://github.githubassets.com/images/icons/emoji/octocat.png"/></p>
