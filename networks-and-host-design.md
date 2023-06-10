@@ -52,3 +52,12 @@ Unnecessary network services waste computer resources and increase the system's 
 3. Disabled any services not needed:
     - systemctl disable servicename
     - systemctl stop servicename
+
+## Use netstat
+
+netstat
+
+-a lists both listening and non-listening sockets.
+-l (lowercase 'L') lists listening sockets.
+-s displays statistics for each protocol.
+-i displays a table of all network interfaces.
