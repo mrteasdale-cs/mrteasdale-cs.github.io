@@ -2,7 +2,7 @@
 layout: default
 ---
 
-## Linux Host Security
+# Linux Host Security
 
 ### Remove unnecessary software	
 Unnecessary software occupies disk space and could introduce security flaws. To remove unnecessary software enter one of the following commands:
@@ -20,7 +20,7 @@ Use one of the following commands to uninstall unnecessary packages.
 - rpm -e packagename
 - dpkg -r packagename
 
-## Check for unnecessary network services	
+### Check for unnecessary network services	
 Unnecessary network services waste computer resources and increase the system's attack service. To remove unnecessary network services:
 
 1. Find all installed services and determine which are not needed:  DNS, SNMP, DHCP and others.
@@ -38,7 +38,7 @@ Unnecessary network services waste computer resources and increase the system's 
     - rpm -e packagename
     - dpkg -r packagename
 
-## Use NMAP
+### Use NMAP
 
 1. Install the nmap utility if it is not already installed.
     - yum install nmap
