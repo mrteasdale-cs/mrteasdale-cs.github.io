@@ -4,7 +4,7 @@ layout: default
 {% include head-custom.html %}
 <div class="stuff">
   <h1>Welcome to my Github Page</h1>
-  <img src="https://github.githubassets.com/images/icons/emoji/octocat.png"/>
+  <p><img src="https://github.githubassets.com/images/icons/emoji/octocat.png"/></p>
 My main resource site is here: <a href="https://mrteasdale.com" target="_blank">Check it out!</a>.
 </div>
 <div class="stuff">
@@ -13,12 +13,12 @@ My main resource site is here: <a href="https://mrteasdale.com" target="_blank">
     <a href="./cyber-security.html">
       <div class="box">
           <img src="./images/cysec-bg.png" height=140px width=260px/>
-          <p>Sec+ Cybersecurity</p>
+          <h2>Sec+ Cybersecurity</h2>
       </div>
     </a>
     <a href="./year-8.html">
       <div class="box">
-        <p>Year 8</p>
+        <h2>Year 8</h2>
       </div>
     </a>
     <div class="box"></div>
@@ -27,7 +27,7 @@ My main resource site is here: <a href="https://mrteasdale.com" target="_blank">
     <a href="./gcse-cs.html">
       <div class="box">
         <img src="./images/cpu-bg.png" height=140px width=260px/>
-        <p>GCSE CS</p>
+        <h2>GCSE CS</h2>
       </div>
     </a>
     <div class="box"></div>
