@@ -23,7 +23,7 @@ Here are a list of Repls used in my class.
 
 ### Searching Algorithms
 
-Simple Linear Search
+***Simple Linear Search***
 ```python
 numbers = [5,7,19,21,25,82]
 searchNum = int(input("Enter number: "))
@@ -35,7 +35,7 @@ while i < len(numbers) and not numFound:
     numFound = True
   i = i + 1
 ```
-Binary Search
+***Binary Search***
 ```python
 # Standard Algorithm
 # Binary Search
@@ -64,7 +64,8 @@ else:
     print("Name not found")
 ```
 ### Sorting Algorithms
-Bubble Sort
+
+***Bubble Sort***
 ```python
 # Program to perform a bubble sort
 # Define the list of names
