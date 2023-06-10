@@ -16,7 +16,7 @@ My main website is here: <a href="https://mrteasdale.com" target="_blank">Check 
         <h2>Sec+ Cybersecurity</h2>
       </div>
     </a>
-    <a href="./year-8.html">
+    <a href="./year8.html">
       <div class="box">
         <img src="./images/eight.png" height=140px/>
         <h2>Year 8</h2>
