@@ -15,6 +15,7 @@ Here are a list of Repls used in my class.
 
 ## Edexcel GCSE CS
 
-Coming soon...
+### Pearson's Revision Workbook Python Files
+- [Open](https://replit.com/@MrTeasdaleCS/Pearson-Revision-Workbook-Python-Files?v=1){:target='_blank'}
 
-[back](./)
+[Go Home](./)
