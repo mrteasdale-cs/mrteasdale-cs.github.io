@@ -12,12 +12,13 @@ My main resource site is here: <a href="https://mrteasdale.com" target="_blank">
   <div class="column">
     <a href="./cyber-security.html">
       <div class="box">
-          <img src="./images/cysec-bg.png" height=140px width=260px/>
-          <h2>Sec+ Cybersecurity</h2>
+        <img src="./images/cysec-bg.png" height=140px width=260px/>
+        <h2>Sec+ Cybersecurity</h2>
       </div>
     </a>
     <a href="./year-8.html">
       <div class="box">
+        <img src="./images/eight.png" height=140px/>
         <h2>Year 8</h2>
       </div>
     </a>
