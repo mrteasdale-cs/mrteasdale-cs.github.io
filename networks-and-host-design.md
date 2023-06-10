@@ -2,7 +2,7 @@
 layout: default
 ---
 
-# Linux Host Security
+# 4.3 Linux Host Security
 
 ### Remove unnecessary software	
 Unnecessary software occupies disk space and could introduce security flaws. To remove unnecessary software enter one of the following commands:
