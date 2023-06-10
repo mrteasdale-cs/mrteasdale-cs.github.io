@@ -2,26 +2,26 @@
 layout: default
 ---
 
-## Cambridge GCSE Computer Science
+# Cambridge GCSE Computer Science
 
 Here are a list of Repls used in my class.
 
-### How to code in Python Solutions
+## How to code in Python Solutions
 **Examples**
   - [Open](https://replit.com/@MrTeasdaleCS/How-to-code-in-Python-Examples){:target='_blank'}
 
 **Programming Challenges**
   - [Open](https://replit.com/@MrTeasdaleCS/Programming-Challenges){:target='_blank'}
 
-## Edexcel GCSE CS
+# Edexcel GCSE CS
 
-### Pearson's Revision Workbook Python Files
+## Pearson's Revision Workbook Python Files
 - [Open](https://replit.com/@MrTeasdaleCS/Pearson-Revision-Workbook-Python-Files?v=1){:target='_blank'}
 
 
-## Topic 1 Computational Thinking
+# Topic 1 Computational Thinking
 
-### Searching Algorithms
+## Searching Algorithms
 
 ***Simple Linear Search***
 ```python
@@ -64,7 +64,7 @@ if position>=0:
 else:
     print("Name not found")
 ```
-### Sorting Algorithms
+## Sorting Algorithms
 
 ***Bubble Sort***
 ```python
@@ -83,7 +83,7 @@ while numItems>1:
 print(userName)
 ```
 
-### Validation
+## Validation
 
 ```python
 # Standard Algorithm
@@ -103,7 +103,7 @@ while not True:
   response = input("Do you agree with the terms and conditions?")
   if response == "y":
     confirm = True
-    
+
 print("Thank you for confirming")
 
 
