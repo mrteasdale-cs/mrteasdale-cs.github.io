@@ -1,10 +1,6 @@
 
----
-layout: default
----
-
 <div style="text-align:center; margin-bottom:32px;">
-  <h1 style="font-size:2.8em; font-weight:700;">Welcome to My Computer Science Learning Hub!</h1>
+  <h1 style="font-size:2em; font-weight:700;">Welcome to My Computer Science Learning Hub!</h1>
   <p><img src="https://github.githubassets.com/images/icons/emoji/octocat.png" style="width:80px; margin: 12px;"/></p>
   <a href="https://mrteasdale.com" target="_blank" style="font-size: 1.3em; font-weight: 500; color: #2a7ae2;">Visit My Main Website &rarr;</a>
 </div>
