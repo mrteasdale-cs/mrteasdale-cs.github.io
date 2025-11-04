@@ -67,25 +67,3 @@ print(output.isPalindrome(check))
   <h3>Want to play a game?</h3>
   <iframe height = "450" width = "660" src="https://editor.p5js.org/mrteasdale-cs/full/e9IQnrqdU" style="border-radius:20px; box-shadow:0 0 15px #d1fae5; margin: 0 auto;"></iframe>
 </div>
-
-<!-- IB THEMES NAVIGATION for ibcs/index.html -->
-
-<!-- If user clicks IB Computer Science link: show a clear list of syllabus themes-->
-<!-- Example for ./ibcs/index.md file: -->
-
-# IB Computer Science (2025+ Spec)
-
-## Themes
-
-- Syllabus Overview
-- A1: Computer hardware and operation
-  - Revision Notes: [A1.1 Computer hardware and operation](./A1.1-Computer-hardware-operation.md)
-  - Revision Notes: [A1.2 Data representation](./A1.2-Data-representation.md)
-- A2: System software and security
-- A3: Networks and communication
-- A4: Programming and algorithms
-- B: Option topics
-- C: Case study
-- Practice and Revision Questions
-
-#
