@@ -2,8 +2,8 @@
 <div style="text-align:center; margin-bottom:32px;">
   <h1 style="font-size:2em; font-weight:700;">Welcome to My Computer Science Learning Hub!</h1>
 </div>
+<div style="display: flex; flex-wrap: wrap; gap: 2em; justify-content: center; max-width:980px; margin:0 auto;">
 
-<div style="display:flex; flex-wrap: wrap; gap: 2em; justify-content:center;">
   <a href="./year78.html" class="card">
     <div class="card-box" style="background:#253a53; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #dbeafe; text-align:center;">
       <img src="./images/eight.png" style="height:84px;"/>
