@@ -1,6 +1,6 @@
 
 <div style="text-align:center; margin-bottom:32px;">
-  <h1 style="font-size:2em; font-weight:700;">Welcome to My Computer Science Learning Hub!</h1>
+  <h1 style="font-size:2em; font-weight:700;">Welcome to the Computer Science Learning Hub!</h1>
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 2em; justify-content: center; max-width:980px; margin:0 auto;">
 
