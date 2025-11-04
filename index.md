@@ -36,7 +36,7 @@
   </a>
   <a href="./coding_challenges.html" class="card">
     <div class="card-box" style="background:#0f4653; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #bae6fd; text-align:center;">
-      <img src="./images/challenges.png" style="height:84px;"/>
+      <img src="./images/programming.png" style="height:84px;"/>
       <h2 style="margin:16px 0 0 0; font-size:1.4em;">Coding Challenges</h2>
     </div>
   </a>
