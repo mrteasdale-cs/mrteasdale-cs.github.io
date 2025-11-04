@@ -2,8 +2,6 @@ import java.util.Random;
 
 public class Main {
 
-    private int[] elements;
-
     public static void main(String[] args) {
         System.out.println("Data Structure and Algorithms!");
 

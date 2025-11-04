@@ -1,5 +1,0 @@
-marksFile = open("marks.txt","a")
-name = input("Input student name: ")
-mark = input("Input student mark: ")
-marksFile.write(name + "," + mark + "\n")
-marksFile.close()
