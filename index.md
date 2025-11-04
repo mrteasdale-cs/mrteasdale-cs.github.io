@@ -8,7 +8,7 @@
 <div style="display:flex; flex-wrap: wrap; gap: 2em; justify-content:center;">
   <a href="./year78.html" class="card">
     <div class="card-box" style="background:#F8F9FA; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #dbeafe; text-align:center;">
-      <img src="./images/year78.png" style="height:84px;"/>
+      <img src="./images/eight.png" style="height:84px;"/>
       <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 7/8 <br> KS3 Computer Science</h2>
     </div>
   </a>
@@ -26,7 +26,7 @@
   </a>
   <a href="./ibcs/index.html" class="card">
     <div class="card-box" style="background:#FDECD2; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #fcd34d; text-align:center;">
-      <img src="./images/ibcs.png" style="height:84px;"/>
+      <img src="./images/cpu-bg.png" style="height:84px;"/>
       <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 11/12 <br> IB Computer Science</h2>
     </div>
   </a>
@@ -44,7 +44,7 @@
   </a>
 </div>
 
-<div style="margin:42px auto 16px auto; max-width:700px; background:#fcfcfd; padding:24px 32px; border-radius:20px; box-shadow:0 0 10px #ede9fe;">
+<div style="margin:42px auto 16px auto; max-width:700px; background:#000000; padding:24px 32px; border-radius:20px; box-shadow:0 0 10px #ede9fe;">
   <h3 style="text-align:center;">Example Python Script: Palindrome Checker</h3>
 
 ```python
