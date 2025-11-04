@@ -55,7 +55,7 @@ Unnecessary network services waste computer resources and increase the system's 
 
 ## Use netstat
 
-netstat
+***netstat***
 
 -a lists both listening and non-listening sockets.
 -l (lowercase 'L') lists listening sockets.

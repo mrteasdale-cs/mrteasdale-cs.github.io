@@ -1,49 +1,60 @@
+
 ---
 layout: default
 ---
 
-<div class="stuff">
-  <h1>Welcome to my Github Page</h1>
-  <p><img src="https://github.githubassets.com/images/icons/emoji/octocat.png"/></p>
-My main website is here: <a href="https://mrteasdale.com" target="_blank">Check it out mrteasdale.com!</a>.
-</div>
-<div class="stuff">
-<div class="homegrid">
-  <div class="column">
-    <a href="./cyber-security.html">
-      <div class="box">
-        <img src="./images/cysec-bg.png" height=140px width=260px/>
-        <h2>Sec+ Cybersecurity</h2>
-      </div>
-    </a>
-    <a href="./year8.html">
-      <div class="box">
-        <img src="./images/eight.png" height=140px/>
-        <h2>Year 8</h2>
-      </div>
-    </a>
-    <div class="box"></div>
-  </div>
-  <div class="column">
-    <a href="./gcse-cs.html">
-      <div class="box">
-        <img src="./images/cpu-bg.png" height=140px width=260px/>
-        <h2>GCSE CS</h2>
-      </div>
-    </a>
-    <div class="box"></div>
-    <div class="box"></div>
-  </div>
-</div>
+<div style="text-align:center; margin-bottom:32px;">
+  <h1 style="font-size:2.8em; font-weight:700;">Welcome to My Computer Science Learning Hub!</h1>
+  <p><img src="https://github.githubassets.com/images/icons/emoji/octocat.png" style="width:80px; margin: 12px;"/></p>
+  <a href="https://mrteasdale.com" target="_blank" style="font-size: 1.3em; font-weight: 500; color: #2a7ae2;">Visit My Main Website &rarr;</a>
 </div>
 
-### Example Python Script
+<div style="display:flex; flex-wrap: wrap; gap: 2em; justify-content:center;">
+  <a href="./year78.html" class="card">
+    <div class="card-box" style="background:#F8F9FA; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #dbeafe; text-align:center;">
+      <img src="./images/year78.png" style="height:84px;"/>
+      <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 7/8 <br> KS3 Computer Science</h2>
+    </div>
+  </a>
+  <a href="./year910.html" class="card">
+    <div class="card-box" style="background:#E8F0FE; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #c7d2fe; text-align:center;">
+      <img src="./images/ks4.png" style="height:84px;"/>
+      <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 9/10 <br> GCSE Computer Science</h2>
+    </div>
+  </a>
+  <a href="./alevel_cs.html" class="card">
+    <div class="card-box" style="background:#E9FCD4; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #bef264; text-align:center;">
+      <img src="./images/alevel.png" style="height:84px;"/>
+      <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 11/12 <br> A Level Computer Science</h2>
+    </div>
+  </a>
+  <a href="./ibcs/index.html" class="card">
+    <div class="card-box" style="background:#FDECD2; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #fcd34d; text-align:center;">
+      <img src="./images/ibcs.png" style="height:84px;"/>
+      <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 11/12 <br> IB Computer Science</h2>
+    </div>
+  </a>
+  <a href="./cyber-security.html" class="card">
+    <div class="card-box" style="background:#F7E6FF; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #e9d5ff; text-align:center;">
+      <img src="./images/cysec-bg.png" style="height:84px;"/>
+      <h2 style="margin:16px 0 0 0; font-size:1.4em;">Cybersecurity (Sec+)</h2>
+    </div>
+  </a>
+  <a href="./coding_challenges.html" class="card">
+    <div class="card-box" style="background:#DFF6FF; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #bae6fd; text-align:center;">
+      <img src="./images/challenges.png" style="height:84px;"/>
+      <h2 style="margin:16px 0 0 0; font-size:1.4em;">Coding Challenges</h2>
+    </div>
+  </a>
+</div>
+
+<div style="margin:42px auto 16px auto; max-width:700px; background:#fcfcfd; padding:24px 32px; border-radius:20px; box-shadow:0 0 10px #ede9fe;">
+  <h3 style="text-align:center;">Example Python Script: Palindrome Checker</h3>
 
 ```python
 # Code to check if a string or number is a Palindrome.
 class Solution:
     def isPalindrome(self, x: int):
-
         new_X = str(x)
         if new_X == new_X[::-1]:
             return True
@@ -54,9 +65,31 @@ check = 1223221
 output = Solution()
 print(output.isPalindrome(check))
 ```
-
-## Want to play a game?
-
-<div class="stuff">
-  <iframe height = "450" width = "660" src="https://editor.p5js.org/mrteasdale-cs/full/e9IQnrqdU"></iframe>
 </div>
+
+<div style="margin:32px 0; text-align:center;">
+  <h3>Want to play a game?</h3>
+  <iframe height = "450" width = "660" src="https://editor.p5js.org/mrteasdale-cs/full/e9IQnrqdU" style="border-radius:20px; box-shadow:0 0 15px #d1fae5; margin: 0 auto;"></iframe>
+</div>
+
+<!-- IB THEMES NAVIGATION for ibcs/index.html -->
+
+<!-- If user clicks IB Computer Science link: show a clear list of syllabus themes-->
+<!-- Example for ./ibcs/index.md file: -->
+
+# IB Computer Science (2025+ Spec)
+
+## Themes
+
+- Syllabus Overview
+- A1: Computer hardware and operation
+  - Revision Notes: [A1.1 Computer hardware and operation](./A1.1-Computer-hardware-operation.md)
+  - Revision Notes: [A1.2 Data representation](./A1.2-Data-representation.md)
+- A2: System software and security
+- A3: Networks and communication
+- A4: Programming and algorithms
+- B: Option topics
+- C: Case study
+- Practice and Revision Questions
+
+#
