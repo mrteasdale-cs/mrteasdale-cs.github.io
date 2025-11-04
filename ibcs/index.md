@@ -20,7 +20,7 @@ Welcome to the IB Computer Science revision notes for the 2027 syllabus. These c
 
 ### A1 Computer Fundamentals
 
-<div style="background:#F0F4FF; padding:20px; border-radius:12px; margin:16px 0;">
+<div style="background:#001447; padding:20px; border-radius:12px; margin:16px 0;">
   <h3 style="margin-top:0;">Topics Covered:</h3>
   <ul style="line-height:1.8;">
     <li><a href="./A1-Computer-fundamentals.html"><strong>A1.1 CPU Components:</strong></a> Control Unit, ALU, Registers, Buses, Cores</li>
@@ -35,7 +35,7 @@ Welcome to the IB Computer Science revision notes for the 2027 syllabus. These c
 
 ### A2 Networks
 
-<div style="background:#FFF4E6; padding:20px; border-radius:12px; margin:16px 0;">
+<div style="background:#5a3402; padding:20px; border-radius:12px; margin:16px 0;">
   <h3 style="margin-top:0;">Topics Covered:</h3>
   <ul style="line-height:1.8;">
     <li><strong>Network Types:</strong> LAN, WAN, MAN, PAN</li>
@@ -50,7 +50,7 @@ Welcome to the IB Computer Science revision notes for the 2027 syllabus. These c
 
 ### A3 Databases
 
-<div style="background:#E8F5E9; padding:20px; border-radius:12px; margin:16px 0;">
+<div style="background:#05550c; padding:20px; border-radius:12px; margin:16px 0;">
   <h3 style="margin-top:0;">Topics Covered:</h3>
   <ul style="line-height:1.8;">
     <li><strong>Database Models:</strong> Relational, Hierarchical, Network</li>
@@ -65,7 +65,7 @@ Welcome to the IB Computer Science revision notes for the 2027 syllabus. These c
 
 ### A4 Machine Learning
 
-<div style="background:#FCE4EC; padding:20px; border-radius:12px; margin:16px 0;">
+<div style="background:#400216; padding:20px; border-radius:12px; margin:16px 0;">
   <h3 style="margin-top:0;">Topics Covered:</h3>
   <ul style="line-height:1.8;">
     <li><strong>Types of ML:</strong> Supervised, Unsupervised, Reinforcement</li>
@@ -82,7 +82,7 @@ Welcome to the IB Computer Science revision notes for the 2027 syllabus. These c
 
 ### B1 Computational Thinking
 
-<div style="background:#F3E5F5; padding:20px; border-radius:12px; margin:16px 0;">
+<div style="background:#41044a; padding:20px; border-radius:12px; margin:16px 0;">
   <h3 style="margin-top:0;">Topics Covered:</h3>
   <ul style="line-height:1.8;">
     <li><strong>Problem Solving:</strong> Decomposition, Pattern Recognition</li>
@@ -96,7 +96,7 @@ Welcome to the IB Computer Science revision notes for the 2027 syllabus. These c
 
 ### B2 Programming
 
-<div style="background:#E1F5FE; padding:20px; border-radius:12px; margin:16px 0;">
+<div style="background:#06415c; padding:20px; border-radius:12px; margin:16px 0;">
   <h3 style="margin-top:0;">Topics Covered:</h3>
   <ul style="line-height:1.8;">
     <li><strong>Programming Constructs:</strong> Sequence, Selection, Iteration</li>
@@ -110,7 +110,7 @@ Welcome to the IB Computer Science revision notes for the 2027 syllabus. These c
 
 ### B3 Object Oriented Programming
 
-<div style="background:#FFF9C4; padding:20px; border-radius:12px; margin:16px 0;">
+<div style="background:#302c00; padding:20px; border-radius:12px; margin:16px 0;">
   <h3 style="margin-top:0;">Topics Covered:</h3>
   <ul style="line-height:1.8;">
     <li><strong>OOP Principles:</strong> Encapsulation, Inheritance, Polymorphism</li>
@@ -124,7 +124,7 @@ Welcome to the IB Computer Science revision notes for the 2027 syllabus. These c
 
 ### B4 Abstract Data Types
 
-<div style="background:#FFEBEE; padding:20px; border-radius:12px; margin:16px 0;">
+<div style="background:#4e000c; padding:20px; border-radius:12px; margin:16px 0;">
   <h3 style="margin-top:0;">Topics Covered:</h3>
   <ul style="line-height:1.8;">
     <li><strong>Linear ADTs:</strong> Stack, Queue, Linked List</li>
@@ -138,7 +138,7 @@ Welcome to the IB Computer Science revision notes for the 2027 syllabus. These c
 
 ## <span style="font-size:26pt;">Case Study</span>
 
-<div style="background:#E8EAF6; padding:20px; border-radius:12px; margin:16px 0;">
+<div style="background:#020b50; padding:20px; border-radius:12px; margin:16px 0;">
   <h3 style="margin-top:0;">Current Case Study Analysis</h3>
   <p>Detailed analysis and notes on the current IB Computer Science case study topic, including problem context, system analysis, and syllabus connections.</p>
   <p><em>Coming soon...</em></p>
