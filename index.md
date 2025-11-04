@@ -68,5 +68,5 @@ print(output.isPalindrome(check))
   <p><img src="https://github.githubassets.com/images/icons/emoji/octocat.png" style="width:80px; margin: 12px;"/></p>
 
 Visit my other sites!
-  <a href="https://mrteasdale.com" target="_blank" style="font-size: 1.3em; font-weight: 500; color: #2a7ae2;">Visit My Main Website &rarr;</a>
+  <a href="https://mrteasdale.com" target="_blank" style="font-size: 1.3em; font-weight: 500; color: #2a7ae2;">Visit My Main Website &rarr;</a><br>
   <a href="https://classroom.mrteasdale.com" target="_blank" style="font-size: 1.3em; font-weight: 500; color: #2a7ae2;">IB Computer Science Classroom &rarr;</a>
