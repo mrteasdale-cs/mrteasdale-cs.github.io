@@ -1,8 +1,6 @@
 
 <div style="text-align:center; margin-bottom:32px;">
   <h1 style="font-size:2em; font-weight:700;">Welcome to My Computer Science Learning Hub!</h1>
-  <p><img src="https://github.githubassets.com/images/icons/emoji/octocat.png" style="width:80px; margin: 12px;"/></p>
-  <a href="https://mrteasdale.com" target="_blank" style="font-size: 1.3em; font-weight: 500; color: #2a7ae2;">Visit My Main Website &rarr;</a>
 </div>
 
 <div style="display:flex; flex-wrap: wrap; gap: 2em; justify-content:center;">
@@ -67,3 +65,8 @@ print(output.isPalindrome(check))
   <h3>Want to play a game?</h3>
   <iframe height = "450" width = "660" src="https://editor.p5js.org/mrteasdale-cs/full/e9IQnrqdU" style="border-radius:20px; box-shadow:0 0 15px #d1fae5; margin: 0 auto;"></iframe>
 </div>
+  <p><img src="https://github.githubassets.com/images/icons/emoji/octocat.png" style="width:80px; margin: 12px;"/></p>
+
+Visit my other sites!
+  <a href="https://mrteasdale.com" target="_blank" style="font-size: 1.3em; font-weight: 500; color: #2a7ae2;">Visit My Main Website &rarr;</a>
+  <a href="https://classroom.mrteasdale.com" target="_blank" style="font-size: 1.3em; font-weight: 500; color: #2a7ae2;">IB Computer Science Classroom &rarr;</a>
