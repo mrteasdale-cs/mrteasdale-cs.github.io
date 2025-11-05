@@ -4,13 +4,13 @@
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 2em; justify-content: center; max-width:980px; margin:0 auto;">
 
-  <a href="./year78.html" class="card">
+  <a href="./year78.md" class="card">
     <div class="card-box" style="background:#253a53; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #dbeafe; text-align:center;">
       <img src="./images/eight.png" style="height:84px;"/>
       <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 7/8 <br> KS3 Computer Science</h2>
     </div>
   </a>
-  <a href="./year910.html" class="card">
+  <a href="./gcse-cs.md" class="card">
     <div class="card-box" style="background:#163261; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #c7d2fe; text-align:center;">
       <img src="./images/ks4.png" style="height:84px;"/>
       <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 9/10 <br> GCSE Computer Science</h2>
@@ -18,17 +18,17 @@
   </a>
   <a href="./alevel_cs.html" class="card">
     <div class="card-box" style="background:#334721; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #bef264; text-align:center;">
-      <img src="./images/alevel.png" style="height:84px;"/>
+      <img src="./images/cpu-bg.png" style="height:84px;"/>
       <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 11/12 <br> A Level Computer Science</h2>
     </div>
   </a>
-  <a href="./ibcs/index.html" class="card">
+  <a href="./ibcs/ibcs.md" class="card">
     <div class="card-box" style="background:#603d0b; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #fcd34d; text-align:center;">
-      <img src="./images/cpu-bg.png" style="height:84px;"/>
+      <img src="./images/ibcs-logo.png" style="height:84px;"/>
       <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 11/12 <br> IB Computer Science</h2>
     </div>
   </a>
-  <a href="./cyber-security.html" class="card">
+  <a href="./cyber-security.md" class="card">
     <div class="card-box" style="background:#452359; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #e9d5ff; text-align:center;">
       <img src="./images/cysec-bg.png" style="height:84px;"/>
       <h2 style="margin:16px 0 0 0; font-size:1.4em;">Cybersecurity (Sec+)</h2>
