@@ -17,12 +17,12 @@
       flex-wrap: wrap;
       gap: 2em;
       justify-content: center;
-      max-width: 980px;
+      max-width: 1000px;
       margin: 0 auto;
     }
     .card {
-      flex: 1 1 300px;
-      max-width: 300px;
+      flex: 1 1 280px;
+      max-width: 280px;
       text-decoration: none;
       box-sizing: border-box;
       transition: transform 0.15s, box-shadow 0.18s;
