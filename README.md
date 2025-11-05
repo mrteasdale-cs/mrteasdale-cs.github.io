@@ -1,5 +1,3 @@
 # mrteasdale-cs.github.io
 
-## My new site
-
-The aim of this project is to make my programming resources hosted on Github easier to access for others.
+## Revision Site - a lightweight site used to host revision notes and programming examples for Computer Science courses. 
