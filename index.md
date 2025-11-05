@@ -11,7 +11,7 @@
     </a>
     <a href="./gcse-cs.md" class="card">
       <div class="card-box">
-        <img src="./images/ks4.png" />
+        <img src="./images/cpu-bg.png" />
         <h2>GCSE Computer Science</h2>
       </div>
     </a>
