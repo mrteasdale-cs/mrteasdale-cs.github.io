@@ -17,17 +17,18 @@
       flex-wrap: wrap;
       gap: 2em;
       justify-content: center;
-      max-width: 1060px;
+      max-width: 1000px;
       margin: 0 auto;
     }
-     .card {
-      flex: 0 1 300px;         /* Don't force cards to fill row; allow them to shrink */
-      max-width: 320px;        /* Prevent them from exceeding layout bounds */
-      min-width: 220px;        /* Optional: prevents overly small cards */
-      text-decoration: none;
+
+    .card {
+      flex: 0 0 calc(33.333% - 2em); /* Three per row */
       box-sizing: border-box;
+      max-width: 300px;
+      min-width: 220px;
+      margin: 0;
+      text-decoration: none;
       transition: transform 0.15s, box-shadow 0.18s;
-      margin: 0;               /* Remove browser default margins that could stack up */
     }
 
     .card:hover .card-box {
