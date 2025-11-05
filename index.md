@@ -3,37 +3,37 @@
   <h1 style="font-size:2em; font-weight:700;">Welcome to the Computer Science Learning Hub!</h1>
 </div>
   <div class="cs-card-grid">
-    <a href="./year78.md" class="card">
+    <a href="/year78.md" class="card">
       <div class="card-box">
         <img src="./images/eight.png" />
         <h2>Grade 7/8 Computer Science</h2>
       </div>
     </a>
-    <a href="./gcse-cs.md" class="card">
+    <a href="/gcse-cs.md" class="card">
       <div class="card-box">
         <img src="./images/cpu-bg.png" />
         <h2>GCSE Computer Science</h2>
       </div>
     </a>
-    <a href="./alevel_cs.html" class="card">
+    <a href="/alevel_cs.html" class="card">
       <div class="card-box">
         <img src="./images/cpu-bg.png" />
         <h2>A Level Computer Science</h2>
       </div>
     </a>
-    <a href="./ibcs.md" class="card">
+    <a href="/ibcs.md" class="card">
       <div class="card-box">
         <img src="./images/ibcs-logo.png" />
         <h2>IB DP Computer Science</h2>
       </div>
     </a>
-    <a href="./cyber-security.md" class="card">
+    <a href="/cyber-security.md" class="card">
       <div class="card-box">
         <img src="./images/cysec-bg.png" />
         <h2>Cybersecurity (Sec+)</h2>
       </div>
     </a>
-    <a href="./coding_challenges.html" class="card">
+    <a href="/coding_challenges.html" class="card">
       <div class="card-box">
         <img src="./images/programming.png" />
         <h2>Coding Challenges</h2>
