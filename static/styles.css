@@ -20,13 +20,16 @@
       max-width: 1000px;
       margin: 0 auto;
     }
-    .card {
-      flex: 1 1 280px;
-      max-width: 280px;
+     .card {
+      flex: 0 1 300px;         /* Don't force cards to fill row; allow them to shrink */
+      max-width: 320px;        /* Prevent them from exceeding layout bounds */
+      min-width: 220px;        /* Optional: prevents overly small cards */
       text-decoration: none;
       box-sizing: border-box;
       transition: transform 0.15s, box-shadow 0.18s;
+      margin: 0;               /* Remove browser default margins that could stack up */
     }
+
     .card:hover .card-box {
       transform: translateY(-8px) scale(1.03);
       box-shadow: 0 0 30px #1e293b80;
@@ -54,21 +57,28 @@
     .card:nth-child(5) .card-box { box-shadow: 0 0 15px #e9d5ff; }
     .card:nth-child(6) .card-box { box-shadow: 0 0 15px #bae6fd; }
     /* Two rows, three columns for desktop: cards auto-wrap */
-    @media (min-width: 900px) {
+     @media (min-width: 900px) {
+      .cs-card-grid {
+        gap: 2em;
+      }
       .card {
-        flex-basis: calc(30.333% - 2em);
+        flex: 0 1 300px;      /* Make the cards a fixed width for consistency */
+        max-width: 320px;
       }
     }
+
     /* Responsive stacking */
     @media (max-width: 900px) {
-      .cs-card-grid {
-        gap: 1em 0.5em;
-      }
-      .card {
-        flex-basis: 90%;
-        max-width: 96vw;
-      }
-    }
+  .cs-card-grid {
+    gap: 1em 0.5em;
+  }
+  .card {
+    flex-basis: 95%;
+    max-width: 98vw;
+    min-width: 180px;
+  }
+}
+
     .example-section {
       margin: 42px auto 16px auto;
       max-width: 700px;
