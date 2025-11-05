@@ -18,8 +18,8 @@ The **CPU** is often referred to as the "brain" of the computer. It is a critica
 - **Control Unit (CU)**
 - **Arithmetic Logic Unit (ALU)**
 
+![Inside the CPU](./images/cpu-teardown.png)
 ![CPU Diagram](./images/cpu-diagram.png)
-
 ---
 
 ### Control Unit (CU)
@@ -89,7 +89,7 @@ There are three main types of buses:
 - Used to transmit the address to be read from or written to in memory
 - Width determines memory capacity (e.g., 32-bit address bus can address 2³² memory locations)
 
-![Bus Diagram](./images/bus-diagram.png)
+![Bus Diagram](./images/buses.png)
 
 ---
 
