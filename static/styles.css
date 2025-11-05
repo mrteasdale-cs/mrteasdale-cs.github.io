@@ -56,17 +56,17 @@
     /* Two rows, three columns for desktop: cards auto-wrap */
     @media (min-width: 900px) {
       .card {
-        flex-basis: calc(33.333% - 2em);
+        flex-basis: calc(30.333% - 2em);
       }
     }
     /* Responsive stacking */
     @media (max-width: 900px) {
       .cs-card-grid {
-        gap: 2em 0.5em;
+        gap: 1em 0.5em;
       }
       .card {
-        flex-basis: 100%;
-        max-width: 98vw;
+        flex-basis: 90%;
+        max-width: 96vw;
       }
     }
     .example-section {
