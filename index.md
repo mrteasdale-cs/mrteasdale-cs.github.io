@@ -6,25 +6,25 @@
     <a href="./year78.md" class="card">
       <div class="card-box">
         <img src="./images/eight.png" />
-        <h2>Grade 7/8 <br> KS3 Computer Science</h2>
+        <h2>Grade 7/8 Computer Science</h2>
       </div>
     </a>
     <a href="./gcse-cs.md" class="card">
       <div class="card-box">
         <img src="./images/ks4.png" />
-        <h2>Grade 9/10 <br> GCSE Computer Science</h2>
+        <h2>GCSE Computer Science</h2>
       </div>
     </a>
     <a href="./alevel_cs.html" class="card">
       <div class="card-box">
         <img src="./images/cpu-bg.png" />
-        <h2>Grade 11/12 <br> A Level Computer Science</h2>
+        <h2>A Level Computer Science</h2>
       </div>
     </a>
     <a href="./ibcs/ibcs.md" class="card">
       <div class="card-box">
         <img src="./images/ibcs-logo.png" />
-        <h2>Grade 11/12 <br> IB Computer Science</h2>
+        <h2>IB DP Computer Science</h2>
       </div>
     </a>
     <a href="./cyber-security.md" class="card">
