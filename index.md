@@ -2,45 +2,44 @@
 <div style="text-align:center; margin-bottom:32px;">
   <h1 style="font-size:2em; font-weight:700;">Welcome to the Computer Science Learning Hub!</h1>
 </div>
-<div style="display: flex; flex-wrap: wrap; gap: 2em; justify-content: center; max-width:980px; margin:0 auto;">
-
-  <a href="./year78.md" class="card">
-    <div class="card-box" style="background:#253a53; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #dbeafe; text-align:center;">
-      <img src="./images/eight.png" style="height:84px;"/>
-      <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 7/8 <br> KS3 Computer Science</h2>
-    </div>
-  </a>
-  <a href="./gcse-cs.md" class="card">
-    <div class="card-box" style="background:#163261; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #c7d2fe; text-align:center;">
-      <img src="./images/ks4.png" style="height:84px;"/>
-      <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 9/10 <br> GCSE Computer Science</h2>
-    </div>
-  </a>
-  <a href="./alevel_cs.html" class="card">
-    <div class="card-box" style="background:#334721; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #bef264; text-align:center;">
-      <img src="./images/cpu-bg.png" style="height:84px;"/>
-      <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 11/12 <br> A Level Computer Science</h2>
-    </div>
-  </a>
-  <a href="./ibcs/ibcs.md" class="card">
-    <div class="card-box" style="background:#603d0b; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #fcd34d; text-align:center;">
-      <img src="./images/ibcs-logo.png" style="height:84px;"/>
-      <h2 style="margin:16px 0 0 0; font-size:1.4em;">Grade 11/12 <br> IB Computer Science</h2>
-    </div>
-  </a>
-  <a href="./cyber-security.md" class="card">
-    <div class="card-box" style="background:#452359; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #e9d5ff; text-align:center;">
-      <img src="./images/cysec-bg.png" style="height:84px;"/>
-      <h2 style="margin:16px 0 0 0; font-size:1.4em;">Cybersecurity (Sec+)</h2>
-    </div>
-  </a>
-  <a href="./coding_challenges.html" class="card">
-    <div class="card-box" style="background:#0f4653; border-radius:16px; padding:24px; width:300px; box-shadow:0 0 15px #bae6fd; text-align:center;">
-      <img src="./images/programming.png" style="height:84px;"/>
-      <h2 style="margin:16px 0 0 0; font-size:1.4em;">Coding Challenges</h2>
-    </div>
-  </a>
-</div>
+  <div class="cs-card-grid">
+    <a href="./year78.md" class="card">
+      <div class="card-box">
+        <img src="./images/eight.png" />
+        <h2>Grade 7/8 <br> KS3 Computer Science</h2>
+      </div>
+    </a>
+    <a href="./gcse-cs.md" class="card">
+      <div class="card-box">
+        <img src="./images/ks4.png" />
+        <h2>Grade 9/10 <br> GCSE Computer Science</h2>
+      </div>
+    </a>
+    <a href="./alevel_cs.html" class="card">
+      <div class="card-box">
+        <img src="./images/cpu-bg.png" />
+        <h2>Grade 11/12 <br> A Level Computer Science</h2>
+      </div>
+    </a>
+    <a href="./ibcs/ibcs.md" class="card">
+      <div class="card-box">
+        <img src="./images/ibcs-logo.png" />
+        <h2>Grade 11/12 <br> IB Computer Science</h2>
+      </div>
+    </a>
+    <a href="./cyber-security.md" class="card">
+      <div class="card-box">
+        <img src="./images/cysec-bg.png" />
+        <h2>Cybersecurity (Sec+)</h2>
+      </div>
+    </a>
+    <a href="./coding_challenges.html" class="card">
+      <div class="card-box">
+        <img src="./images/programming.png" />
+        <h2>Coding Challenges</h2>
+      </div>
+    </a>
+  </div>
 
 <div style="margin:42px auto 16px auto; max-width:700px; background:#000000; padding:24px 32px; border-radius:20px; box-shadow:0 0 10px #ede9fe;">
   <h3 style="text-align:center;">Example Python Script: Palindrome Checker</h3>
