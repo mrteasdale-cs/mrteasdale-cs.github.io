@@ -5,7 +5,7 @@ layout: default
 <div style="text-align:center; margin-bottom:32px;">
   <h1 style="font-size:32pt; font-weight:700;">IB Computer Science 2027</h1>
   <p style="font-size:16pt;">Comprehensive Revision Notes</p>
-  <img src="../images/ibcs-logo.png" style="width:120px; margin:16px;"/>
+  <img src="images/ibcs-logo.png" style="width:120px; margin:16px;"/>
 </div>
 
 ---

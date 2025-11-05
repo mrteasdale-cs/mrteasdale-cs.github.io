@@ -21,7 +21,7 @@
         <h2>A Level Computer Science</h2>
       </div>
     </a>
-    <a href="./ibcs/ibcs.md" class="card">
+    <a href="./ibcs.md" class="card">
       <div class="card-box">
         <img src="./images/ibcs-logo.png" />
         <h2>IB DP Computer Science</h2>
