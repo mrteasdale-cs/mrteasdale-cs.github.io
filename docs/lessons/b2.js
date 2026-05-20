@@ -346,7 +346,12 @@ String name = sc.nextLine();
 System.out.print("How old are you? ");
 int age = Integer.parseInt(sc.nextLine());
 int yearBorn = 2025 - age;
-System.out.println("Hello " + name + ", you were born around " + yearBorn + ".");`)
+System.out.println("Hello " + name + ", you were born around " + yearBorn + ".");`),
+      h3('Python'),
+      pcode(`name = input("What is your name? ")
+age = int(input("How old are you? "))
+year_born = 2025 - age
+print(f"Hello {name}, you were born around {year_born}.")`)
     )}
     ${section('Trace Tables',
       def('Trace table', 'A table used to manually step through code and record the value of each variable at each line. Used for debugging and exam questions.'),
@@ -388,6 +393,19 @@ public static String classify(int grade) {
 public static void display(String name, String result) {
     System.out.println(name + ": " + result);
 }`),
+      h3('Python'),
+      pcode(`def get_input():
+    name = input("Enter student name: ")
+    grade = input("Enter grade (0-100): ")
+    return name, grade
+
+def classify(grade):
+    if grade >= 70:
+        return "Pass"
+    return "Fail"
+
+def display(name, result):
+    print(f"{name}: {result}")`),
       examTip('IB exam questions often ask you to trace code or fill in a trace table. Follow each line carefully and update variable values step by step. Do not skip ahead.')
     )}
     ${section('Reading Unfamiliar Code',
@@ -516,7 +534,16 @@ System.out.println(3);
 // With a for loop:
 for (int i = 1; i <= 3; i++) {
     System.out.println(i);
-}`)
+}`),
+      h3('Python'),
+      pcode(`# Without a loop:
+print(1)
+print(2)
+print(3)
+
+# With a for loop:
+for i in range(1, 4):
+    print(i)`)
     )}
     ${section('for Loop (Count-Controlled)',
       p('Use a <code>for</code> loop when you know exactly how many times to repeat.'),
@@ -592,7 +619,19 @@ for (int[] row : grid) {
         System.out.print(cell + " ");
     }
     System.out.println();
-}`)
+}`),
+      h3('Python'),
+      pcode(`# Multiplication table
+for i in range(1, 4):
+    for j in range(1, 4):
+        print(f"{i} x {j} = {i * j}")
+
+# Iterating a 2D list
+grid = [[1,2,3],[4,5,6],[7,8,9]]
+for row in grid:
+    for cell in row:
+        print(cell, end=" ")
+    print()`)
     )}
     ${section('break and continue',
       h3('Java'),
@@ -606,7 +645,19 @@ for (int i = 0; i < 10; i++) {
 for (int i = 0; i < 10; i++) {
     if (i % 2 == 0) continue;
     System.out.println(i);   // 1 3 5 7 9
-}`)
+}`),
+      h3('Python'),
+      pcode(`# break: exit the loop immediately
+for i in range(10):
+    if i == 5:
+        break
+    print(i)   # 0 1 2 3 4
+
+# continue: skip the rest of this iteration
+for i in range(10):
+    if i % 2 == 0:
+        continue
+    print(i)   # 1 3 5 7 9`)
     )}`;
 
   case 'l8': return `
@@ -646,6 +697,18 @@ public static void printHeader() {
 
 double bmi = calculateBMI(70, 1.75);
 System.out.println(bmi);   // 22.9`),
+      h3('Python'),
+      pcode(`def calculate_bmi(weight_kg, height_m):
+    bmi = weight_kg / (height_m ** 2)
+    return round(bmi, 1)
+
+def print_header():
+    print("========================================")
+    print("Student Grade Report")
+    print("========================================")
+
+bmi = calculate_bmi(70, 1.75)
+print(bmi)   # 22.9`),
       `<div class="tbl-wrap"><table class="content-table">
         <thead><tr><th>Term</th><th>Meaning</th><th>Java example</th></tr></thead>
         <tbody>
@@ -678,7 +741,22 @@ System.out.println(bmi);   // 22.9`),
         updateTotal();
         System.out.println(total);   // 150
     }
-}`)
+}`),
+      h3('Python'),
+      pcode(`total = 100   # module-level variable
+
+def add(x):
+    subtotal = x + 10   # local variable: only exists here
+    return subtotal
+
+def update_total():
+    global total
+    total += 50         # must declare global to modify it
+
+print(total)      # 100
+add(5)
+update_total()
+print(total)      # 150`)
     )}
     ${section('Modularisation',
       def('Modularisation', 'The practice of breaking a large program into smaller, named methods, each responsible for one task.'),
@@ -703,6 +781,17 @@ public static ArrayList<String> process(ArrayList<String> data) {
 public static void display(ArrayList<String> results) {
     for (String item : results) System.out.println(item);
 }`),
+      h3('Python'),
+      pcode(`def read_data(filename):
+    with open(filename) as f:
+        return [line.strip() for line in f]
+
+def process(data):
+    return [item.upper() for item in data]
+
+def display(results):
+    for item in results:
+        print(item)`),
       tip('If a method is longer than about 20 lines, consider splitting it. Each method should do exactly one thing.')
     )}`;
 
@@ -1149,7 +1238,27 @@ public static boolean hasDuplicate(int[] arr) {
         }
     }
     return false;
-}`)
+}`),
+      h3('Python'),
+      pcode(`# O(1): constant time
+def get_first(lst):
+    return lst[0]
+
+# O(n): linear - one loop over all items
+def find_max(lst):
+    max_val = lst[0]
+    for item in lst:
+        if item > max_val:
+            max_val = item
+    return max_val
+
+# O(n^2): quadratic - nested loops, both over n items
+def has_duplicate(lst):
+    for i in range(len(lst)):
+        for j in range(i + 1, len(lst)):
+            if lst[i] == lst[j]:
+                return True
+    return False`)
     )}
     ${section('Time vs Space Complexity',
       p('<strong>Time complexity</strong> measures how the number of operations grows. <strong>Space complexity</strong> measures how much additional memory is needed.'),
@@ -1335,7 +1444,18 @@ System.out.println(Arrays.toString(numbers));  // [12, 22, 25, 34, 64]`),
         }
         if (!swapped) break;  // already sorted
     }
-}`)
+}`),
+      h3('Python'),
+      pcode(`def bubble_sort_optimised(lst):
+    n = len(lst)
+    for i in range(n - 1):
+        swapped = False
+        for j in range(n - 1 - i):
+            if lst[j] > lst[j + 1]:
+                lst[j], lst[j + 1] = lst[j + 1], lst[j]
+                swapped = True
+        if not swapped:
+            break   # already sorted`)
     )}
     ${section('Complexity',
       `<div class="tbl-wrap"><table class="content-table">
@@ -1536,6 +1656,20 @@ System.out.println(binarySearch(numbers, 25, 0, numbers.length - 1));  // 3`),
 int[] numbers = {3, 6, 8, 10, 1, 2, 1};
 quicksort(numbers, 0, numbers.length - 1);
 System.out.println(Arrays.toString(numbers));  // [1, 1, 2, 3, 6, 8, 10]`),
+      h3('Python'),
+      pcode(`def quicksort(lst, low, high):
+    if low >= high:
+        return
+    pivot = lst[high]
+    i = low - 1
+    for j in range(low, high):
+        if lst[j] <= pivot:
+            i += 1
+            lst[i], lst[j] = lst[j], lst[i]
+    lst[i + 1], lst[high] = lst[high], lst[i + 1]
+    pi = i + 1
+    quicksort(lst, low, pi - 1)
+    quicksort(lst, pi + 1, high)`),
       tip('Quicksort averages O(n log n) time. Its worst case is O(n²) when the pivot is always the smallest or largest element. In practice it is often faster than merge sort.')
     )}
     ${section('Recursive Sum of Digits',
@@ -1547,6 +1681,14 @@ System.out.println(Arrays.toString(numbers));  // [1, 1, 2, 3, 6, 8, 10]`),
 
 System.out.println(digitSum(123));   // 6   (1 + 2 + 3)
 System.out.println(digitSum(9999));  // 36  (9 + 9 + 9 + 9)`),
+      h3('Python'),
+      pcode(`def digit_sum(n):
+    if n < 10:
+        return n
+    return (n % 10) + digit_sum(n // 10)
+
+print(digit_sum(123))   # 6
+print(digit_sum(9999))  # 36`),
       p('Try: <a href="https://www.hackerrank.com/challenges/recursive-digit-sum/problem" target="_blank">HackerRank: Recursive Digit Sum</a>')
     )}
     ${section('Practice Exercises',
@@ -1622,6 +1764,27 @@ public static boolean solve(int[][] board) {
     }
     return true;
 }`),
+      h3('Python'),
+      pcode(`def is_valid(board, r, c, num):
+    for i in range(9):
+        if board[r][i] == num: return False
+        if board[i][c] == num: return False
+        br = 3 * (r // 3) + i // 3
+        bc = 3 * (c // 3) + i % 3
+        if board[br][bc] == num: return False
+    return True
+
+def solve(board):
+    for r in range(9):
+        for c in range(9):
+            if board[r][c] == 0:
+                for num in range(1, 10):
+                    if is_valid(board, r, c, num):
+                        board[r][c] = num
+                        if solve(board): return True
+                        board[r][c] = 0   # backtrack
+                return False
+    return True`),
       p('Starting board (0 represents an empty cell):'),
       jcode(`int[][] sudoku = {
     { 8, 0, 0, 2, 6, 0, 0, 0, 4 },
