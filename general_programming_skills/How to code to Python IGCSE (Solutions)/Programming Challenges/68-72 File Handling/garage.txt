@@ -1,3 +1,0 @@
-Toy Bear,1.0
-Lego Car,3.23
-Children's Bike,13.0
