@@ -3274,6 +3274,8 @@ function route() {
     html = renderHome();
   } else if (sec === 'ibdp' && !sub) {
     html = renderIBDP();
+  } else if (sec === 'ibdp' && sub === 'a1' && leaf) {
+    html = renderA1Lesson(leaf);
   } else if (sec === 'ibdp' && sub === 'a3' && leaf) {
     html = renderA3Lesson(leaf);
   } else if (sec === 'ibdp' && sub === 'b1' && leaf) {
@@ -3288,6 +3290,14 @@ function route() {
     html = renderIGCSEUnit1Lesson(leaf);
   } else if (sec === 'igcse' && sub) {
     html = renderIGCSETopic(sub);
+  } else if (sec === 'programming' && !sub) {
+    html = renderProgramming();
+  } else if (sec === 'programming' && sub) {
+    html = renderProgLesson(sub);
+  } else if (sec === 'cyber' && !sub) {
+    html = renderCyber();
+  } else if (sec === 'cyber' && sub) {
+    html = renderCyberTopic(sub);
   } else {
     html = render404();
   }

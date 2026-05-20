@@ -748,6 +748,39 @@ a.card, .card-link {
   line-height: 1.7;
 }
 
+/* ── IB DP overview SL/HL cards ───────────────────────── */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+.overview-card {
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+}
+.ov-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: .25rem;
+}
+.ov-hours {
+  font-size: .82rem;
+  color: var(--teal);
+  font-weight: 600;
+  margin-bottom: .75rem;
+}
+.ov-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--grey-600);
+  font-size: .875rem;
+  line-height: 1.8;
+}
+
 /* ── Footer ────────────────────────────────────────────── */
 .footer { background: var(--navy); padding: 1.25rem 1.5rem; }
 .footer-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
