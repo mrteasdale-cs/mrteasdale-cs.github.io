@@ -16,6 +16,19 @@ function sql(code) {
   }</code></pre>`;
 }
 
+function jcode(code) {
+  const esc = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const KW = /\b(public|class|static|void|int|double|boolean|char|String|if|else|for|while|do|return|new|import|null|true|false|switch|case|break|default|try|catch|throws|this|extends|implements|interface|abstract)\b/g;
+  return `<pre class="code-block"><code>${
+    esc
+      .replace(/\/\/[^\n]*/g, m => `<span class="cmt">${m}</span>`)
+      .replace(/"([^"]*)"/g, `<span class="str">"$1"</span>`)
+      .replace(/'([^']*)'/g, `<span class="str">'$1'</span>`)
+      .replace(/\b(\d+\.?\d*)\b/g, '<span class="num">$1</span>')
+      .replace(KW, '<span class="kw">$&</span>')
+  }</code></pre>`;
+}
+
 // ── HTML helpers ─────────────────────────────────────────────────────────────
 function def(term, body) {
   return `<div class="def-box"><div class="def-term">${term}</div><p>${body}</p></div>`;
@@ -163,6 +176,930 @@ const A3_LESSONS = [
   {id:'l12', num:12, title:'Alternative Databases and Data Warehouses', ref:'A3.4.1, A3.4.2', level:'hl'},
   {id:'l13', num:13, title:'Data Mining and Distributed Databases', ref:'A3.4.3, A3.4.4', level:'hl'},
 ];
+
+// ── B1 Lesson definitions ─────────────────────────────────────────────────────
+const B1_LESSONS = [
+  {id:'l1', num:1, title:'Constructing Problem Specifications', ref:'B1.1.1', level:'sl-hl'},
+  {id:'l2', num:2, title:'Computational Thinking Concepts',     ref:'B1.1.2', level:'sl-hl'},
+  {id:'l3', num:3, title:'Algorithms and Flowcharts',           ref:'B1.1.3–B1.1.4', level:'sl-hl'},
+];
+
+// ── B2 Lesson definitions ─────────────────────────────────────────────────────
+const B2_LESSONS = [
+  {id:'l1', num:1, title:'Variables and Data Types',         ref:'B2.1.1', level:'sl-hl'},
+  {id:'l2', num:2, title:'Input, Calculations & Strings',   ref:'B2.1.2–B2.1.3', level:'sl-hl'},
+  {id:'l3', num:3, title:'Selection — IF/ELSE & Switch',    ref:'B2.3.1', level:'sl-hl'},
+  {id:'l4', num:4, title:'Iteration — FOR & WHILE Loops',   ref:'B2.3.2', level:'sl-hl'},
+];
+
+// ── IGCSE Unit 1 Lesson definitions ───────────────────────────────────────────
+const IGCSE_U1_LESSONS = [
+  {id:'l1', num:1, title:'Binary Systems',         ref:'1.1.1'},
+  {id:'l2', num:2, title:'Hexadecimal',            ref:'1.1.2'},
+  {id:'l3', num:3, title:'ASCII and Unicode',      ref:'1.1.3'},
+  {id:'l4', num:4, title:'Representing Images',    ref:'1.1.4'},
+  {id:'l5', num:5, title:'Representing Sound',     ref:'1.1.5'},
+  {id:'l6', num:6, title:'File Compression',       ref:'1.1.6'},
+];
+
+// ── B1 Lesson content ─────────────────────────────────────────────────────────
+function b1LessonContent(id) {
+  switch(id) {
+
+  case 'l1': return `
+    ${section('What is a Problem Specification?',
+      p('A <strong>problem specification</strong> is a detailed document that clearly defines what a computational problem requires before any solution is designed. It acts as a contract between developers and stakeholders.'),
+      def('Problem Specification', 'A formal document that defines a problem including its statement, constraints, objectives, inputs, outputs, and evaluation criteria.')
+    )}
+    ${section('The Six Components',
+      h3('1. Problem Statement'),
+      p('A clear description of exactly what needs to be solved. Avoids vague language. Example: <em>"Create a system for students to check out books digitally."</em>'),
+      h3('2. Constraints and Limitations'),
+      p('Restrictions the solution must work within. Examples: must run on the school network, must integrate with the existing student database, must work offline.'),
+      h3('3. Objectives and Goals'),
+      p('What the solution should achieve. Should be measurable. Example: <em>"Reduce checkout time, track overdue books, generate reports."</em>'),
+      h3('4. Input Specifications'),
+      p('What data enters the system. Example: <em>Student ID, book barcode, return date.</em>'),
+      h3('5. Output Specifications'),
+      p('What results the system produces. Example: <em>Confirmation message, digital receipt, overdue notifications.</em>'),
+      h3('6. Evaluation Criteria'),
+      p('How success is measured. Criteria must be specific and measurable. Example: <em>"System processes checkout in under 30 seconds, 99% uptime."</em>')
+    )}
+    ${section('Example: Digital Library Checkout System',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Component</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Problem Statement</strong></td><td>Create a system for students to check out books digitally</td></tr>
+          <tr><td><strong>Constraints</strong></td><td>Must work on school network; integrate with existing student database</td></tr>
+          <tr><td><strong>Objectives</strong></td><td>Reduce checkout time; track overdue books; generate reports</td></tr>
+          <tr><td><strong>Inputs</strong></td><td>Student ID, book barcode, return date</td></tr>
+          <tr><td><strong>Outputs</strong></td><td>Confirmation message, receipt, overdue notifications</td></tr>
+          <tr><td><strong>Evaluation</strong></td><td>Processes checkout in under 30 seconds; 99% uptime</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('All six components are required. Exam questions often ask you to write or evaluate a problem specification for a given scenario (e.g. an ATM, a school attendance app). Practice using this template.')
+    )}
+    ${section('Why Problem Specification Matters',
+      p('Poor specifications cause: misunderstandings between developers and clients, scope creep, budget overruns, failed projects, and endless revisions. Good specifications ensure: clear expectations, measurable success criteria, and an efficient development process.'),
+      tip('The words <strong>specific</strong> and <strong>measurable</strong> are key — evaluation criteria like "the system should be fast" fail because they cannot be objectively tested.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Problem Statement','What exactly needs to be solved.'],
+          ['Constraints','Boundaries the solution must work within.'],
+          ['Objectives','What the solution must achieve — should be measurable.'],
+          ['Input Specification','What data goes into the system.'],
+          ['Output Specification','What results or data comes out of the system.'],
+          ['Evaluation Criteria','How success is measured objectively.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l2': return `
+    ${section('What is Computational Thinking?',
+      p('<strong>Computational thinking</strong> is a problem-solving approach used to formulate problems in a way that a computer — or a human — can solve them. It is NOT about thinking like a computer; it is about developing skills to solve problems systematically.'),
+      def('Algorithm', 'A finite, ordered sequence of unambiguous instructions that solves a problem or completes a task. Note: an algorithm is not a program — it is the plan that a program implements.')
+    )}
+    ${section('The Four Core Concepts',
+      h3('Decomposition'),
+      def('Decomposition', 'Breaking a large, complex problem down into smaller, more manageable sub-problems that can be solved individually.'),
+      p('Example: designing a dice game can be decomposed into: display rules → set up players → display board → play game → display result. Each part becomes a <strong>subprogram</strong>.'),
+      `<div class="callout callout-tip"><div class="callout-label">Key Point</div><p>Subprograms (methods/functions) can be <strong>reused</strong> across a program or even in other programs. This reduces code, makes it easier to test, and simplifies maintenance.</p></div>`,
+      h3('Abstraction'),
+      def('Abstraction', 'Removing unnecessary detail from a problem so you can focus on what is essential. It hides complexity behind a simple interface.'),
+      p('Examples: a London Underground map removes geographic accuracy but shows only what travellers need (routes and stations). Rolling a dice in a program removes physical properties — temperature, weight, bounce physics — and keeps only a random number between 1 and 6.'),
+      h3('Pattern Recognition'),
+      def('Pattern Recognition', 'Identifying similarities, regularities, or trends in data or problems that can be reused or generalised.'),
+      p('Example: when checking for a win in noughts and crosses, the check logic (three in a row) follows the same pattern for rows, columns, and diagonals.'),
+      h3('Algorithmic Thinking'),
+      def('Algorithmic Thinking', 'Developing a step-by-step solution that a computer can follow to solve a problem efficiently.'),
+      p('A good algorithm should be: <strong>unambiguous</strong> (no room for misinterpretation), <strong>finite</strong> (it terminates), and <strong>effective</strong> (it solves the problem correctly).')
+    )}
+    ${section('Worked Example: Binary Search (Divide and Conquer)',
+      p('Ask a friend to think of a number between 1 and 1000. Rather than guessing every number (up to 1000 guesses), use <strong>divide and conquer</strong>:'),
+      `<ol style="margin:0.5rem 0 0.5rem 1.5rem;line-height:1.9">
+        <li>Guess the midpoint (500). Is the target higher or lower?</li>
+        <li>If lower, search the lower half (1–499); if higher, search the upper half (501–1000).</li>
+        <li>Repeat — each guess halves the remaining search space.</li>
+      </ol>`,
+      tip('Any number from 1 to 1000 can be found in <strong>at most 10 guesses</strong> using this method. This is O(log₂ n) efficiency — a pattern you will study in B2.4 Algorithms.'),
+      examTip('Be ready to apply decomposition, abstraction, and pattern recognition to a given scenario. Show your understanding by naming the technique AND explaining what you did/removed/recognised.')
+    )}
+    ${section('Benefits of Subprograms',
+      `<div class="two-col-list">
+        ${[
+          ['Reusability','A subprogram written once can be called from multiple places in a program — no need to rewrite the same logic.'],
+          ['Easier Testing','Each subprogram can be tested independently before the whole program is assembled.'],
+          ['Easier Maintenance','A bug fixed in one subprogram is fixed everywhere it is called.'],
+          ['Reduced Code Size','Calling a subprogram multiple times is more concise than duplicating its code.'],
+        ].map(([k,v]) => `<div class="list-item li-benefit"><span class="li-icon">✓</span><div><strong>${k}</strong> — ${v}</div></div>`).join('')}
+      </div>`
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Computational Thinking','Problem-solving skills: decomposition, abstraction, pattern recognition, algorithmic thinking.'],
+          ['Decomposition','Breaking a problem into smaller sub-problems.'],
+          ['Abstraction','Removing unnecessary detail to focus on what matters.'],
+          ['Pattern Recognition','Finding similarities or regularities across problems.'],
+          ['Algorithmic Thinking','Designing step-by-step solutions.'],
+          ['Subprogram','A named block of code (method/function) that performs a specific task and can be reused.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l3': return `
+    ${section('What is an Algorithm?',
+      def('Algorithm', 'A finite, ordered set of unambiguous steps that solves a problem or completes a task. Algorithms can be expressed as flowcharts, pseudocode, or code.'),
+      p('Algorithms are used everywhere: making a cup of tea, following directions, sorting a list of names. The key property is that each step must be <strong>unambiguous</strong> — it must be interpreted the same way by everyone who follows it.')
+    )}
+    ${section('Flowchart Symbols',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Symbol</th><th>Name</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Oval</strong></td><td>Terminal</td><td>Marks the Start and End of the algorithm</td></tr>
+          <tr><td><strong>Parallelogram</strong></td><td>Input / Output</td><td>INPUT or OUTPUT operations (e.g. INPUT Grade, OUTPUT Total)</td></tr>
+          <tr><td><strong>Rectangle</strong></td><td>Process</td><td>Calculations and variable assignments (e.g. count = count + 1)</td></tr>
+          <tr><td><strong>Diamond</strong></td><td>Decision</td><td>A yes/no condition that changes flow (e.g. Is count &lt; 1000?)</td></tr>
+          <tr><td><strong>Rectangle with side bars</strong></td><td>Subprogram</td><td>Calls another procedure or function (e.g. showMenu())</td></tr>
+          <tr><td><strong>Arrow / Line</strong></td><td>Flow line</td><td>Shows the direction of execution flow</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('You must know all six flowchart symbols by shape, name and purpose. Exam questions ask you to draw, trace, or correct flowcharts.')
+    )}
+    ${section('Variables',
+      def('Variable', 'A named location in memory that temporarily stores a value. The value can change while the program runs.'),
+      p('A variable is like a labelled box: you choose the name, and the box holds a value that can be updated. Example: <code>total = total + count</code> means "add the value in <em>count</em> to the value in <em>total</em>, then store the result back in <em>total</em>."')
+    )}
+    ${section('Arithmetic Operators',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Symbol</th><th>Operation</th><th>Example</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>+</code></td><td>Add</td><td>5 + 7</td><td>12</td></tr>
+          <tr><td><code>-</code></td><td>Subtract</td><td>5 - 7</td><td>-2</td></tr>
+          <tr><td><code>*</code></td><td>Multiply</td><td>5 * 7</td><td>35</td></tr>
+          <tr><td><code>/</code></td><td>Divide</td><td>15 / 10</td><td>1.5</td></tr>
+          <tr><td><code>**</code></td><td>Exponent</td><td>5 ** 2</td><td>25</td></tr>
+          <tr><td><code>%</code></td><td>Modulus (remainder)</td><td>17 % 3</td><td>2</td></tr>
+          <tr><td><code>//</code></td><td>Integer division</td><td>17 // 3</td><td>5</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('The Three Program Structures',
+      p('All algorithms — whether written as flowcharts, pseudocode, or code — are built from just three structures:'),
+      h3('Sequence'),
+      def('Sequence', 'A series of steps executed one after another in order, with no branching or repetition.'),
+      p('In a flowchart, sequence is shown as process/input/output symbols connected by arrows flowing top to bottom.'),
+      h3('Selection'),
+      def('Selection', 'A decision point that routes execution down different paths depending on whether a condition is true or false.'),
+      p('In a flowchart, selection uses a <strong>diamond (decision) symbol</strong> with Yes/No branches.'),
+      h3('Iteration (Repetition)'),
+      def('Iteration', 'Repeating a section of an algorithm. Also called a loop.'),
+      p('In a flowchart, iteration is shown by an arrow looping back to an earlier point, controlled by a decision symbol.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Type</th><th>Description</th><th>Flowchart example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Count-controlled</strong></td><td>Repeats a fixed number of times</td><td>for i in range(5)</td></tr>
+          <tr><td><strong>Condition-controlled</strong></td><td>Repeats while a condition is true</td><td>while score &lt; 10</td></tr>
+          <tr><td><strong>Collection iteration</strong></td><td>Repeats for each item in a data structure</td><td>for item in list</td></tr>
+        </tbody>
+      </table></div>`,
+      tip('Every program ever written is made up of only these three structures — sequence, selection, and iteration. Recognising them in a flowchart is a key exam skill.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Algorithm','Finite ordered steps to solve a problem.'],
+          ['Flowchart','A diagram using standard symbols to represent an algorithm.'],
+          ['Variable','Named memory location storing a value that can change.'],
+          ['Sequence','Steps executed one after another.'],
+          ['Selection','Decision that routes to different paths.'],
+          ['Iteration','Repeating a block of steps (loop).'],
+          ['Subprogram','A named procedure called from within the main algorithm.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  default: return `<div class="page-section"><p>Content coming soon.</p></div>`;
+  }
+}
+
+// ── B2 Lesson content ─────────────────────────────────────────────────────────
+function b2LessonContent(id) {
+  switch(id) {
+
+  case 'l1': return `
+    ${section('Java Program Structure',
+      p('All Java programs are organised as <strong>classes</strong> contained within a <strong>project</strong>. Every class has at least one method called <code>main()</code> — this is where execution begins.'),
+      jcode(`public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}`)
+    )}
+    ${section('The 3 Laws of Java',
+      `<ol style="line-height:2;margin:0 0 0 1.5rem">
+        <li>Every statement ends with a <code>;</code> — unless the next symbol is a <code>{</code></li>
+        <li>Every <code>{</code> has a matching <code>}</code></li>
+        <li>Classes start with a capital letter; methods and variables start with a lowercase letter</li>
+      </ol>`,
+      examTip('Forgetting a semicolon or mismatched braces are the most common syntax errors in Java. Check these first whenever a program fails to compile.')
+    )}
+    ${section('The 5 Data Types',
+      p('Java is a <strong>statically typed</strong> language — every variable must be declared with a type before use. Different types use different amounts of memory; using the smallest type that fits your data is good practice.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Type</th><th>Stores</th><th>Example values</th></tr></thead>
+        <tbody>
+          <tr><td><code>int</code></td><td>Whole numbers</td><td>23, 0, -98, 39290</td></tr>
+          <tr><td><code>double</code></td><td>Decimal numbers</td><td>1.2, -5.93, 3.3333</td></tr>
+          <tr><td><code>boolean</code></td><td>True or false</td><td>true, false</td></tr>
+          <tr><td><code>char</code></td><td>A single character (in single quotes)</td><td>'a', '3', '@'</td></tr>
+          <tr><td><code>String</code></td><td>Text / sequences of characters (in double quotes)</td><td>"cat", "DA1 2HW"</td></tr>
+        </tbody>
+      </table></div>`,
+      tip('Use <code>int</code> for whole numbers, <code>double</code> for decimals, and <code>String</code> for text. Strings are the largest type — only use them when you need text.')
+    )}
+    ${section('Declaring and Instantiating Variables',
+      p('A variable can be declared and given a value (instantiated) separately or in one line:'),
+      jcode(`// Declare then instantiate
+int number;
+number = 3;
+
+// All in one
+int number = 3;
+String name = "Alice";
+double price = 2.99;
+boolean fit = true;
+char letter = 'a';`)
+    )}
+    ${section('Common Pitfalls',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Wrong</th><th>Correct</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td><code>true</code></td><td><code>"true"</code></td><td>Without quotes = boolean; with quotes = String</td></tr>
+          <tr><td><code>"a"</code></td><td><code>'a'</code></td><td>Double quotes = String; single quotes = char</td></tr>
+          <tr><td><code>"4"</code></td><td><code>4</code></td><td>Strings cannot do arithmetic — "4" + "4" = "44"</td></tr>
+        </tbody>
+      </table></div>`,
+      jcode(`// Demonstration of the String + trap
+String number = "2";
+int zombie = 4;
+System.out.println(number + number); // Output: 22  (concatenation, not addition)
+System.out.println(zombie + zombie);  // Output: 8   (arithmetic addition)`)
+    )}
+    ${section('Output',
+      jcode(`System.out.println("Hello");   // prints then moves to new line
+System.out.print("Hello");    // prints without a new line
+
+int num1 = 5, num2 = 10;
+System.out.println(num1 + num2);           // Output: 15
+System.out.println(num1 + " + " + num2);   // Output: 5 + 10`)
+    )}
+    ${section('Comments and Coding Style',
+      jcode(`// Single-line comment — anything after // is ignored
+
+/* Multi-line comment
+   Use for method documentation */
+
+// Good variable names: meaningful, camelCase, not too long
+int averageMark;       // Good
+int a;                 // Bad — not meaningful
+int averageOfAllMarks; // Bad — too long`),
+      tip('Use meaningful camelCase variable names. Add a comment explaining <em>why</em> you wrote code a certain way — not <em>what</em> each line does.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Class','A blueprint for a Java program. Execution starts in main().'],
+          ['Variable','A named memory location holding a value that can change.'],
+          ['Data type','Defines what kind of value a variable holds (int, double, boolean, char, String).'],
+          ['Declaration','Telling Java a variable exists and what type it is.'],
+          ['Instantiation','Assigning an initial value to a variable.'],
+          ['System.out.println()','Prints output to the console followed by a new line.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l2': return `
+    ${section('Keyboard Input with Scanner',
+      p('To receive input from the user in Java, we use the <code>Scanner</code> class from the <code>java.util</code> package. There are 4½ steps:'),
+      `<ol style="line-height:2;margin:0 0 0 1.5rem">
+        <li>Import <code>java.util.*</code> before the class declaration</li>
+        <li>Declare a <code>Scanner</code> object</li>
+        <li>Declare a <code>String</code> variable to catch the input</li>
+        <li>Use the Scanner to read from the keyboard into the variable</li>
+        <li>Convert to <code>int</code>, <code>double</code>, or <code>char</code> if needed</li>
+      </ol>`,
+      jcode(`import java.util.*;
+
+public class InputExample {
+    public static void main(String[] args) {
+        Scanner kb = new Scanner(System.in);
+
+        System.out.println("Enter your name: ");
+        String name = kb.nextLine();
+
+        System.out.println("Enter your age: ");
+        String sAge = kb.nextLine();
+        int age = Integer.parseInt(sAge);
+
+        System.out.println("Hello " + name + ", you are " + age + " years old.");
+    }
+}`)
+    )}
+    ${section('Converting Input Types',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Target type</th><th>Conversion method</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>int</code></td><td><code>Integer.parseInt(s)</code></td><td><code>int n = Integer.parseInt(sNumber);</code></td></tr>
+          <tr><td><code>double</code></td><td><code>Double.parseDouble(s)</code></td><td><code>double p = Double.parseDouble(sPrice);</code></td></tr>
+        </tbody>
+      </table></div>`,
+      tip('Always receive input as a String first, then convert. This prevents type mismatch errors.')
+    )}
+    ${section('Arithmetic Operators',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Operator</th><th>Function</th><th>Example</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>+</code></td><td>Add</td><td>10 + 2</td><td>12</td></tr>
+          <tr><td><code>-</code></td><td>Subtract</td><td>10 - 3</td><td>7</td></tr>
+          <tr><td><code>/</code></td><td>Divide</td><td>9.0 / 3</td><td>3.0</td></tr>
+          <tr><td><code>*</code></td><td>Multiply</td><td>9 * 12</td><td>108</td></tr>
+          <tr><td><code>++</code></td><td>Add 1</td><td>i++</td><td>i becomes i+1</td></tr>
+          <tr><td><code>--</code></td><td>Subtract 1</td><td>j--</td><td>j becomes j-1</td></tr>
+          <tr><td><code>%</code></td><td>Modulus (remainder)</td><td>12 % 5</td><td>2</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('Remember: when doing integer division in Java, <code>9 / 2 = 4</code> (not 4.5) because both operands are <code>int</code>. Use a <code>double</code> for at least one operand to get a decimal result.')
+    )}
+    ${section('String Methods',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Method</th><th>Returns</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>.charAt(x)</code></td><td>char at index x (0-based)</td><td><code>"blue".charAt(0)</code> → <code>'b'</code></td></tr>
+          <tr><td><code>.toUpperCase()</code></td><td>String in ALL CAPS</td><td><code>"bob".toUpperCase()</code> → <code>"BOB"</code></td></tr>
+          <tr><td><code>.toLowerCase()</code></td><td>String in all lowercase</td><td><code>"DOG".toLowerCase()</code> → <code>"dog"</code></td></tr>
+          <tr><td><code>.substring(x, y)</code></td><td>Portion between index x and y (exclusive)</td><td><code>"I love hats".substring(2,6)</code> → <code>"love"</code></td></tr>
+          <tr><td><code>.length()</code></td><td>Number of characters (int)</td><td><code>"radar".length()</code> → <code>5</code></td></tr>
+        </tbody>
+      </table></div>`,
+      jcode(`String device = "radio";
+char letter = device.charAt(2);      // 'd'  (indices: r=0, a=1, d=2, i=3, o=4)
+String shout = device.toUpperCase(); // "RADIO"
+int size = device.length();          // 5`)
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Scanner','Java class used to read keyboard input.'],
+          ['Integer.parseInt()','Converts a String to an int.'],
+          ['Double.parseDouble()','Converts a String to a double.'],
+          ['Modulus (%)',  'Returns the remainder of integer division.'],
+          ['.charAt(x)','Returns the character at index x of a String (0-based).'],
+          ['.length()','Returns the number of characters in a String.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l3': return `
+    ${section('Selection — Changing Program Flow',
+      p('<strong>Selection</strong> allows a program to take different paths depending on a condition. It is one of the three fundamental program structures (sequence, selection, iteration).'),
+      def('Selection', 'A programming construct that executes different blocks of code based on whether a condition evaluates to true or false.')
+    )}
+    ${section('IF and IF/ELSE',
+      jcode(`// IF — one outcome
+if (num > 3) {
+    System.out.println("Greater than 3");
+}
+
+// IF/ELSE — two outcomes
+if (age >= 18) {
+    System.out.println("Adult");
+} else {
+    System.out.println("Minor");
+}
+
+// IF/ELSE IF/ELSE — multiple outcomes
+int temp = 28;
+if (temp > 30) {
+    System.out.println("Hot");
+} else if (temp > 20) {
+    System.out.println("Warm");
+} else {
+    System.out.println("Cool");
+}`),
+      tip('Only the <code>if</code> gets a condition in its brackets. <code>else</code> and <code>else if</code> do not need brackets on the <code>else</code> keyword itself.')
+    )}
+    ${section('Comparison (Logic) Operators',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Operator</th><th>Meaning</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>==</code></td><td>Equal to (for int, double, char, boolean)</td><td><code>if (num == 3)</code></td></tr>
+          <tr><td><code>.equals()</code></td><td>Equal to (for Strings)</td><td><code>if (name.equals("Alice"))</code></td></tr>
+          <tr><td><code>!=</code></td><td>Not equal to</td><td><code>if (married != true)</code></td></tr>
+          <tr><td><code>&gt;</code></td><td>Greater than</td><td><code>if (num &gt; 20)</code></td></tr>
+          <tr><td><code>&lt;</code></td><td>Less than</td><td><code>if (num &lt; 15)</code></td></tr>
+          <tr><td><code>&gt;=</code></td><td>Greater than or equal to</td><td><code>if (age &gt;= 18)</code></td></tr>
+          <tr><td><code>&lt;=</code></td><td>Less than or equal to</td><td><code>if (age &lt;= 12)</code></td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('<strong>Never</strong> use <code>=</code> in a condition — that is assignment. Use <code>==</code> to compare. Also: never compare Strings with <code>==</code>; always use <code>.equals()</code>.')
+    )}
+    ${section('AND / OR Conditions',
+      jcode(`// AND: both conditions must be true
+if (num > 3 && num < 12) {
+    System.out.println("Between 3 and 12");
+}
+
+// OR: at least one condition must be true
+if (age < 5 || age > 65) {
+    System.out.println("Reduced ticket price");
+}`)
+    )}
+    ${section('Switch / Case',
+      p('When testing a single variable against many specific values, <code>switch/case</code> is cleaner than a long if/else chain:'),
+      jcode(`switch (dayNumber) {
+    case 1:
+        System.out.println("Monday");
+        break;
+    case 2:
+        System.out.println("Tuesday");
+        break;
+    default:
+        System.out.println("Other day");
+        break;
+}`),
+      tip('Always include a <code>break</code> at the end of each case — without it, execution "falls through" to the next case.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Selection','A construct that routes execution based on a condition.'],
+          ['== vs =','== compares values; = assigns a value.'],
+          ['.equals()','Method for comparing String values.'],
+          ['&&','Logical AND — both conditions must be true.'],
+          ['||','Logical OR — at least one condition must be true.'],
+          ['switch/case','Multi-way selection for testing one variable against specific values.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l4': return `
+    ${section('Iteration — Repeating Code',
+      p('<strong>Iteration</strong> (looping) allows a program to repeat a block of code. There are two main types: <strong>count-controlled</strong> (for loop) and <strong>condition-controlled</strong> (while loop).'),
+      def('Iteration', 'Repeating a block of statements either a fixed number of times (count-controlled) or while a condition remains true (condition-controlled).')
+    )}
+    ${section('FOR Loop (Count-Controlled)',
+      p('Use a <code>for</code> loop when you know <em>exactly</em> how many times to repeat:'),
+      jcode(`// Structure: for(initialise; condition; update)
+for (int i = 0; i < 3; i++) {
+    System.out.println("X");
+}
+// Output: X  X  X  (3 times)
+
+// Printing i values
+for (int i = 0; i < 5; i++) {
+    System.out.println(i);
+}
+// Output: 0  1  2  3  4
+
+// Counting in steps of 2
+for (int j = 2; j < 10; j = j + 2) {
+    System.out.println(j);
+}
+// Output: 2  4  6  8`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Part</th><th>Description</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Initialise</strong></td><td>Create counter variable and set starting value</td><td><code>int i = 0</code></td></tr>
+          <tr><td><strong>Condition</strong></td><td>Loop continues while this is true</td><td><code>i &lt; 5</code></td></tr>
+          <tr><td><strong>Update</strong></td><td>What happens to the counter at end of each iteration</td><td><code>i++</code></td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('The most common mistake: putting a semicolon after the <code>for</code> header — <code>for(int i=0; i&lt;5; i++);</code> — this creates an empty loop that does nothing, then runs the body once.')
+    )}
+    ${section('WHILE Loop (Condition-Controlled)',
+      p('Use a <code>while</code> loop when you do <em>not</em> know in advance how many times to repeat — you repeat as long as a condition stays true:'),
+      jcode(`Scanner kb = new Scanner(System.in);
+int score = 0;
+
+while (score < 10) {
+    System.out.println("Enter a score: ");
+    String s = kb.nextLine();
+    score = Integer.parseInt(s);
+}
+System.out.println("Score reached 10 or above!");`)
+    )}
+    ${section('Nested Loops and Random Numbers',
+      p('Loops can be placed inside other loops. Java\'s <code>Math.random()</code> generates a random decimal between 0 and 1. To get a random integer between <em>min</em> and <em>max</em> (inclusive):'),
+      jcode(`// Random integer formula: min + (int)(Math.random() * ((max - min) + 1))
+int random1to10 = 1 + (int)(Math.random() * ((10 - 1) + 1));
+
+// Print a random number 5 times
+for (int i = 0; i < 5; i++) {
+    int roll = 1 + (int)(Math.random() * 6); // dice 1-6
+    System.out.println(roll);
+}`)
+    )}
+    ${section('FOR vs WHILE',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th></th><th>FOR loop</th><th>WHILE loop</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Use when</strong></td><td>Number of iterations is known</td><td>Number of iterations is unknown</td></tr>
+          <tr><td><strong>Counter</strong></td><td>Built into the loop header</td><td>Must manage manually</td></tr>
+          <tr><td><strong>Example</strong></td><td>Print 10 lines</td><td>Keep asking until valid input</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Iteration','Repeating a block of code (looping).'],
+          ['for loop','Count-controlled loop — use when iterations are known.'],
+          ['while loop','Condition-controlled loop — repeats until condition is false.'],
+          ['i++','Shorthand for i = i + 1 (increment by 1).'],
+          ['Math.random()','Returns a random double between 0.0 (inclusive) and 1.0 (exclusive).'],
+          ['Infinite loop','A loop whose condition never becomes false — a bug to avoid.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  default: return `<div class="page-section"><p>Content coming soon.</p></div>`;
+  }
+}
+
+// ── IGCSE Unit 1 Lesson content ───────────────────────────────────────────────
+function igcseU1LessonContent(id) {
+  switch(id) {
+
+  case 'l1': return `
+    ${section('Why Binary?',
+      p('Computers are built from billions of electronic switches that are either <strong>on</strong> (1) or <strong>off</strong> (0). Because only two states are possible, computers use the <strong>binary (base-2) number system</strong> to represent all data — numbers, text, images, sound, and programs.'),
+      def('Binary', 'A base-2 number system using only the digits 0 and 1. Each digit is called a bit (binary digit).')
+    )}
+    ${section('Bits, Nibbles, and Bytes',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Term</th><th>Size</th><th>Combinations</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Bit</strong></td><td>1 binary digit (0 or 1)</td><td>2</td></tr>
+          <tr><td><strong>Nibble</strong></td><td>4 bits</td><td>16</td></tr>
+          <tr><td><strong>Byte</strong></td><td>8 bits</td><td>256</td></tr>
+        </tbody>
+      </table></div>`,
+      tip('With <em>n</em> bits you can represent <strong>2<sup>n</sup></strong> different values. 8 bits → 2<sup>8</sup> = 256 values (0–255).')
+    )}
+    ${section('Storage Units',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Unit</th><th>Abbreviation</th><th>Approximate size</th></tr></thead>
+        <tbody>
+          <tr><td>Kilobyte</td><td>KB</td><td>1,024 bytes</td></tr>
+          <tr><td>Megabyte</td><td>MB</td><td>1,024 KB</td></tr>
+          <tr><td>Gigabyte</td><td>GB</td><td>1,024 MB</td></tr>
+          <tr><td>Terabyte</td><td>TB</td><td>1,024 GB</td></tr>
+        </tbody>
+      </table></div>`,
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>File type</th><th>Typical size</th></tr></thead>
+        <tbody>
+          <tr><td>One character of text</td><td>1 byte</td></tr>
+          <tr><td>Full page of text</td><td>~30 KB</td></tr>
+          <tr><td>Small digital photo</td><td>~3 MB</td></tr>
+          <tr><td>Music CD</td><td>~600 MB</td></tr>
+          <tr><td>DVD film</td><td>~4.5 GB</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Binary to Denary Conversion',
+      p('Binary uses powers of 2. Write out the column headings right-to-left (1, 2, 4, 8, 16, 32, 64, 128), then add up the columns where there is a 1:'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>128</th><th>64</th><th>32</th><th>16</th><th>8</th><th>4</th><th>2</th><th>1</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+        </tbody>
+      </table></div>`,
+      p('1×128 + 1×16 + 1×4 + 1×2 = <strong>150</strong>'),
+      examTip('Show your working in exam questions — write out all 8 column headings and tick the 1s. This earns method marks even if your final answer has an arithmetic slip.')
+    )}
+    ${section('Denary to Binary Conversion',
+      p('Working from the largest power of 2 downwards, check if each power fits into the remaining number:'),
+      p('Convert 57 to binary: 57 ≥ 32 ✓, remainder 25. 25 ≥ 16 ✓, remainder 9. 9 ≥ 8 ✓, remainder 1. 1 ≥ 1 ✓.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>128</th><th>64</th><th>32</th><th>16</th><th>8</th><th>4</th><th>2</th><th>1</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+        </tbody>
+      </table></div>`,
+      p('Result: <strong>00111001</strong>')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Binary','Base-2 number system using 0 and 1.'],
+          ['Bit','A single binary digit (0 or 1).'],
+          ['Byte','8 bits — can represent 256 different values.'],
+          ['Denary','Base-10 number system (everyday counting).'],
+          ['Register','A small, fast memory location inside the CPU storing binary values.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l2': return `
+    ${section('What is Hexadecimal?',
+      p('<strong>Hexadecimal</strong> (hex) is a base-16 number system. Because we only have 10 digits (0–9), it uses letters A–F for the values 10–15.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Denary</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Hex</strong></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td></tr>
+        </tbody>
+      </table></div>`,
+      def('Hexadecimal', 'A base-16 number system using digits 0–9 and letters A–F, where each hex digit represents exactly 4 binary bits (a nibble).')
+    )}
+    ${section('Why Use Hexadecimal?',
+      `<div class="two-col-list">
+        ${[
+          ['Compact','One hex digit represents exactly 4 bits — a byte needs only 2 hex digits instead of 8 binary digits.'],
+          ['Readable','Easier to read and remember than long binary strings.'],
+          ['Error reduction','Less chance of making a mistake typing 2 hex chars than 8 binary digits.'],
+          ['Easy binary conversion','Conversion between hex and binary is fast and exact.'],
+        ].map(([k,v]) => `<div class="list-item li-benefit"><span class="li-icon">✓</span><div><strong>${k}</strong> — ${v}</div></div>`).join('')}
+      </div>`
+    )}
+    ${section('Binary ↔ Hexadecimal Conversion',
+      h3('Binary to Hex'),
+      p('Split the 8-bit byte into two nibbles (groups of 4 bits), convert each nibble to its hex value:'),
+      p('<code>1110 0101</code> → <code>E</code> and <code>5</code> → <strong>E5</strong>'),
+      h3('Hex to Binary'),
+      p('Replace each hex digit with its 4-bit binary equivalent:'),
+      p('<code>3B</code> → <code>3 = 0011</code>, <code>B = 1011</code> → <strong>0011 1011</strong>'),
+      examTip('Remember the split: 1 hex digit = 4 bits (nibble). Two hex digits = 1 byte (8 bits). This is always the conversion trick.')
+    )}
+    ${section('Denary ↔ Hexadecimal Conversion',
+      h3('Denary to Hex'),
+      p('Divide the denary number by 16. The quotient is the left hex digit, the remainder is the right hex digit:'),
+      p('Denary 44 ÷ 16 = 2 remainder 12 → hex digit for 12 = C → result: <strong>2C</strong>'),
+      h3('Hex to Denary'),
+      p('Multiply the left digit by 16, add the right digit:'),
+      p('Hex 2A → (2 × 16) + 10 = 32 + 10 = <strong>42</strong>')
+    )}
+    ${section('Where is Hex Used?',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Application</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Colour codes (HTML/CSS)</strong></td><td><code>#FF5733</code> = RGB(255, 87, 51)</td></tr>
+          <tr><td><strong>MAC addresses</strong></td><td><code>4A:32:BE:5D:A4:4F</code> — 48-bit device identifier</td></tr>
+          <tr><td><strong>Memory debugging</strong></td><td>RAM dumps in hex are far more readable than binary</td></tr>
+          <tr><td><strong>IPv6 addresses</strong></td><td><code>2001:0db8:85a3:0000:...</code></td></tr>
+          <tr><td><strong>Error codes</strong></td><td>Windows BSOD codes like <code>0x0000007B</code></td></tr>
+        </tbody>
+      </table></div>`,
+      tip('Web colours: each colour (red, green, blue) has a value 0–255, written as two hex digits. <code>#FF0000</code> = pure red, <code>#00FF00</code> = pure green, <code>#0000FF</code> = pure blue.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Hexadecimal','Base-16 number system using 0–9 and A–F.'],
+          ['Nibble','4 bits — represented by a single hex digit.'],
+          ['RGB','Red, Green, Blue — each channel 0–255 (two hex digits).'],
+          ['MAC address','48-bit hardware identifier shown as 6 hex pairs.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l3': return `
+    ${section('Representing Text',
+      p('Computers only understand 0s and 1s. To represent text, we assign a unique binary code to every character — letters, digits, punctuation, and spaces.'),
+      def('ASCII', 'American Standard Code for Information Interchange. A 7-bit code that maps 128 characters (letters, digits, symbols, control characters) to binary values 0–127.')
+    )}
+    ${section('ASCII Details',
+      p('ASCII was developed in the 1960s and encodes:'),
+      `<div class="two-col-list">
+        ${[
+          ['26 uppercase letters','A–Z (codes 65–90)'],
+          ['26 lowercase letters','a–z (codes 97–122)'],
+          ['10 digit characters','0–9 (codes 48–57)'],
+          ['33 special characters','Punctuation, space, etc.'],
+          ['33 control characters','Non-printable (e.g. newline, tab)'],
+        ].map(([k,v]) => `<div class="list-item li-benefit"><span class="li-icon">•</span><div><strong>${k}</strong> — ${v}</div></div>`).join('')}
+      </div>`,
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Character</th><th>Denary</th><th>Binary (7-bit)</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>65</td><td>1000001</td></tr>
+          <tr><td>a</td><td>97</td><td>1100001</td></tr>
+          <tr><td>0</td><td>48</td><td>0110000</td></tr>
+          <tr><td>Space</td><td>32</td><td>0100000</td></tr>
+        </tbody>
+      </table></div>`,
+      tip('Uppercase "A" (65) and lowercase "a" (97) differ by 32. This pattern holds for all letters — to convert case, add or subtract 32.')
+    )}
+    ${section('7-bit vs 8-bit ASCII',
+      p('Original ASCII used <strong>7 bits</strong> giving 128 characters — enough for English. The <strong>eighth bit</strong> was added to give 256 characters (extended ASCII), allowing special characters like © (169), ® (174), and accented letters like á, à, ä.'),
+      examTip('Know the capacities: 7-bit = 128 characters, 8-bit = 256 characters, 16-bit (Unicode) = 65,536 characters.')
+    )}
+    ${section('ASCII Numbers vs Binary Numbers',
+      p('The ASCII code for the character <code>"7"</code> is 55 (binary 0110111) — <em>not</em> the same as the pure binary value 7 (0000111). This is important when doing arithmetic: you cannot add ASCII character codes directly.'),
+      p('In Python, all keyboard input arrives as a string. You must convert it to an integer first: <code>x = int(input())</code>.')
+    )}
+    ${section('Unicode',
+      def('Unicode', 'A 16-bit (and beyond) character encoding standard that provides a unique binary code for every character in every written language worldwide — over 1 million possible characters.'),
+      p('Unicode gives 65,536 possible combinations in 16-bit form — enough for every character in every human language: Chinese, Arabic, Greek, emoji, and more. It is now the standard for the web.'),
+      tip('ASCII is a subset of Unicode. The first 128 Unicode code points (0–127) match ASCII exactly.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['ASCII','7-bit code for 128 characters (standard keyboard).'],
+          ['Extended ASCII','8-bit code for 256 characters (adds special symbols).'],
+          ['Unicode','16-bit+ encoding for every character in every language.'],
+          ['Character code','The binary/denary value assigned to a specific character.'],
+          ['Concatenation','Joining two strings together (not arithmetic addition).'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l4': return `
+    ${section('Bitmap Images',
+      p('Digital images are stored as a grid of <strong>pixels</strong> (picture elements). Each pixel is a single colour, represented by a binary value.'),
+      def('Pixel', 'The smallest identifiable area of a bitmap image. Each pixel has a single colour value stored in binary.'),
+      def('Bitmap (Raster) Image', 'An image made up of a grid of pixels, where each pixel\'s colour is stored as a binary value.')
+    )}
+    ${section('Colour Depth',
+      p('<strong>Colour depth</strong> (bit depth) is the number of bits used to store each pixel\'s colour. More bits = more possible colours:'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Bits per pixel</th><th>Possible colours</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>2 (black and white)</td></tr>
+          <tr><td>2</td><td>4</td></tr>
+          <tr><td>4</td><td>16</td></tr>
+          <tr><td>8</td><td>256</td></tr>
+          <tr><td>24</td><td>16,777,216 (~16 million — "true colour")</td></tr>
+        </tbody>
+      </table></div>`,
+      def('Colour Depth', 'The number of bits used to represent the colour of each pixel. Higher colour depth = more colours = larger file size.')
+    )}
+    ${section('RGB Colour Model',
+      p('24-bit colour uses three channels — <strong>Red, Green, Blue</strong> — each with 8 bits (0–255). Any colour can be mixed from these three:'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Colour</th><th>R</th><th>G</th><th>B</th><th>Hex</th></tr></thead>
+        <tbody>
+          <tr><td>Pure Red</td><td>255</td><td>0</td><td>0</td><td>#FF0000</td></tr>
+          <tr><td>Pure Green</td><td>0</td><td>255</td><td>0</td><td>#00FF00</td></tr>
+          <tr><td>White</td><td>255</td><td>255</td><td>255</td><td>#FFFFFF</td></tr>
+          <tr><td>Black</td><td>0</td><td>0</td><td>0</td><td>#000000</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Image Resolution and File Size',
+      def('Resolution', 'The number of pixels in an image, expressed as width × height (e.g. 1920 × 1080). Higher resolution = more detail = larger file.'),
+      p('<strong>File size formula:</strong>'),
+      p('File size (bits) = image width (px) × image height (px) × colour depth (bits)'),
+      p('Example: 1000 × 750 pixels at 24-bit colour = 1000 × 750 × 24 = 18,000,000 bits = 2,250,000 bytes ≈ 2.15 MB'),
+      tip('Higher resolution AND higher colour depth both increase file size. Doubling the resolution quadruples the file size (since both width and height double).')
+    )}
+    ${section('Image Metadata',
+      def('Metadata', 'Data stored alongside the image data that describes properties of the file rather than the image content.'),
+      p('Metadata includes: colour depth, resolution (width × height in pixels), date created, author, camera settings, GPS location. Metadata adds to file size but is not part of the visible image.')
+    )}
+    ${section('Image File Types',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Format</th><th>Compression</th><th>Use case</th></tr></thead>
+        <tbody>
+          <tr><td>BMP</td><td>None (uncompressed)</td><td>Lossless quality — very large files</td></tr>
+          <tr><td>JPEG / JPG</td><td>Lossy</td><td>Photos — small files, some quality loss</td></tr>
+          <tr><td>PNG</td><td>Lossless</td><td>Web graphics, transparent backgrounds</td></tr>
+          <tr><td>GIF</td><td>Lossless (max 256 colours)</td><td>Simple animations and icons</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('You must be able to calculate file size. Always show the formula: width × height × colour depth in bits, then convert to bytes (÷8) and then KB (÷1024) or MB.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Pixel','Smallest element of a bitmap image — single colour value.'],
+          ['Colour depth','Number of bits per pixel; determines number of possible colours.'],
+          ['Resolution','Number of pixels (width × height).'],
+          ['Metadata','Data about data — file properties stored alongside image data.'],
+          ['RGB','Red, Green, Blue — 8 bits each, 24 bits total per pixel in true colour.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l5': return `
+    ${section('Analogue vs Digital Sound',
+      p('Sound exists as continuous analogue waves in the real world. Computers store sound as <strong>discrete digital samples</strong>. An <strong>Analogue-to-Digital Converter (ADC)</strong> converts sound to digital data; a <strong>Digital-to-Analogue Converter (DAC)</strong> converts it back for playback.'),
+      def('Sampling', 'The process of measuring the amplitude (height) of a sound wave at regular time intervals and recording each measurement as a binary value.')
+    )}
+    ${section('Sampling Rate and Bit Depth',
+      def('Sampling Rate', 'The number of samples taken per second, measured in Hertz (Hz) or kilohertz (kHz). CD quality = 44,100 Hz (44.1 kHz).'),
+      def('Bit Depth (Sample Resolution)', 'The number of bits used to record each sample. More bits = more precise amplitude values = better quality. CD quality = 16 bits.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Factor</th><th>Increase causes</th><th>Effect on file size</th></tr></thead>
+        <tbody>
+          <tr><td>Sampling rate</td><td>More samples per second → better frequency reproduction</td><td>Larger</td></tr>
+          <tr><td>Bit depth</td><td>More precise amplitude values → less quantisation noise</td><td>Larger</td></tr>
+          <tr><td>Duration</td><td>Longer recording</td><td>Larger</td></tr>
+          <tr><td>Channels</td><td>Stereo (2) vs mono (1)</td><td>Larger for stereo</td></tr>
+        </tbody>
+      </table></div>`,
+      tip('Human hearing range: approximately 20 Hz to 20,000 Hz. A sampling rate of at least 40,000 Hz is needed to accurately reproduce this range (Nyquist theorem).')
+    )}
+    ${section('Sound File Size',
+      p('File size (bits) = sampling rate × bit depth × duration (seconds) × channels'),
+      p('Example: 1 minute of CD quality stereo audio = 44,100 × 16 × 60 × 2 = 84,672,000 bits ≈ 10.1 MB (uncompressed)'),
+      examTip('Know the file size formula and be able to apply it. Questions may give you sampling rate in kHz — remember 44.1 kHz = 44,100 Hz.')
+    )}
+    ${section('Audio Compression',
+      h3('Lossy — MP3'),
+      p('MP3 removes sounds in frequency ranges that human hearing is least sensitive to. Permanently deletes data — cannot be restored. Much smaller files but some quality loss.'),
+      h3('Lossless'),
+      p('Finds repeated patterns and encodes them more efficiently — e.g. "10 identical values" stored as a count + value rather than 10 separate values. File can be perfectly restored to the original.'),
+      h3('MIDI'),
+      def('MIDI', 'Musical Instrument Digital Interface. Not a recording — a set of instructions telling digital instruments what notes to play, at what tempo, with what instrument. Uses up to 1000× less storage than an audio recording.'),
+      tip('MIDI stores <em>instructions</em> (play middle C for 0.5 seconds), not audio samples. This makes it extremely small but requires a synthesiser to play back.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Sampling rate','Samples per second (Hz/kHz) — higher = better quality.'],
+          ['Bit depth','Bits per sample — higher = more precise amplitude.'],
+          ['ADC','Analogue-to-Digital Converter — converts sound to digital.'],
+          ['DAC','Digital-to-Analogue Converter — converts digital back to sound.'],
+          ['MP3','Lossy compressed audio format.'],
+          ['MIDI','Instructions for digital instruments — not a sound recording.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l6': return `
+    ${section('Why Compress?',
+      p('File compression reduces file size, which means:'),
+      `<div class="two-col-list">
+        ${[
+          ['Faster transmission','Fewer packets → quicker downloads and uploads'],
+          ['Less storage','More files fit on a disk or server'],
+          ['Lower bandwidth','Especially important for video/audio streaming'],
+          ['Reduced costs','Less cloud storage and data transfer charges'],
+        ].map(([k,v]) => `<div class="list-item li-benefit"><span class="li-icon">✓</span><div><strong>${k}</strong> — ${v}</div></div>`).join('')}
+      </div>`
+    )}
+    ${section('Lossy vs Lossless Compression',
+      def('Lossy Compression', 'Permanently removes some data to achieve a smaller file. The original cannot be perfectly restored. Examples: JPEG, MP3, MP4.'),
+      def('Lossless Compression', 'Removes redundancy without discarding any data. The original can be perfectly restored on decompression. Examples: PNG, GIF, ZIP, FLAC.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th></th><th>Lossy</th><th>Lossless</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Data loss</strong></td><td>Yes — permanent</td><td>No</td></tr>
+          <tr><td><strong>File size</strong></td><td>Much smaller</td><td>Smaller (less dramatic)</td></tr>
+          <tr><td><strong>Restore to original</strong></td><td>No</td><td>Yes</td></tr>
+          <tr><td><strong>Common formats</strong></td><td>JPEG, MP3, MP4, GIF</td><td>PNG, TIFF, ZIP, FLAC</td></tr>
+          <tr><td><strong>Good for</strong></td><td>Photos, music, video</td><td>Text, medical images, program files</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('Lossy compression should never be used for computer programs or medical images — losing data could cause errors or wrong diagnoses. Always choose lossless for these.')
+    )}
+    ${section('Run Length Encoding (RLE)',
+      def('Run Length Encoding (RLE)', 'A lossless compression algorithm that replaces repeated consecutive values with a pair: (count, value).'),
+      p('Example: A row of pixels <strong>0 0 0 0 0 1 1 1 1 0</strong> becomes <strong>5×0, 4×1, 1×0</strong> → stored as <code>5 0 4 1 1 0</code> — 6 values instead of 10.'),
+      tip('RLE is efficient only when there are long runs of identical values — e.g. simple logos and icons. For complex photographic images with many colour changes, RLE may actually <em>increase</em> file size.')
+    )}
+    ${section('Huffman Coding',
+      def('Huffman Coding', 'A lossless compression algorithm that assigns shorter binary codes to more frequently occurring characters, reducing total bit usage.'),
+      p('In standard 7-bit ASCII, every character uses exactly 7 bits. Huffman coding analyses the frequency of each character and assigns:'),
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li>Very short codes (e.g. 1–2 bits) to the most common characters</li>
+        <li>Longer codes (e.g. 4–5 bits) to rare characters</li>
+      </ul>`,
+      p('Example: in "Betty ate butter" the letter T appears most often, so T gets the shortest code (0). The result uses far fewer bits than ASCII.')
+    )}
+    ${section('Common File Formats',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Format</th><th>Type</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>PNG</td><td>Lossless</td><td>Web images, transparent backgrounds</td></tr>
+          <tr><td>JPEG</td><td>Lossy</td><td>Photos, digital cameras</td></tr>
+          <tr><td>GIF</td><td>Lossless (max 256 colours)</td><td>Simple animations, icons</td></tr>
+          <tr><td>PDF</td><td>Lossless</td><td>Documents preserving layout</td></tr>
+          <tr><td>MP3</td><td>Lossy</td><td>Music files</td></tr>
+          <tr><td>MP4</td><td>Lossy</td><td>Video files</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Lossy compression','Permanently removes data — smaller file, lower quality.'],
+          ['Lossless compression','No data lost — original can be fully restored.'],
+          ['RLE','Run Length Encoding — stores count+value pairs for repeated data.'],
+          ['Huffman coding','Assigns shorter codes to more frequent characters.'],
+          ['Artefact','Visible quality defect in a lossy-compressed image or video.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  default: return `<div class="page-section"><p>Content coming soon.</p></div>`;
+  }
+}
 
 // ── A3 Lesson content ─────────────────────────────────────────────────────────
 function lessonContent(id) {
@@ -1001,6 +1938,8 @@ function renderIBDP() {
 
 function renderIBDPTopic(id) {
   if (id === 'a3') return renderA3Overview();
+  if (id === 'b1') return renderB1Overview();
+  if (id === 'b2') return renderB2Overview();
   const all = [...IBDP_P1, ...IBDP_P2];
   const t = all.find(x => x.id === id);
   if (!t) return render404();
@@ -1032,6 +1971,104 @@ function renderIBDPTopic(id) {
         <p>Each subtopic maps to the 2027 IB DP syllabus.</p>
       </div>
       <div class="card-grid">${cards}</div>
+    </div>`;
+}
+
+function renderTopicWithLessons(t, paper, lessons, lessonHref) {
+  const subtopicCards = t.subtopics.map(s => `
+    <div class="card">
+      <div class="card-top">
+        <span class="card-code">${s.code}</span>
+        <div class="badge-group">${badge(s.level)}</div>
+      </div>
+      <div class="card-body-area">
+        <div class="card-title">${s.title}</div>
+        <div class="card-desc">${s.desc}</div>
+      </div>
+    </div>`).join('');
+  const lessonCards = lessons.map(l => {
+    const lvlBadge = `<span class="badge badge-sl">SL</span><span class="badge badge-hl">HL</span>`;
+    return `
+      <a href="#${lessonHref}/${l.id}" class="lesson-card">
+        <div class="lesson-card-top">
+          <span class="lesson-card-num">Lesson ${l.num}</span>
+          <div class="badge-group">${lvlBadge}</div>
+        </div>
+        <div class="lesson-card-body">
+          <div class="lesson-card-title">${l.title}</div>
+          <div class="lesson-card-ref">${l.ref}</div>
+        </div>
+        <div class="lesson-card-foot"><span class="card-arrow">View lesson →</span></div>
+      </a>`;
+  }).join('');
+  return `
+    <div class="topic-hero">
+      <div class="topic-hero-inner">
+        ${bc([{href:'#home',label:'Home'},{href:'#ibdp',label:'IB DP'},{label:`${t.code}: ${t.title}`}])}
+        <div class="topic-code-pill">${t.code} · ${paper}</div>
+        <h1>${t.title}</h1>
+        <p class="topic-sub">${t.desc}</p>
+      </div>
+    </div>
+    <div class="page-section">
+      <div class="section-header"><h2>Syllabus Subtopics</h2></div>
+      <div class="card-grid">${subtopicCards}</div>
+      <div class="paper-divider" style="margin-top:2.5rem"><h3>Lessons</h3><div class="paper-line"></div></div>
+      <div class="lesson-grid">${lessonCards}</div>
+    </div>`;
+}
+
+function renderB1Overview() {
+  const t = IBDP_P2.find(x => x.id === 'b1');
+  return renderTopicWithLessons(t, 'Paper 2 — Programming & Practical', B1_LESSONS, 'ibdp/b1');
+}
+
+function renderB1Lesson(lessonId) {
+  const lesson = B1_LESSONS.find(l => l.id === lessonId);
+  if (!lesson) return render404();
+  const content = b1LessonContent(lessonId);
+  return `
+    <div class="lesson-hero">
+      <div class="lesson-hero-inner">
+        ${bc([{href:'#home',label:'Home'},{href:'#ibdp',label:'IB DP'},{href:'#ibdp/b1',label:'B1: Computational Thinking'},{label:`Lesson ${lesson.num}`}])}
+        <div class="lesson-meta">
+          <span class="lesson-num">Lesson ${lesson.num}</span>
+          <span class="badge badge-sl">SL</span><span class="badge badge-hl">HL</span>
+          <span class="lesson-ref">${lesson.ref}</span>
+        </div>
+        <h1>${lesson.title}</h1>
+      </div>
+    </div>
+    <div class="lesson-body">
+      <a href="#ibdp/b1" class="back-link">← Back to B1: Computational Thinking</a>
+      ${content}
+    </div>`;
+}
+
+function renderB2Overview() {
+  const t = IBDP_P2.find(x => x.id === 'b2');
+  return renderTopicWithLessons(t, 'Paper 2 — Programming & Practical', B2_LESSONS, 'ibdp/b2');
+}
+
+function renderB2Lesson(lessonId) {
+  const lesson = B2_LESSONS.find(l => l.id === lessonId);
+  if (!lesson) return render404();
+  const content = b2LessonContent(lessonId);
+  return `
+    <div class="lesson-hero">
+      <div class="lesson-hero-inner">
+        ${bc([{href:'#home',label:'Home'},{href:'#ibdp',label:'IB DP'},{href:'#ibdp/b2',label:'B2: Programming'},{label:`Lesson ${lesson.num}`}])}
+        <div class="lesson-meta">
+          <span class="lesson-num">Lesson ${lesson.num}</span>
+          <span class="badge badge-sl">SL</span><span class="badge badge-hl">HL</span>
+          <span class="lesson-ref">${lesson.ref}</span>
+        </div>
+        <h1>${lesson.title}</h1>
+      </div>
+    </div>
+    <div class="lesson-body">
+      <a href="#ibdp/b2" class="back-link">← Back to B2: Programming</a>
+      ${content}
     </div>`;
 }
 
@@ -1137,6 +2174,7 @@ function renderIGCSE() {
 }
 
 function renderIGCSETopic(id) {
+  if (id === 'unit1') return renderIGCSEUnit1Overview();
   const unit = IGCSE_UNITS.find(u => u.id === id);
   if (!unit) return render404();
   return `
@@ -1152,6 +2190,55 @@ function renderIGCSETopic(id) {
       <div class="overview-box">
         Notes and resources for <strong>Unit ${unit.code}: ${unit.title}</strong> are being developed. Check back soon.
       </div>
+    </div>`;
+}
+
+function renderIGCSEUnit1Overview() {
+  const unit = IGCSE_UNITS.find(u => u.id === 'unit1');
+  const lessonCards = IGCSE_U1_LESSONS.map(l => `
+    <a href="#igcse/unit1/${l.id}" class="lesson-card">
+      <div class="lesson-card-top">
+        <span class="lesson-card-num">Lesson ${l.num}</span>
+      </div>
+      <div class="lesson-card-body">
+        <div class="lesson-card-title">${l.title}</div>
+        <div class="lesson-card-ref">Syllabus ${l.ref}</div>
+      </div>
+      <div class="lesson-card-foot"><span class="card-arrow">View lesson →</span></div>
+    </a>`).join('');
+  return `
+    <div class="topic-hero">
+      <div class="topic-hero-inner">
+        ${bc([{href:'#home',label:'Home'},{href:'#igcse',label:'IGCSE'},{label:'Unit 1: Data Representation'}])}
+        <div class="topic-code-pill">Unit 1 · IGCSE 0478</div>
+        <h1>Unit 1: Data Representation</h1>
+        <p class="topic-sub">${unit.desc}</p>
+      </div>
+    </div>
+    <div class="page-section">
+      <div class="paper-divider"><h3>Lessons</h3><div class="paper-line"></div></div>
+      <div class="lesson-grid">${lessonCards}</div>
+    </div>`;
+}
+
+function renderIGCSEUnit1Lesson(lessonId) {
+  const lesson = IGCSE_U1_LESSONS.find(l => l.id === lessonId);
+  if (!lesson) return render404();
+  const content = igcseU1LessonContent(lessonId);
+  return `
+    <div class="lesson-hero">
+      <div class="lesson-hero-inner">
+        ${bc([{href:'#home',label:'Home'},{href:'#igcse',label:'IGCSE'},{href:'#igcse/unit1',label:'Unit 1: Data Representation'},{label:`Lesson ${lesson.num}`}])}
+        <div class="lesson-meta">
+          <span class="lesson-num">Lesson ${lesson.num}</span>
+          <span class="lesson-ref">Syllabus ${lesson.ref}</span>
+        </div>
+        <h1>${lesson.title}</h1>
+      </div>
+    </div>
+    <div class="lesson-body">
+      <a href="#igcse/unit1" class="back-link">← Back to Unit 1: Data Representation</a>
+      ${content}
     </div>`;
 }
 
@@ -1211,10 +2298,16 @@ function route() {
     html = renderIBDP();
   } else if (sec === 'ibdp' && sub === 'a3' && leaf) {
     html = renderA3Lesson(leaf);
+  } else if (sec === 'ibdp' && sub === 'b1' && leaf) {
+    html = renderB1Lesson(leaf);
+  } else if (sec === 'ibdp' && sub === 'b2' && leaf) {
+    html = renderB2Lesson(leaf);
   } else if (sec === 'ibdp' && sub) {
     html = renderIBDPTopic(sub);
   } else if (sec === 'igcse' && !sub) {
     html = renderIGCSE();
+  } else if (sec === 'igcse' && sub === 'unit1' && leaf) {
+    html = renderIGCSEUnit1Lesson(leaf);
   } else if (sec === 'igcse' && sub) {
     html = renderIGCSETopic(sub);
   } else {
