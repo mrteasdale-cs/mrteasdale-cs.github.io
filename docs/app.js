@@ -2640,6 +2640,20 @@ function renderHome() {
           <p>All ten units from data representation through to Boolean logic.</p>
           <div class="home-card-arrow">Explore topics →</div>
         </a>
+        <a href="#programming" class="home-card">
+          <div class="home-card-icon">💻</div>
+          <div class="home-card-label">Python Programming</div>
+          <h3>Programming Practice</h3>
+          <p>Searching and sorting algorithms, input validation, and practical Python skills.</p>
+          <div class="home-card-arrow">Start coding →</div>
+        </a>
+        <a href="#cyber" class="home-card">
+          <div class="home-card-icon">🔒</div>
+          <div class="home-card-label">Cyber Security</div>
+          <h3>Cyber Security</h3>
+          <p>Linux host hardening, network security, NAT, VPN, and threat protection.</p>
+          <div class="home-card-arrow">Explore security →</div>
+        </a>
       </div>
     </div>`;
 }
@@ -2676,7 +2690,77 @@ function renderIBDP() {
       </div>
     </div>
     <div class="page-section">
-      <div class="paper-divider"><h3>Paper 1 — Theory</h3><div class="paper-line"></div></div>
+      <div class="section-header"><h2>Course Overview</h2></div>
+      <div class="overview-grid">
+        <div class="overview-card">
+          <div class="ov-title">Standard Level (SL)</div>
+          <div class="ov-hours">150 teaching hours</div>
+          <ul class="ov-list">
+            <li>All of A1–A4 (SL content)</li>
+            <li>B1, B2, B3.1</li>
+            <li>Paper 1: 1 hr 30 min</li>
+            <li>Paper 2: 1 hr 30 min</li>
+          </ul>
+        </div>
+        <div class="overview-card">
+          <div class="ov-title">Higher Level (HL)</div>
+          <div class="ov-hours">240 teaching hours</div>
+          <ul class="ov-list">
+            <li>All SL content plus HL extensions</li>
+            <li>A1.4, A4.2–A4.3, B3.2, B4</li>
+            <li>Paper 1: 2 hr 30 min</li>
+            <li>Paper 2: 2 hr 30 min</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="paper-divider" style="margin-top:2.5rem"><h3>Assessment Structure</h3><div class="paper-line"></div></div>
+      <div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Component</th><th>Weighting</th><th>SL</th><th>HL</th><th>Content</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Paper 1 — Theory</strong></td>
+            <td><span class="badge badge-sl" style="font-size:0.8rem">40%</span></td>
+            <td>1 hr 30 min</td>
+            <td>2 hr 30 min</td>
+            <td>A1–A4 — multiple choice, short answer, data response, and case study extension</td>
+          </tr>
+          <tr>
+            <td><strong>Paper 2 — Programming</strong></td>
+            <td><span class="badge badge-sl" style="font-size:0.8rem">40%</span></td>
+            <td>1 hr 30 min</td>
+            <td>2 hr 30 min</td>
+            <td>B1–B4 — problem-solving and programming questions in the course language (Java)</td>
+          </tr>
+          <tr>
+            <td><strong>Internal Assessment (IA)</strong></td>
+            <td><span class="badge badge-hlo" style="font-size:0.8rem">20%</span></td>
+            <td colspan="2" style="text-align:center">30 working hours</td>
+            <td>Individual computational solution: a documented, original software project</td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <div class="paper-divider" style="margin-top:2.5rem"><h3>Case Study</h3><div class="paper-line"></div></div>
+      <div class="callout callout-tip">
+        <div class="callout-label">Key Point</div>
+        <p>Each examination session has a <strong>pre-released case study</strong> published by the IB in December. The case study focuses on a specific technology or computing context. Questions in <strong>Paper 1</strong> include unseen extension material based on the case study topic — you must engage with it before the exam. It is published on the IB website and typically 10–15 pages long.</p>
+      </div>
+
+      <div class="paper-divider" style="margin-top:2.5rem"><h3>Internal Assessment</h3><div class="paper-line"></div></div>
+      <div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Criterion</th><th>Marks</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A — Planning</strong></td><td>6</td><td>Defines the problem, identifies a client, and states success criteria with justification for the chosen solution</td></tr>
+          <tr><td><strong>B — Design</strong></td><td>6</td><td>Records the solution design including structure diagrams, UI mockups, data structures, and algorithms</td></tr>
+          <tr><td><strong>C — Development</strong></td><td>12</td><td>Demonstrates technical complexity, ingenuity, and evidence of testing during development</td></tr>
+          <tr><td><strong>D — Functionality &amp; Extensibility</strong></td><td>4</td><td>Shows the program working; evaluates against success criteria and proposes future extensions</td></tr>
+          <tr><td><strong>E — Evaluation</strong></td><td>6</td><td>Reflects on the development process, identifies limitations, and evaluates with input from the client</td></tr>
+          <tr><td colspan="2"><strong>Total</strong></td><td><strong>34 marks</strong></td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="paper-divider" style="margin-top:2.5rem"><h3>Paper 1 — Theory</h3><div class="paper-line"></div></div>
       <div class="card-grid">${IBDP_P1.map(topicCard).join('')}</div>
       <div class="paper-divider"><h3>Paper 2 — Programming &amp; Practical</h3><div class="paper-line"></div></div>
       <div class="card-grid">${IBDP_P2.map(topicCard).join('')}</div>
@@ -2684,6 +2768,7 @@ function renderIBDP() {
 }
 
 function renderIBDPTopic(id) {
+  if (id === 'a1') return renderA1Overview();
   if (id === 'a3') return renderA3Overview();
   if (id === 'b1') return renderB1Overview();
   if (id === 'b2') return renderB2Overview();
@@ -2818,6 +2903,126 @@ function renderB2Lesson(lessonId) {
       <a href="#ibdp/b2" class="back-link">← Back to B2: Programming</a>
       ${content}
       ${lessonNav(B2_LESSONS, lessonId, 'ibdp/b2')}
+    </div>`;
+}
+
+function renderA1Overview() {
+  const t = IBDP_P1.find(x => x.id === 'a1');
+  return renderTopicWithLessons(t, 'Paper 1 — Theory', A1_LESSONS, 'ibdp/a1');
+}
+
+function renderA1Lesson(lessonId) {
+  const lesson = A1_LESSONS.find(l => l.id === lessonId);
+  if (!lesson) return render404();
+  const content = a1LessonContent(lessonId);
+  return `
+    <div class="lesson-hero">
+      <div class="lesson-hero-inner">
+        ${bc([{href:'#home',label:'Home'},{href:'#ibdp',label:'IB DP'},{href:'#ibdp/a1',label:'A1: Concepts of CS'},{label:`Lesson ${lesson.num}`}])}
+        <div class="lesson-meta">
+          <span class="lesson-num">Lesson ${lesson.num}</span>
+          <span class="badge badge-sl">SL</span><span class="badge badge-hl">HL</span>
+          <span class="lesson-ref">${lesson.ref}</span>
+        </div>
+        <h1>${lesson.title}</h1>
+      </div>
+    </div>
+    <div class="lesson-body">
+      <a href="#ibdp/a1" class="back-link">← Back to A1: Concepts of Computer Science</a>
+      ${content}
+      ${lessonNav(A1_LESSONS, lessonId, 'ibdp/a1')}
+    </div>`;
+}
+
+function renderProgramming() {
+  const lessonCards = PROG_LESSONS.map(l => `
+    <a href="#programming/${l.id}" class="lesson-card">
+      <div class="lesson-card-top">
+        <span class="lesson-card-num">Lesson ${l.num}</span>
+        <div class="badge-group"><span class="badge badge-sl">Python</span></div>
+      </div>
+      <div class="lesson-card-body">
+        <div class="lesson-card-title">${l.title}</div>
+        <div class="lesson-card-ref">${l.ref}</div>
+      </div>
+      <div class="lesson-card-foot"><span class="card-arrow">View lesson →</span></div>
+    </a>`).join('');
+  return `
+    <div class="topic-hero">
+      <div class="topic-hero-inner">
+        ${bc([{href:'#home',label:'Home'},{label:'Programming Practice'}])}
+        <h1>Programming Practice</h1>
+        <p class="topic-sub">Practical Python programming — algorithms, sorting, searching, and input validation.</p>
+      </div>
+    </div>
+    <div class="page-section">
+      <div class="paper-divider"><h3>Lessons</h3><div class="paper-line"></div></div>
+      <div class="lesson-grid">${lessonCards}</div>
+    </div>`;
+}
+
+function renderProgLesson(lessonId) {
+  const lesson = PROG_LESSONS.find(l => l.id === lessonId);
+  if (!lesson) return render404();
+  const content = progLessonContent(lessonId);
+  return `
+    <div class="lesson-hero">
+      <div class="lesson-hero-inner">
+        ${bc([{href:'#home',label:'Home'},{href:'#programming',label:'Programming Practice'},{label:`Lesson ${lesson.num}`}])}
+        <div class="lesson-meta">
+          <span class="lesson-num">Lesson ${lesson.num}</span>
+          <span class="badge badge-sl">Python</span>
+          <span class="lesson-ref">${lesson.ref}</span>
+        </div>
+        <h1>${lesson.title}</h1>
+      </div>
+    </div>
+    <div class="lesson-body">
+      <a href="#programming" class="back-link">← Back to Programming Practice</a>
+      ${content}
+      ${lessonNav(PROG_LESSONS, lessonId, 'programming')}
+    </div>`;
+}
+
+function renderCyber() {
+  const topicCards = CYBER_TOPICS.map(t => `
+    <a href="#cyber/${t.id}" class="card card-link">
+      <div class="card-top"><span class="card-code">Unit ${t.code}</span></div>
+      <div class="card-body-area">
+        <div class="card-title">${t.title}</div>
+        <div class="card-desc">${t.desc}</div>
+      </div>
+      <div class="card-foot"><span class="card-arrow">View unit →</span></div>
+    </a>`).join('');
+  return `
+    <div class="topic-hero">
+      <div class="topic-hero-inner">
+        ${bc([{href:'#home',label:'Home'},{label:'Cyber Security'}])}
+        <h1>Cyber Security</h1>
+        <p class="topic-sub">Linux host hardening, network security, and threat protection.</p>
+      </div>
+    </div>
+    <div class="page-section">
+      <div class="card-grid">${topicCards}</div>
+    </div>`;
+}
+
+function renderCyberTopic(id) {
+  const t = CYBER_TOPICS.find(x => x.id === id);
+  if (!t) return render404();
+  const content = cyberTopicContent(id);
+  return `
+    <div class="topic-hero">
+      <div class="topic-hero-inner">
+        ${bc([{href:'#home',label:'Home'},{href:'#cyber',label:'Cyber Security'},{label:t.title}])}
+        <div class="topic-code-pill">Unit ${t.code} · Cyber Security</div>
+        <h1>${t.title}</h1>
+        <p class="topic-sub">${t.desc}</p>
+      </div>
+    </div>
+    <div class="lesson-body">
+      <a href="#cyber" class="back-link">← Back to Cyber Security</a>
+      ${content}
     </div>`;
 }
 
@@ -3031,9 +3236,11 @@ function updateNav(hash) {
   document.querySelectorAll('.nav-links a[data-nav]').forEach(a => {
     const n = a.dataset.nav;
     const active =
-      (n === 'home'  && (hash === 'home' || hash === '')) ||
-      (n === 'ibdp'  && (hash === 'ibdp' || hash.startsWith('ibdp/'))) ||
-      (n === 'igcse' && (hash === 'igcse' || hash.startsWith('igcse/')));
+      (n === 'home'        && (hash === 'home' || hash === '')) ||
+      (n === 'ibdp'        && (hash === 'ibdp' || hash.startsWith('ibdp/'))) ||
+      (n === 'igcse'       && (hash === 'igcse' || hash.startsWith('igcse/'))) ||
+      (n === 'programming' && (hash === 'programming' || hash.startsWith('programming/'))) ||
+      (n === 'cyber'       && (hash === 'cyber' || hash.startsWith('cyber/')));
     a.classList.toggle('active', active);
   });
 }
