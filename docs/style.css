@@ -815,3 +815,43 @@ a.card, .card-link {
 @media (max-width: 480px) {
   .code-block { font-size: .78rem; padding: 1rem 1rem; }
 }
+
+/* ── Practice Q&A accordion ───────────────────────── */
+.qa-block { margin: 2rem 0; }
+.qa-block h3 { font-size: 1.05rem; font-weight: 700; color: var(--teal); margin-bottom: .75rem; }
+.qa-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: .5rem;
+  overflow: hidden;
+  background: var(--card-bg);
+}
+.qa-item[open] { border-color: var(--teal); }
+.qa-question {
+  cursor: pointer;
+  padding: .85rem 1rem;
+  font-weight: 600;
+  font-size: .95rem;
+  color: var(--text);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  user-select: none;
+}
+.qa-question::before {
+  content: '▶';
+  font-size: .6rem;
+  color: var(--teal);
+  flex-shrink: 0;
+  transition: transform .15s;
+}
+.qa-item[open] > .qa-question::before { transform: rotate(90deg); }
+.qa-question::-webkit-details-marker { display: none; }
+.qa-answer {
+  padding: .75rem 1rem 1rem 1rem;
+  border-top: 1px solid var(--border);
+  font-size: .9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
