@@ -59,8 +59,9 @@ function renderIBDP() {
       : `<span class="badge badge-sl">SL</span><span class="badge badge-hl">HL</span>`;
     const resourcesBadge = t.hasLessons
       ? `<span class="badge badge-sl" style="background:#dcfce7;color:#166534">Lessons available</span>` : '';
+    const accent = t.color ? ` ca-${t.color}` : '';
     return `
-      <a href="#ibdp/${t.id}" class="card card-link">
+      <a href="#ibdp/${t.id}" class="card card-link${accent}">
         <div class="card-top">
           <span class="card-code">${t.code}</span>
           ${resourcesBadge}
@@ -363,7 +364,7 @@ function renderB2Lesson(lessonId) {
 
 function renderB3Overview() {
   const t = IBDP_P2.find(x => x.id === 'b3');
-  return renderTopicWithLessons(t, 'Paper 2 — Programming & Practical', B3_LESSONS, 'ibdp/b3');
+  return renderTopicWithLessons(t, 'Paper 2: Programming & Practical', B3_LESSONS, 'ibdp/b3');
 }
 
 function renderB3Lesson(lessonId) {
@@ -692,6 +693,25 @@ function render404() {
     <div class="page-section">
       <a href="#home" class="back-link">← Back to home</a>
     </div>`;
+}
+
+function lessonNav(lessons, currentId, basePath) {
+  const idx  = lessons.findIndex(l => l.id === currentId);
+  const prev = lessons[idx - 1];
+  const next = lessons[idx + 1];
+  const btnPrev = prev
+    ? `<a href="#${basePath}/${prev.id}" class="lesson-nav-btn prev">
+         <span class="lesson-nav-label">← Previous</span>
+         <span class="lesson-nav-title">Lesson ${prev.num}: ${prev.title}</span>
+       </a>`
+    : `<span></span>`;
+  const btnNext = next
+    ? `<a href="#${basePath}/${next.id}" class="lesson-nav-btn next">
+         <span class="lesson-nav-label">Next →</span>
+         <span class="lesson-nav-title">Lesson ${next.num}: ${next.title}</span>
+       </a>`
+    : `<span></span>`;
+  return `<div class="lesson-nav">${btnPrev}${btnNext}</div>`;
 }
 
 

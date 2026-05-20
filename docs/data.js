@@ -3,7 +3,7 @@
 export const IBDP_P1 = [
   { id:'a1', code:'A1', title:'Concepts of Computer Science',
     desc:'Computer hardware, data representation, logic gates, operating systems, and software translation.',
-    level:'sl-hl',
+    level:'sl-hl', hasLessons:true, color:'blue',
     subtopics:[
       {code:'A1.1', title:'Computer hardware and operation', desc:'CPU components, GPUs, primary and secondary memory, data compression, cloud computing.', level:'sl-hl'},
       {code:'A1.2', title:'Data representation and computer logic', desc:'Binary and hexadecimal, logic gates, truth tables, and logic diagrams.', level:'sl-hl'},
@@ -12,7 +12,7 @@ export const IBDP_P1 = [
     ]},
   { id:'a2', code:'A2', title:'Networks',
     desc:'Network fundamentals, protocols, data transmission, and security principles.',
-    level:'sl-hl',
+    level:'sl-hl', color:'green',
     subtopics:[
       {code:'A2.1', title:'Network fundamentals', desc:'Network characteristics, topologies, protocols, and the TCP/IP model.', level:'sl-hl'},
       {code:'A2.2', title:'Networking concepts', desc:'Encryption, hashing, firewalls, IDS/IPS, and server functions.', level:'sl-hl'},
@@ -21,7 +21,7 @@ export const IBDP_P1 = [
     ]},
   { id:'a3', code:'A3', title:'Databases',
     desc:'Relational database theory, design, SQL, and advanced data management.',
-    level:'sl-hl', hasLessons:true,
+    level:'sl-hl', hasLessons:true, color:'amber',
     subtopics:[
       {code:'A3.1', title:'Database models', desc:'Relational, NoSQL, and hierarchical database models compared.', level:'sl-hl'},
       {code:'A3.2', title:'Database design', desc:'ERDs, schemas, data types, normalisation (1NF–3NF), denormalisation.', level:'sl-hl'},
@@ -30,7 +30,7 @@ export const IBDP_P1 = [
     ]},
   { id:'a4', code:'A4', title:'Machine Learning',
     desc:'Supervised and unsupervised ML algorithms, data preparation, and ethical implications.',
-    level:'sl-hl',
+    level:'sl-hl', color:'purple',
     subtopics:[
       {code:'A4.1', title:'ML fundamentals', desc:'Types of machine learning, the ML workflow, and hardware requirements.', level:'sl-hl'},
       {code:'A4.2', title:'Data preparation', desc:'Data cleaning, feature selection, and dimensionality reduction.', level:'hl'},
@@ -41,7 +41,7 @@ export const IBDP_P1 = [
 export const IBDP_P2 = [
   { id:'b1', code:'B1', title:'Computational Thinking',
     desc:'Problem specification, decomposition, algorithmic design, and flowcharts.',
-    level:'sl-hl',
+    level:'sl-hl', hasLessons:true, color:'orange',
     subtopics:[
       {code:'B1.1', title:'Problem specification', desc:'Defining problems with clear inputs, outputs, and constraints.', level:'sl-hl'},
       {code:'B1.2', title:'Decomposition', desc:'Breaking complex problems into manageable sub-problems.', level:'sl-hl'},
@@ -50,7 +50,7 @@ export const IBDP_P2 = [
     ]},
   { id:'b2', code:'B2', title:'Programming',
     desc:'Core programming from data types and control flow through to algorithms and file handling.',
-    level:'sl-hl',
+    level:'sl-hl', hasLessons:true, color:'teal',
     subtopics:[
       {code:'B2.1', title:'Fundamentals', desc:'Data types, strings, exception handling, and debugging.', level:'sl-hl'},
       {code:'B2.2', title:'Data structures', desc:'Arrays, lists, stacks, and queues.', level:'sl-hl'},
@@ -60,14 +60,14 @@ export const IBDP_P2 = [
     ]},
   { id:'b3', code:'B3', title:'Object-Oriented Programming',
     desc:'Designing and implementing programs using classes, objects, and OOP principles.',
-    level:'sl-hl',
+    level:'sl-hl', hasLessons:true, color:'rose',
     subtopics:[
       {code:'B3.1', title:'Single class fundamentals', desc:'Classes, methods, encapsulation, and constructors.', level:'sl-hl'},
       {code:'B3.2', title:'Multiple classes', desc:'Inheritance, polymorphism, abstraction, composition, aggregation, design patterns.', level:'hl'},
     ]},
   { id:'b4', code:'B4', title:'Abstract Data Types',
     desc:'Advanced data structures including linked lists, trees, sets, and hash tables. HL only.',
-    level:'hl',
+    level:'hl', color:'indigo',
     subtopics:[
       {code:'B4.1', title:'Linked lists', desc:'Singly, doubly, and circular linked lists: structure and operations.', level:'hl'},
       {code:'B4.2', title:'Binary search trees', desc:'BST insertion, deletion, traversal, and balancing.', level:'hl'},

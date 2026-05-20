@@ -392,6 +392,24 @@ a.card, .card-link {
 }
 .card-arrow { color: var(--teal); font-size: .8rem; font-weight: 600; }
 
+/* ── Topic card colour accents ─────────────────────────── */
+.ca-blue   .card-top { background:#dbeafe; }
+.ca-blue   .card-code { background:#bfdbfe; color:#1d4ed8; }
+.ca-green  .card-top { background:#dcfce7; }
+.ca-green  .card-code { background:#bbf7d0; color:#15803d; }
+.ca-amber  .card-top { background:#fef3c7; }
+.ca-amber  .card-code { background:#fde68a; color:#b45309; }
+.ca-purple .card-top { background:#ede9fe; }
+.ca-purple .card-code { background:#ddd6fe; color:#6d28d9; }
+.ca-orange .card-top { background:#ffedd5; }
+.ca-orange .card-code { background:#fed7aa; color:#c2410c; }
+.ca-teal   .card-top { background:#ccfbf1; }
+.ca-teal   .card-code { background:#99f6e4; color:#0f766e; }
+.ca-rose   .card-top { background:#ffe4e6; }
+.ca-rose   .card-code { background:#fecdd3; color:#be123c; }
+.ca-indigo .card-top { background:#e0e7ff; }
+.ca-indigo .card-code { background:#c7d2fe; color:#4338ca; }
+
 /* ── Lesson Cards (A3 list) ────────────────────────────── */
 .lesson-grid {
   display: grid;

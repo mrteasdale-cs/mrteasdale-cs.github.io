@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 import { jcode, pcode, def, examTip, tip, section, h3, p, qa, practiceSect } from '../helpers.js';
 
@@ -7,8 +7,8 @@ export function b3LessonContent(id) {
 
   case 'l1': return `
     ${section('What is Object-Oriented Programming?',
-      def('Object-Oriented Programming (OOP)', 'A programming paradigm that organises code around <strong>objects</strong> — entities that combine data (attributes) and behaviour (methods) in a single unit.'),
-      p('Before OOP, most programs were written in a <strong>procedural</strong> style — code was a sequence of instructions, and data was passed around between functions. OOP changes the model: instead of thinking about what the program <em>does</em>, you think about what <em>things</em> exist in your program and what they can do.'),
+      def('Object-Oriented Programming (OOP)', 'A programming paradigm that organises code around <strong>objects</strong>: entities that combine data (attributes) and behaviour (methods) in a single unit.'),
+      p('Before OOP, most programs were written in a <strong>procedural</strong> style: code was a sequence of instructions, and data was passed around between functions. OOP changes the model: instead of thinking about what the program <em>does</em>, you think about what <em>things</em> exist in your program and what they can do.'),
       `<div class="tbl-wrap"><table class="content-table">
         <thead><tr><th>Procedural</th><th>Object-Oriented</th></tr></thead>
         <tbody>
@@ -32,7 +32,7 @@ export function b3LessonContent(id) {
       </table></div>`
     )}
     ${section('Classes and Objects',
-      def('Class', 'A <strong>blueprint</strong> (template) that defines what attributes and methods an object of that type will have. A class is not itself an object — it is the description of one.'),
+      def('Class', 'A <strong>blueprint</strong> (template) that defines what attributes and methods an object of that type will have. A class is not itself an object: it is the description of one.'),
       def('Object', 'An <strong>instance</strong> of a class. Creating an object from a class is called <em>instantiation</em>. Each object has its own copy of the attributes defined in the class.'),
       p('Think of a class like a cookie cutter and objects like the cookies. The cutter defines the shape; each cookie is a separate, real thing made from that shape.'),
       `<div class="tbl-wrap"><table class="content-table">
@@ -56,7 +56,7 @@ export function b3LessonContent(id) {
           <tr><td><code>age</code></td><td><code>getAge()</code></td></tr>
         </tbody>
       </table></div>`,
-      p('A minimal class in both languages — just to show the shape:'),
+      p('A minimal class in both languages: just to show the shape:'),
       h3('Java'),
       jcode(`public class Dog {
     String name;
@@ -77,23 +77,23 @@ export function b3LessonContent(id) {
     )}
     ${section('Benefits of OOP',
       `<ul class="lesson-list">
-        <li><strong>Reusability:</strong> Once a class is written, it can be used to create as many objects as needed — in this project or in future projects.</li>
+        <li><strong>Reusability:</strong> Once a class is written, it can be used to create as many objects as needed: in this project or in future projects.</li>
         <li><strong>Modularity:</strong> Each class is self-contained. You can change one class without breaking others.</li>
         <li><strong>Maintainability:</strong> Code is easier to read, debug, and update when related data and behaviour live together.</li>
         <li><strong>DRY (Don\'t Repeat Yourself):</strong> Common behaviour is defined once in a class, not repeated throughout the program.</li>
       </ul>`,
-      examTip('Exam questions often ask you to <em>evaluate</em> OOP — be ready to give both advantages and disadvantages. A disadvantage is that OOP can add overhead for simple programs that do not need the full class structure.')
+      examTip('Exam questions often ask you to <em>evaluate</em> OOP: be ready to give both advantages and disadvantages. A disadvantage is that OOP can add overhead for simple programs that do not need the full class structure.')
     )}
     ${practiceSect('Practice Questions', [
-      qa('What is the difference between a class and an object?', 'A <strong>class</strong> is a blueprint (template) that defines attributes and methods. An <strong>object</strong> is a specific instance of that class — a real thing created from the blueprint. Many objects can be created from a single class, each with their own state.'),
-      qa('Name the four pillars of OOP and give a one-sentence definition of each.', '<strong>Encapsulation</strong> — bundling data and methods, hiding internal state. <strong>Abstraction</strong> — exposing only what is necessary, hiding complexity. <strong>Inheritance</strong> — a subclass extends a parent class, inheriting its attributes and methods. <strong>Polymorphism</strong> — different objects can be used through the same interface, behaving differently.'),
+      qa('What is the difference between a class and an object?', 'A <strong>class</strong> is a blueprint (template) that defines attributes and methods. An <strong>object</strong> is a specific instance of that class: a real thing created from the blueprint. Many objects can be created from a single class, each with their own state.'),
+      qa('Name the four pillars of OOP and give a one-sentence definition of each.', '<strong>Encapsulation</strong>: bundling data and methods, hiding internal state. <strong>Abstraction</strong>: exposing only what is necessary, hiding complexity. <strong>Inheritance</strong>: a subclass extends a parent class, inheriting its attributes and methods. <strong>Polymorphism</strong>: different objects can be used through the same interface, behaving differently.'),
       qa('What is an attribute? What is a method?', 'An <strong>attribute</strong> is a variable belonging to an object that stores its state (e.g. name, age, balance). A <strong>method</strong> is a function belonging to an object that defines its behaviour (e.g. bark(), deposit(), getAge()).'),
       qa('Give two advantages of using OOP over procedural programming.', 'Any two of: reusability (classes can be reused across projects), modularity (classes are self-contained, changes are localised), maintainability (easier to read and debug), DRY principle (behaviour defined once in a class).'),
     ])}`;
 
   case 'l2': return `
     ${section('Class Diagrams',
-      p('Before writing code, a good OOP designer draws a <strong>class diagram</strong>. This is a simple visual representation of a class that shows its name, attributes, and methods — without any implementation details.'),
+      p('Before writing code, a good OOP designer draws a <strong>class diagram</strong>. This is a simple visual representation of a class that shows its name, attributes, and methods: without any implementation details.'),
       p('The standard format is a three-section box:'),
       `<pre class="code-block"><code>+-------------------------------+
 |          ClassName            |   Class name (PascalCase)
@@ -104,19 +104,19 @@ export function b3LessonContent(id) {
 |  + method1()                  |   Methods (+ = public)
 |  + method2() : returnType     |   return type after colon
 +-------------------------------+</code></pre>`,
-      tip('The <code>-</code> (minus) symbol means <strong>private</strong> — only accessible within the class. The <code>+</code> (plus) symbol means <strong>public</strong> — accessible from anywhere. You will learn more about this in Lesson 4 (Encapsulation).')
+      tip('The <code>-</code> (minus) symbol means <strong>private</strong>: only accessible within the class. The <code>+</code> (plus) symbol means <strong>public</strong>: accessible from anywhere. You will learn more about this in Lesson 4 (Encapsulation).')
     )}
     ${section('Identifying Attributes',
-      p('Attributes store the <strong>state</strong> of an object — the data it needs to remember. When designing a class, ask: <em>"What does this object need to know about itself?"</em>'),
+      p('Attributes store the <strong>state</strong> of an object: the data it needs to remember. When designing a class, ask: <em>"What does this object need to know about itself?"</em>'),
       `<ul class="lesson-list">
         <li>Choose attributes that belong to <em>every</em> object of this type</li>
         <li>Use appropriate data types (<code>int</code>, <code>double</code>, <code>String</code>, <code>boolean</code>)</li>
         <li>Name attributes with <code>camelCase</code> starting with a lowercase letter</li>
-        <li>Keep them private (using <code>-</code> in diagrams) — exposed via methods</li>
+        <li>Keep them private (using <code>-</code> in diagrams): exposed via methods</li>
       </ul>`
     )}
     ${section('Identifying Methods',
-      p('Methods define the <strong>behaviour</strong> of an object — what it can do. Ask: <em>"What should this object be able to do?"</em>'),
+      p('Methods define the <strong>behaviour</strong> of an object: what it can do. Ask: <em>"What should this object be able to do?"</em>'),
       `<div class="tbl-wrap"><table class="content-table">
         <thead><tr><th>Method type</th><th>Purpose</th><th>Example</th></tr></thead>
         <tbody>
@@ -153,7 +153,7 @@ export function b3LessonContent(id) {
 |  + deposit(amount : double)    |
 |  + withdraw(amount : double)   |
 +--------------------------------+</code></pre>`,
-      h3('Java — class structure (design only)'),
+      h3('Java: class structure (design only)'),
       jcode(`public class BankAccount {
     private String ownerName;
     private double balance;
@@ -164,7 +164,7 @@ export function b3LessonContent(id) {
     public void deposit(double amount) { ... }
     public void withdraw(double amount) { ... }
 }`),
-      h3('Python — class structure (design only)'),
+      h3('Python: class structure (design only)'),
       pcode(`class BankAccount:
     def __init__(self, name, balance):  # constructor
         ...
@@ -178,8 +178,8 @@ export function b3LessonContent(id) {
         ...`)
     )}
     ${practiceSect('Practice Questions', [
-      qa('What are the three sections of a class diagram?', '1. <strong>Class name</strong> (top). 2. <strong>Attributes</strong> (middle) — with visibility symbols and data types. 3. <strong>Methods</strong> (bottom) — with visibility symbols, parameters, and return types.'),
-      qa('What does the - symbol mean in a class diagram? What about +?', '<strong>-</strong> means <em>private</em> — the attribute or method can only be accessed from within the class. <strong>+</strong> means <em>public</em> — it can be accessed from outside the class.'),
+      qa('What are the three sections of a class diagram?', '1. <strong>Class name</strong> (top). 2. <strong>Attributes</strong> (middle): with visibility symbols and data types. 3. <strong>Methods</strong> (bottom): with visibility symbols, parameters, and return types.'),
+      qa('What does the - symbol mean in a class diagram? What about +?', '<strong>-</strong> means <em>private</em>: the attribute or method can only be accessed from within the class. <strong>+</strong> means <em>public</em>: it can be accessed from outside the class.'),
       qa('What is a constructor and why is it needed?', 'A constructor is a special method that runs automatically when an object is created. It sets the initial values of the object\'s attributes so the object starts in a valid, known state.'),
       qa('Design a class diagram for a Student class that stores a name, ID number, and grade. Include a constructor and a method to print details.', '<pre class="code-block" style="font-size:.82rem"><code>+------------------------------+\n|           Student            |\n+------------------------------+\n|  - name : String             |\n|  - idNumber : int            |\n|  - grade : double            |\n+------------------------------+\n|  + Student(name, id, grade)  |\n|  + getName() : String        |\n|  + getGrade() : double       |\n|  + printDetails()            |\n+------------------------------+</code></pre>'),
     ])}`;
@@ -244,14 +244,14 @@ export function b3LessonContent(id) {
     )}
     ${section('Creating (Instantiating) Objects',
       p('Once a class is defined, you create objects from it. Each object gets its own copy of every attribute.'),
-      h3('Java — use the <code>new</code> keyword'),
+      h3('Java: use the <code>new</code> keyword'),
       jcode(`Dog fido = new Dog("Fido", "Labrador", 3);
 Dog rex  = new Dog("Rex", "German Shepherd", 5);
 
 fido.bark();                        // Fido says: Woof!
 rex.bark();                         // Rex says: Woof!
 System.out.println(fido.getAge()); // 3`),
-      h3('Python — call the class like a function'),
+      h3('Python: call the class like a function'),
       pcode(`fido = Dog("Fido", "Labrador", 3)
 rex  = Dog("Rex", "German Shepherd", 5)
 
@@ -267,7 +267,7 @@ int n = fido.getAge();  // calls getAge(), stores result in n`),
       pcode(`fido = Dog("Fido", "Labrador", 3)
 fido.bark()             # calls bark() on fido
 n = fido.get_age()      # calls get_age(), stores result in n`),
-      examTip('A common exam mistake: calling a method on the class itself rather than on an object. <code>Dog.bark()</code> will fail — you need <code>fido.bark()</code>.')
+      examTip('A common exam mistake: calling a method on the class itself rather than on an object. <code>Dog.bark()</code> will fail: you need <code>fido.bark()</code>.')
     )}
     ${section('Multiple Objects, Independent State',
       p('Every object has its own <strong>independent copy</strong> of each attribute. Changing one object does not affect any other.'),
@@ -307,9 +307,9 @@ rex  = Dog("Rex", "German Shepherd", 5)
       `<div class="tbl-wrap"><table class="content-table">
         <thead><tr><th>Convention</th><th>Meaning</th><th>Example</th></tr></thead>
         <tbody>
-          <tr><td>No prefix</td><td>Public — accessible from anywhere</td><td><code>self.name</code></td></tr>
-          <tr><td><code>_single_underscore</code></td><td>Private by convention — do not access externally</td><td><code>self._balance</code></td></tr>
-          <tr><td><code>__double_underscore</code></td><td>Name-mangled — harder to access externally</td><td><code>self.__pin</code></td></tr>
+          <tr><td>No prefix</td><td>Public: accessible from anywhere</td><td><code>self.name</code></td></tr>
+          <tr><td><code>_single_underscore</code></td><td>Private by convention: do not access externally</td><td><code>self._balance</code></td></tr>
+          <tr><td><code>__double_underscore</code></td><td>Name-mangled: harder to access externally</td><td><code>self.__pin</code></td></tr>
         </tbody>
       </table></div>`,
       examTip('IB questions may ask you to "explain information hiding". Key points: (1) attributes are private, (2) access is via public methods only, (3) this allows validation and prevents invalid data being set directly.')
@@ -317,7 +317,7 @@ rex  = Dog("Rex", "German Shepherd", 5)
     ${section('Getters and Setters',
       def('Getter', 'A public method that <strong>returns</strong> the value of a private attribute (also called an <em>accessor</em>).'),
       def('Setter', 'A public method that <strong>updates</strong> the value of a private attribute, optionally including validation (also called a <em>mutator</em>).'),
-      h3('Java — full BankAccount with encapsulation'),
+      h3('Java: full BankAccount with encapsulation'),
       jcode(`public class BankAccount {
     private String ownerName;
     private double balance;
@@ -351,7 +351,7 @@ rex  = Dog("Rex", "German Shepherd", 5)
         }
     }
 }`),
-      h3('Python — convention-based encapsulation'),
+      h3('Python: convention-based encapsulation'),
       pcode(`class BankAccount:
     def __init__(self, name, balance):
         self._owner_name = name
@@ -385,13 +385,13 @@ rex  = Dog("Rex", "German Shepherd", 5)
           <tr><td>Any code can corrupt data</td><td>Data changes only via controlled methods</td></tr>
         </tbody>
       </table></div>`,
-      tip('Encapsulation protects data integrity. A setter acts as a <em>gatekeeper</em> — it can reject invalid values before they reach the attribute.')
+      tip('Encapsulation protects data integrity. A setter acts as a <em>gatekeeper</em>: it can reject invalid values before they reach the attribute.')
     )}
     ${practiceSect('Practice Questions', [
       qa('What is the difference between encapsulation and information hiding?', '<strong>Encapsulation</strong> is the broader concept: bundling data and methods into a class. <strong>Information hiding</strong> is a specific technique within encapsulation: marking attributes as private so external code cannot access them directly. Information hiding is achieved through encapsulation.'),
-      qa('Why should attributes be declared private?', 'Private attributes prevent external code from setting invalid values directly. Access is controlled through public methods (getters and setters), which can include validation — e.g. a setter can reject a negative balance.'),
+      qa('Why should attributes be declared private?', 'Private attributes prevent external code from setting invalid values directly. Access is controlled through public methods (getters and setters), which can include validation: e.g. a setter can reject a negative balance.'),
       qa('What is a getter? What is a setter? Give a Java example of each.', 'A <strong>getter</strong> returns the value of a private attribute: <code>public double getBalance() { return balance; }</code>. A <strong>setter</strong> updates it with optional validation: <code>public void setBalance(double a) { if (a &gt;= 0) balance = a; }</code>'),
-      qa('In Python, what naming convention indicates a private attribute?', 'A <strong>single underscore prefix</strong>: <code>self._balance</code>. This signals to programmers not to access it directly from outside the class. Python does not enforce this — it is a convention only.'),
+      qa('In Python, what naming convention indicates a private attribute?', 'A <strong>single underscore prefix</strong>: <code>self._balance</code>. This signals to programmers not to access it directly from outside the class. Python does not enforce this: it is a convention only.'),
       qa('Explain why a setter is better than allowing direct attribute access.', 'A setter can include <strong>validation logic</strong>. For example, <code>setAge()</code> can check the value is positive before assigning it. Direct access bypasses all validation and can leave the object in an invalid state.'),
     ])}`;
 
@@ -408,14 +408,14 @@ rex  = Dog("Rex", "German Shepherd", 5)
         </tbody>
       </table></div>`
     )}
-    ${section('Static vs Non-Static Variables — Code',
+    ${section('Static vs Non-Static Variables: Code',
       p('The classic example: a counter that tracks how many objects have been created.'),
       h3('Java'),
       jcode(`public class Dog {
-    // Class variable — shared by ALL Dog objects
+    // Class variable: shared by ALL Dog objects
     private static int totalDogs = 0;
 
-    // Instance variables — unique to each Dog
+    // Instance variables: unique to each Dog
     private String name;
     private int age;
 
@@ -438,7 +438,7 @@ Dog rex  = new Dog("Rex", 5);
 System.out.println(Dog.getTotalDogs()); // 2`),
       h3('Python'),
       pcode(`class Dog:
-    total_dogs = 0   # class variable — defined at class level
+    total_dogs = 0   # class variable: defined at class level
 
     def __init__(self, name, age):
         self.name = name   # instance variables
@@ -460,7 +460,7 @@ print(Dog.get_total_dogs())  # 2`)
         <thead><tr><th></th><th>Instance method</th><th>Static method</th></tr></thead>
         <tbody>
           <tr><td>Declaration</td><td>Normal; Python uses <code>self</code></td><td><code>static</code> in Java; <code>@staticmethod</code> in Python</td></tr>
-          <tr><td>Accesses instance data?</td><td>Yes — via <code>this</code> / <code>self</code></td><td>No — cannot use <code>this</code> / <code>self</code></td></tr>
+          <tr><td>Accesses instance data?</td><td>Yes: via <code>this</code> / <code>self</code></td><td>No: cannot use <code>this</code> / <code>self</code></td></tr>
           <tr><td>Called on</td><td>An object: <code>fido.bark()</code></td><td>The class: <code>Dog.getTotalDogs()</code></td></tr>
           <tr><td>Typical use</td><td>Read or change object state</td><td>Utility functions, counters, constants</td></tr>
         </tbody>
@@ -478,7 +478,7 @@ print(Dog.get_total_dogs())  # 2`)
     }
 }
 
-// No object needed — called on the class directly
+// No object needed: called on the class directly
 System.out.println(MathUtils.square(4));   // 16
 System.out.println(MathUtils.isEven(7));   // false`),
       h3('Python'),
@@ -494,23 +494,23 @@ System.out.println(MathUtils.isEven(7));   // false`),
 
 print(MathUtils.square(4))    # 16
 print(MathUtils.is_even(7))   # False`),
-      examTip('A common exam error: trying to access an instance attribute from inside a static method (e.g. <code>this.name</code> inside a static method). Static methods have no <code>this</code>/<code>self</code> — they belong to the class, not an object.')
+      examTip('A common exam error: trying to access an instance attribute from inside a static method (e.g. <code>this.name</code> inside a static method). Static methods have no <code>this</code>/<code>self</code>: they belong to the class, not an object.')
     )}
     ${section('When to Use Static',
       `<ul class="lesson-list">
-        <li>Use a <strong>static variable</strong> when the data belongs to the class as a whole — e.g. a counter of all objects created, a constant like <code>MAX_SIZE</code>.</li>
-        <li>Use a <strong>static method</strong> when the logic does not depend on any object\'s state — e.g. utility functions (<code>square()</code>, <code>isEven()</code>).</li>
-        <li>Use an <strong>instance variable</strong> when each object needs its own value — e.g. <code>name</code>, <code>balance</code>.</li>
-        <li>Use an <strong>instance method</strong> when the behaviour reads or changes an object\'s state — e.g. <code>deposit()</code>, <code>bark()</code>.</li>
+        <li>Use a <strong>static variable</strong> when the data belongs to the class as a whole: e.g. a counter of all objects created, a constant like <code>MAX_SIZE</code>.</li>
+        <li>Use a <strong>static method</strong> when the logic does not depend on any object\'s state: e.g. utility functions (<code>square()</code>, <code>isEven()</code>).</li>
+        <li>Use an <strong>instance variable</strong> when each object needs its own value: e.g. <code>name</code>, <code>balance</code>.</li>
+        <li>Use an <strong>instance method</strong> when the behaviour reads or changes an object\'s state: e.g. <code>deposit()</code>, <code>bark()</code>.</li>
       </ul>`,
-      tip('Java\'s built-in <code>Math</code> class uses static methods throughout: <code>Math.sqrt()</code>, <code>Math.pow()</code>, <code>Math.random()</code> — none require an object because they just perform calculations.')
+      tip('Java\'s built-in <code>Math</code> class uses static methods throughout: <code>Math.sqrt()</code>, <code>Math.pow()</code>, <code>Math.random()</code>: none require an object because they just perform calculations.')
     )}
     ${practiceSect('Practice Questions', [
-      qa('What is the difference between a static variable and an instance variable?', 'An <strong>instance variable</strong> belongs to each individual object — every object has its own separate copy. A <strong>static variable</strong> belongs to the class itself and is shared by all objects — there is only one copy regardless of how many objects exist.'),
+      qa('What is the difference between a static variable and an instance variable?', 'An <strong>instance variable</strong> belongs to each individual object: every object has its own separate copy. A <strong>static variable</strong> belongs to the class itself and is shared by all objects: there is only one copy regardless of how many objects exist.'),
       qa('If you increment a static counter in a constructor, what happens each time a new object is created?', 'The <strong>shared counter increases by 1</strong>. Because all objects share one static variable, creating any new object updates the same counter. After creating 3 objects, the counter is 3.'),
       qa('Can a static method access instance attributes? Why or why not?', 'No. A static method belongs to the <strong>class</strong>, not to any specific object. It has no <code>this</code>/<code>self</code> reference, so it cannot access instance attributes.'),
       qa('Write a Java method signature for a static method called isPositive that takes an int and returns a boolean.', '<code>public static boolean isPositive(int n) { return n &gt; 0; }</code>'),
-      qa('In the Dog class example, why is totalDogs declared static but name is not?', '<code>totalDogs</code> tracks how many Dog objects exist — this belongs to the class as a whole. <code>name</code> is personal to each individual dog — every Dog object needs its own separate name value.'),
+      qa('In the Dog class example, why is totalDogs declared static but name is not?', '<code>totalDogs</code> tracks how many Dog objects exist: this belongs to the class as a whole. <code>name</code> is personal to each individual dog: every Dog object needs its own separate name value.'),
     ])}`;
 
   default: return `<div class="page-section"><p>Content coming soon.</p></div>`;
