@@ -262,10 +262,27 @@ const B1_LESSONS = [
 
 // ── B2 Lesson definitions ─────────────────────────────────────────────────────
 const B2_LESSONS = [
-  {id:'l1', num:1, title:'Variables and Data Types',         ref:'B2.1.1', level:'sl-hl'},
-  {id:'l2', num:2, title:'Input, Calculations & Strings',   ref:'B2.1.2–B2.1.3', level:'sl-hl'},
-  {id:'l3', num:3, title:'Selection: IF/ELSE & Switch',    ref:'B2.3.1', level:'sl-hl'},
-  {id:'l4', num:4, title:'Iteration: FOR & WHILE Loops',   ref:'B2.3.2', level:'sl-hl'},
+  {id:'l1',  num:1,  title:'Hello World and Setup',             ref:'Getting started', level:'sl-hl'},
+  {id:'l2',  num:2,  title:'Variables and Data Types',          ref:'B2.1.1',          level:'sl-hl'},
+  {id:'l3',  num:3,  title:'Strings and Substrings',            ref:'B2.1.2',          level:'sl-hl'},
+  {id:'l4',  num:4,  title:'Arrays and Lists',                  ref:'B2.2.2',          level:'sl-hl'},
+  {id:'l5',  num:5,  title:'Sequence and Program Structure',    ref:'B2.3.1',          level:'sl-hl'},
+  {id:'l6',  num:6,  title:'Selection',                         ref:'B2.3.2',          level:'sl-hl'},
+  {id:'l7',  num:7,  title:'Loops and Iteration',               ref:'B2.3.3',          level:'sl-hl'},
+  {id:'l8',  num:8,  title:'Functions and Modularisation',      ref:'B2.3.4',          level:'sl-hl'},
+  {id:'l9',  num:9,  title:'Problem Set 1',                     ref:'B2.1.1-B2.3.4',   level:'sl-hl'},
+  {id:'l10', num:10, title:'Exception Handling and Debugging',  ref:'B2.1.3, B2.1.4', level:'sl-hl'},
+  {id:'l11', num:11, title:'Stacks',                            ref:'B2.2.1, B2.2.3', level:'sl-hl'},
+  {id:'l12', num:12, title:'Queues',                            ref:'B2.2.4',          level:'sl-hl'},
+  {id:'l13', num:13, title:'Big O Notation',                    ref:'B2.4.1',          level:'sl-hl'},
+  {id:'l14', num:14, title:'Linear Search',                     ref:'B2.4.2',          level:'sl-hl'},
+  {id:'l15', num:15, title:'Binary Search',                     ref:'B2.4.2',          level:'sl-hl'},
+  {id:'l16', num:16, title:'Bubble Sort',                       ref:'B2.4.3',          level:'sl-hl'},
+  {id:'l17', num:17, title:'Selection Sort',                    ref:'B2.4.3',          level:'sl-hl'},
+  {id:'l18', num:18, title:'Recursion Fundamentals',            ref:'B2.4.4',          level:'hl'},
+  {id:'l19', num:19, title:'Recursive Algorithms',              ref:'B2.4.5',          level:'hl'},
+  {id:'l20', num:20, title:'Recursion Practice',                ref:'B2.4.5',          level:'hl'},
+  {id:'l21', num:21, title:'File Processing',                   ref:'B2.5.1',          level:'sl-hl'},
 ];
 
 // ── B3 OOP Lesson definitions ─────────────────────────────────────────────────
@@ -1695,860 +1712,1393 @@ function b2LessonContent(id) {
   switch(id) {
 
   case 'l1': return `
-    ${section('Java Program Structure',
-      p('All Java programs are organised as <strong>classes</strong> contained within a <strong>project</strong>. Every class has at least one method called <code>main()</code>, this is where execution begins.'),
-      jcode(`public class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}`)
+    ${section('Why Python?',
+      p('B2 Programming is taught in <strong>Python</strong>. Python is widely used in industry for web development, data science, automation, and AI. It is also the language used in your IGCSE Computer Science course, so lessons 2 to 9 revisit those skills at speed before moving on to new content.'),
+      tip('If you are confident in your Python from IGCSE, you can complete the mini project in Lesson 9 instead of working through lessons 2 to 9.')
     )}
-    ${section('The 3 Laws of Java',
+    ${section('Setting Up VS Code',
+      p('<strong>Visual Studio Code (VS Code)</strong> is a free, professional code editor. Follow these steps to set it up:'),
       `<ol style="line-height:2;margin:0 0 0 1.5rem">
-        <li>Every statement ends with a <code>;</code>: unless the next symbol is a <code>{</code></li>
-        <li>Every <code>{</code> has a matching <code>}</code></li>
-        <li>Classes start with a capital letter; methods and variables start with a lowercase letter</li>
+        <li>Download VS Code from <strong>code.visualstudio.com</strong> and install it.</li>
+        <li>Install the <strong>Python extension</strong> (by Microsoft) from the Extensions panel on the left.</li>
+        <li>Install Python from <strong>python.org</strong> if not already installed.</li>
+        <li>Create a new file and save it with a <code>.py</code> extension.</li>
+        <li>Click the Run button (or press <code>F5</code>) to run your program.</li>
+      </ol>`
+    )}
+    ${section('GitHub and Version Control',
+      p('<strong>GitHub</strong> is an online platform for storing and sharing code. You will use it to submit all your work this year.'),
+      `<ol style="line-height:2;margin:0 0 0 1.5rem">
+        <li>Create a free account at <strong>github.com</strong>.</li>
+        <li>Install <strong>GitHub Desktop</strong> from <strong>desktop.github.com</strong>.</li>
+        <li>Create a new repository for this course (e.g. <code>ib-programming</code>).</li>
+        <li>Add your teacher as a <strong>collaborator</strong>: Settings &gt; Collaborators &gt; Add people.</li>
+        <li>Clone the repository to your local machine using GitHub Desktop.</li>
+        <li>Save your Python files inside the cloned folder, then commit and push to upload them.</li>
       </ol>`,
-      examTip('Forgetting a semicolon or mismatched braces are the most common syntax errors in Java. Check these first whenever a program fails to compile.')
+      tip('Commit regularly, not just when everything is finished. A message like "Add temperature tracker function" is much more useful than "update".')
     )}
-    ${section('The 5 Data Types',
-      p('Java is a <strong>statically typed</strong> language: every variable must be declared with a type before use. Different types use different amounts of memory; using the smallest type that fits your data is good practice.'),
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Type</th><th>Stores</th><th>Example values</th></tr></thead>
-        <tbody>
-          <tr><td><code>int</code></td><td>Whole numbers</td><td>23, 0, -98, 39290</td></tr>
-          <tr><td><code>double</code></td><td>Decimal numbers</td><td>1.2, -5.93, 3.3333</td></tr>
-          <tr><td><code>boolean</code></td><td>True or false</td><td>true, false</td></tr>
-          <tr><td><code>char</code></td><td>A single character (in single quotes)</td><td>'a', '3', '@'</td></tr>
-          <tr><td><code>String</code></td><td>Text / sequences of characters (in double quotes)</td><td>"cat", "DA1 2HW"</td></tr>
-        </tbody>
-      </table></div>`,
-      tip('Use <code>int</code> for whole numbers, <code>double</code> for decimals, and <code>String</code> for text. Strings are the largest type: only use them when you need text.')
-    )}
-    ${section('Declaring and Instantiating Variables',
-      p('A variable can be declared and given a value (instantiated) separately or in one line:'),
-      jcode(`// Declare then instantiate
-int number;
-number = 3;
+    ${section('Automated Testing',
+      p('Your repository includes automated tests defined in <code>python-tests.yml</code> (a GitHub Actions workflow). Every time you push code, the tests run automatically. Test files like <code>test_helloworld.py</code> check that your functions return the correct output.'),
+      p('A green checkmark on your commit means all tests pass. A red cross means something needs fixing.'),
+      pcode(`# helloworld.py
+def hello():
+    return "Hello, World!"
 
-// All in one
-int number = 3;
-String name = "Alice";
-double price = 2.99;
-boolean fit = true;
-char letter = 'a';`)
+print(hello())`)
     )}
-    ${section('Common Pitfalls',
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Wrong</th><th>Correct</th><th>Why</th></tr></thead>
-        <tbody>
-          <tr><td><code>true</code></td><td><code>"true"</code></td><td>Without quotes = boolean; with quotes = String</td></tr>
-          <tr><td><code>"a"</code></td><td><code>'a'</code></td><td>Double quotes = String; single quotes = char</td></tr>
-          <tr><td><code>"4"</code></td><td><code>4</code></td><td>Strings cannot do arithmetic: "4" + "4" = "44"</td></tr>
-        </tbody>
-      </table></div>`,
-      jcode(`// Demonstration of the String + trap
-String number = "2";
-int zombie = 4;
-System.out.println(number + number); // Output: 22  (concatenation, not addition)
-System.out.println(zombie + zombie);  // Output: 8   (arithmetic addition)`)
-    )}
-    ${section('Output',
-      jcode(`System.out.println("Hello");   // prints then moves to new line
-System.out.print("Hello");    // prints without a new line
-
-int num1 = 5, num2 = 10;
-System.out.println(num1 + num2);           // Output: 15
-System.out.println(num1 + " + " + num2);   // Output: 5 + 10`)
-    )}
-    ${section('Comments and Coding Style',
-      jcode(`// Single-line comment: anything after // is ignored
-
-/* Multi-line comment
-   Use for method documentation */
-
-// Good variable names: meaningful, camelCase, not too long
-int averageMark;       // Good
-int a;                 // Bad, not meaningful
-int averageOfAllMarks; // Bad: too long`),
-      tip('Use meaningful camelCase variable names. Add a comment explaining <em>why</em> you wrote code a certain way, not <em>what</em> each line does.')
-    )}
-    ${section('Key Terms',
-      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
-        ${[
-          ['Class','A blueprint for a Java program. Execution starts in main().'],
-          ['Variable','A named memory location holding a value that can change.'],
-          ['Data type','Defines what kind of value a variable holds (int, double, boolean, char, String).'],
-          ['Declaration','Telling Java a variable exists and what type it is.'],
-          ['Instantiation','Assigning an initial value to a variable.'],
-          ['System.out.println()','Prints output to the console followed by a new line.'],
-        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
-      </div></div>`
+    ${section('HackerRank and LeetCode',
+      p('<strong>HackerRank</strong> and <strong>LeetCode</strong> are programming practice platforms used by students and professionals worldwide. You will use both throughout this course.'),
+      p('Start with the HackerRank warm-up: <a href="https://www.hackerrank.com/challenges/solve-me-first/problem" target="_blank">Solve Me First</a>. Write a function that returns the sum of two integers. This confirms your setup is working and introduces the function format used in all exercises.')
     )}`;
 
   case 'l2': return `
-    ${section('Keyboard Input with Scanner',
-      p('To receive input from the user in Java, we use the <code>Scanner</code> class from the <code>java.util</code> package. There are 4½ steps:'),
-      `<ol style="line-height:2;margin:0 0 0 1.5rem">
-        <li>Import <code>java.util.*</code> before the class declaration</li>
-        <li>Declare a <code>Scanner</code> object</li>
-        <li>Declare a <code>String</code> variable to catch the input</li>
-        <li>Use the Scanner to read from the keyboard into the variable</li>
-        <li>Convert to <code>int</code>, <code>double</code>, or <code>char</code> if needed</li>
-      </ol>`,
-      jcode(`import java.util.*;
+    ${section('What is a Variable?',
+      def('Variable', 'A named location in memory that stores a value. The value can change while the program runs.'),
+      pcode(`name = "Alice"
+age = 17
+height = 1.72
+is_student = True
 
-public class InputExample {
-    public static void main(String[] args) {
-        Scanner kb = new Scanner(System.in);
-
-        System.out.println("Enter your name: ");
-        String name = kb.nextLine();
-
-        System.out.println("Enter your age: ");
-        String sAge = kb.nextLine();
-        int age = Integer.parseInt(sAge);
-
-        System.out.println("Hello " + name + ", you are " + age + " years old.");
-    }
-}`)
+print(name)       # Alice
+print(age + 1)    # 18`)
     )}
-    ${section('Converting Input Types',
+    ${section('Python Data Types',
       `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Target type</th><th>Conversion method</th><th>Example</th></tr></thead>
+        <thead><tr><th>Type</th><th>Stores</th><th>Example</th></tr></thead>
         <tbody>
-          <tr><td><code>int</code></td><td><code>Integer.parseInt(s)</code></td><td><code>int n = Integer.parseInt(sNumber);</code></td></tr>
-          <tr><td><code>double</code></td><td><code>Double.parseDouble(s)</code></td><td><code>double p = Double.parseDouble(sPrice);</code></td></tr>
+          <tr><td><code>int</code></td><td>Whole numbers</td><td><code>42</code>, <code>-7</code></td></tr>
+          <tr><td><code>float</code></td><td>Decimal numbers</td><td><code>3.14</code>, <code>-0.5</code></td></tr>
+          <tr><td><code>str</code></td><td>Text (in quotes)</td><td><code>"hello"</code>, <code>'world'</code></td></tr>
+          <tr><td><code>bool</code></td><td>True or False</td><td><code>True</code>, <code>False</code></td></tr>
+          <tr><td><code>list</code></td><td>Ordered collection</td><td><code>[1, 2, 3]</code></td></tr>
         </tbody>
       </table></div>`,
-      tip('Always receive input as a String first, then convert. This prevents type mismatch errors.')
+      pcode(`x = 10          # int
+y = 3.5         # float
+label = "score" # str
+passed = True   # bool
+
+print(type(x))  # <class 'int'>`)
     )}
-    ${section('Arithmetic Operators',
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Operator</th><th>Function</th><th>Example</th><th>Result</th></tr></thead>
-        <tbody>
-          <tr><td><code>+</code></td><td>Add</td><td>10 + 2</td><td>12</td></tr>
-          <tr><td><code>-</code></td><td>Subtract</td><td>10 - 3</td><td>7</td></tr>
-          <tr><td><code>/</code></td><td>Divide</td><td>9.0 / 3</td><td>3.0</td></tr>
-          <tr><td><code>*</code></td><td>Multiply</td><td>9 * 12</td><td>108</td></tr>
-          <tr><td><code>++</code></td><td>Add 1</td><td>i++</td><td>i becomes i+1</td></tr>
-          <tr><td><code>--</code></td><td>Subtract 1</td><td>j--</td><td>j becomes j-1</td></tr>
-          <tr><td><code>%</code></td><td>Modulus (remainder)</td><td>12 % 5</td><td>2</td></tr>
-        </tbody>
-      </table></div>`,
-      examTip('Remember: when doing integer division in Java, <code>9 / 2 = 4</code> (not 4.5) because both operands are <code>int</code>. Use a <code>double</code> for at least one operand to get a decimal result.')
+    ${section('Global and Local Variables',
+      def('Global variable', 'A variable declared outside all functions. It can be accessed anywhere in the program.'),
+      def('Local variable', 'A variable declared inside a function. It only exists while that function is running.'),
+      pcode(`total = 0       # global variable
+
+def add_score(points):
+    bonus = 10      # local variable: only exists here
+    return points + bonus
+
+print(total)        # 0  - accessible globally
+# print(bonus)      # NameError: bonus is not defined here`),
+      examTip('In Python, a function can <em>read</em> a global variable, but to <em>modify</em> it inside a function you must declare <code>global total</code> at the start of the function. Prefer passing values as parameters instead.')
     )}
-    ${section('String Methods',
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Method</th><th>Returns</th><th>Example</th></tr></thead>
-        <tbody>
-          <tr><td><code>.charAt(x)</code></td><td>char at index x (0-based)</td><td><code>"blue".charAt(0)</code> → <code>'b'</code></td></tr>
-          <tr><td><code>.toUpperCase()</code></td><td>String in ALL CAPS</td><td><code>"bob".toUpperCase()</code> → <code>"BOB"</code></td></tr>
-          <tr><td><code>.toLowerCase()</code></td><td>String in all lowercase</td><td><code>"DOG".toLowerCase()</code> → <code>"dog"</code></td></tr>
-          <tr><td><code>.substring(x, y)</code></td><td>Portion between index x and y (exclusive)</td><td><code>"I love hats".substring(2,6)</code> → <code>"love"</code></td></tr>
-          <tr><td><code>.length()</code></td><td>Number of characters (int)</td><td><code>"radar".length()</code> → <code>5</code></td></tr>
-        </tbody>
-      </table></div>`,
-      jcode(`String device = "radio";
-char letter = device.charAt(2);      // 'd'  (indices: r=0, a=1, d=2, i=3, o=4)
-String shout = device.toUpperCase(); // "RADIO"
-int size = device.length();          // 5`)
+    ${section('Type Conversion',
+      p('Python does not automatically convert between types. Use the built-in conversion functions:'),
+      pcode(`score_str = "95"
+score = int(score_str)    # str to int
+price = float("4.99")     # str to float
+label = str(42)           # int to str
+
+age = int(input("Enter age: "))   # input() always returns str`),
+      tip('Every value from <code>input()</code> is a <code>str</code>. Always convert it before doing arithmetic.')
     )}
     ${section('Key Terms',
       `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
         ${[
-          ['Scanner','Java class used to read keyboard input.'],
-          ['Integer.parseInt()','Converts a String to an int.'],
-          ['Double.parseDouble()','Converts a String to a double.'],
-          ['Modulus (%)',  'Returns the remainder of integer division.'],
-          ['.charAt(x)','Returns the character at index x of a String (0-based).'],
-          ['.length()','Returns the number of characters in a String.'],
+          ['Variable','A named memory location that stores a value.'],
+          ['int','Whole number data type: 0, 5, -12.'],
+          ['float','Decimal number data type: 3.14, -0.5.'],
+          ['str','String (text) data type.'],
+          ['bool','Boolean type: True or False.'],
+          ['Global variable','Accessible throughout the entire program.'],
+          ['Local variable','Only accessible inside the function where it is declared.'],
+          ['int()','Converts a value to an integer.'],
         ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
       </div></div>`
     )}`;
 
   case 'l3': return `
-    ${section('Selection: Changing Program Flow',
-      p('<strong>Selection</strong> allows a program to take different paths depending on a condition. It is one of the three fundamental program structures (sequence, selection, iteration).'),
-      def('Selection', 'A programming construct that executes different blocks of code based on whether a condition evaluates to true or false.')
-    )}
-    ${section('IF and IF/ELSE',
-      jcode(`// IF: one outcome
-if (num > 3) {
-    System.out.println("Greater than 3");
-}
+    ${section('Strings in Python',
+      p('A <strong>string</strong> is a sequence of characters. Each character has an index, starting at 0.'),
+      pcode(`word = "python"
+#        p  y  t  h  o  n
+# index: 0  1  2  3  4  5
 
-// IF/ELSE: two outcomes
-if (age >= 18) {
-    System.out.println("Adult");
-} else {
-    System.out.println("Minor");
-}
-
-// IF/ELSE IF/ELSE: multiple outcomes
-int temp = 28;
-if (temp > 30) {
-    System.out.println("Hot");
-} else if (temp > 20) {
-    System.out.println("Warm");
-} else {
-    System.out.println("Cool");
-}`),
-      tip('Only the <code>if</code> gets a condition in its brackets. <code>else</code> and <code>else if</code> do not need brackets on the <code>else</code> keyword itself.')
+print(word[0])   # p
+print(word[3])   # h
+print(word[-1])  # n  (last character)`),
+      tip('Negative indices count from the end: <code>-1</code> is the last character, <code>-2</code> is the second to last.')
     )}
-    ${section('Comparison (Logic) Operators',
+    ${section('Substrings: String Slicing',
+      def('Substring', 'A portion of a string, extracted using slice syntax: <code>string[start:end]</code>. The character at index <code>end</code> is NOT included.'),
+      pcode(`phrase = "Hello, World!"
+
+print(phrase[0:5])   # Hello
+print(phrase[7:12])  # World
+print(phrase[7:])    # World!  (to the end)
+print(phrase[:5])    # Hello   (from the start)
+print(phrase[::-1])  # !dlroW ,olleH  (reversed)`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Syntax</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>s[i]</code></td><td>Character at index i</td></tr>
+          <tr><td><code>s[a:b]</code></td><td>From index a up to (not including) index b</td></tr>
+          <tr><td><code>s[a:]</code></td><td>From index a to the end</td></tr>
+          <tr><td><code>s[:b]</code></td><td>From the start up to index b</td></tr>
+          <tr><td><code>s[::-1]</code></td><td>The whole string reversed</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Common String Methods',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Method</th><th>What it does</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>.upper()</code></td><td>ALL CAPS</td><td><code>"hello".upper()</code> gives <code>"HELLO"</code></td></tr>
+          <tr><td><code>.lower()</code></td><td>all lowercase</td><td><code>"HELLO".lower()</code> gives <code>"hello"</code></td></tr>
+          <tr><td><code>.strip()</code></td><td>Remove leading/trailing whitespace</td><td><code>"  hi  ".strip()</code> gives <code>"hi"</code></td></tr>
+          <tr><td><code>.replace(a, b)</code></td><td>Replace all occurrences of a with b</td><td><code>"cats".replace("a","o")</code> gives <code>"cots"</code></td></tr>
+          <tr><td><code>.split()</code></td><td>Split into a list of words</td><td><code>"a b c".split()</code> gives <code>["a","b","c"]</code></td></tr>
+          <tr><td><code>.find(sub)</code></td><td>Index of first match, or -1 if not found</td><td><code>"hello".find("ll")</code> gives <code>2</code></td></tr>
+          <tr><td><code>len(s)</code></td><td>Number of characters</td><td><code>len("cat")</code> gives <code>3</code></td></tr>
+        </tbody>
+      </table></div>`,
+      pcode(`sentence = "  The Quick Brown Fox  "
+print(sentence.strip())          # "The Quick Brown Fox"
+print(sentence.lower().strip())  # "the quick brown fox"
+words = sentence.strip().split()
+print(words)  # ["The", "Quick", "Brown", "Fox"]`)
+    )}
+    ${section('String Formatting',
+      p('f-strings let you embed variable values directly in a string:'),
+      pcode(`name = "Alice"
+score = 95
+print(f"Student: {name}, Score: {score}")
+# Output: Student: Alice, Score: 95
+
+pi = 3.14159
+print(f"Pi to 2dp: {pi:.2f}")
+# Output: Pi to 2dp: 3.14`)
+    )}
+    ${section('Practice',
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li>Given a string, print the first and last characters.</li>
+        <li>Given a word, check if it is a palindrome (reads the same forwards and backwards).</li>
+        <li>Given a sentence, count how many words start with a vowel.</li>
+        <li><a href="https://leetcode.com/problems/valid-palindrome/" target="_blank">LeetCode #125: Valid Palindrome</a></li>
+        <li><a href="https://leetcode.com/problems/palindrome-number/" target="_blank">LeetCode #9: Palindrome Number</a></li>
+      </ul>`
+    )}`;
+
+  case 'l4': return `
+    ${section('What is a List?',
+      def('List', 'An ordered, mutable (changeable) collection of values. Lists can hold items of any data type, including other lists.'),
+      pcode(`scores = [85, 92, 78, 90, 88]
+names  = ["Alice", "Bob", "Charlie"]
+mixed  = [42, "hello", True, 3.14]
+
+print(scores[0])   # 85  (first element, index 0)
+print(scores[-1])  # 88  (last element)
+print(len(scores)) # 5`),
+      tip('Lists are zero-indexed: the first element is always at index 0.')
+    )}
+    ${section('Modifying Lists',
+      pcode(`fruits = ["apple", "banana", "cherry"]
+
+fruits[1] = "mango"       # change an item
+fruits.append("grape")    # add to the end
+fruits.insert(0, "kiwi")  # insert at index 0
+fruits.remove("cherry")   # remove by value
+popped = fruits.pop()     # remove and return the last item
+
+print(fruits)`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Method</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>.append(x)</code></td><td>Add x to the end</td></tr>
+          <tr><td><code>.insert(i, x)</code></td><td>Insert x at index i</td></tr>
+          <tr><td><code>.remove(x)</code></td><td>Remove the first occurrence of x</td></tr>
+          <tr><td><code>.pop()</code></td><td>Remove and return the last item</td></tr>
+          <tr><td><code>.sort()</code></td><td>Sort ascending (in place)</td></tr>
+          <tr><td><code>.reverse()</code></td><td>Reverse the list in place</td></tr>
+          <tr><td><code>len(lst)</code></td><td>Number of items</td></tr>
+          <tr><td><code>x in lst</code></td><td>True if x is in the list</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Iterating Over a List',
+      pcode(`scores = [85, 92, 78, 90]
+
+# Loop through values
+for score in scores:
+    print(score)
+
+# Loop with index
+for i in range(len(scores)):
+    print(f"Student {i+1}: {scores[i]}")
+
+# List comprehension
+doubled = [s * 2 for s in scores]
+print(doubled)  # [170, 184, 156, 180]`),
+      examTip('Do not modify a list by value while iterating with <code>for x in list</code>. To change items, iterate by index: <code>for i in range(len(list))</code>.')
+    )}
+    ${section('2D Lists',
+      def('2D list', 'A list of lists. Each inner list is a row. Access a cell with two indices: <code>grid[row][col]</code>.'),
+      pcode(`grid = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print(grid[0][0])  # 1  (row 0, col 0)
+print(grid[1][2])  # 6  (row 1, col 2)
+
+# Iterate over all cells
+for row in grid:
+    for cell in row:
+        print(cell, end=" ")
+    print()`),
+      tip('2D lists are used to represent grids, tables, matrices, and maps. The maze in Problem Set 1 is a 2D list.')
+    )}`;
+
+  case 'l5': return `
+    ${section('Sequence: Instructions in Order',
+      def('Sequence', 'The simplest program structure: instructions execute one after another, top to bottom, in the order they are written.'),
+      p('All programs are built from three fundamental structures: <strong>sequence</strong>, <strong>selection</strong>, and <strong>iteration</strong>. Sequence is the default: code runs from top to bottom unless a selection or loop changes the flow.'),
+      pcode(`name = input("What is your name? ")
+age = int(input("How old are you? "))
+year_born = 2025 - age
+print(f"Hello {name}, you were born around {year_born}.")`)
+    )}
+    ${section('Trace Tables',
+      def('Trace table', 'A table used to manually step through code and record the value of each variable at each line. Used for debugging and exam questions.'),
+      p('Example: trace the following code'),
+      pcode(`x = 5
+y = 3
+x = x + y
+y = x - y
+x = x - y`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Line</th><th>x</th><th>y</th></tr></thead>
+        <tbody>
+          <tr><td>x = 5</td><td>5</td><td>-</td></tr>
+          <tr><td>y = 3</td><td>5</td><td>3</td></tr>
+          <tr><td>x = x + y</td><td>8</td><td>3</td></tr>
+          <tr><td>y = x - y</td><td>8</td><td>5</td></tr>
+          <tr><td>x = x - y</td><td>3</td><td>5</td></tr>
+        </tbody>
+      </table></div>`,
+      tip('This three-line swap exchanges the values of x and y without using a third variable. The trace table proves it.')
+    )}
+    ${section('Writing Structured Programs',
+      p('A well-structured program has clear stages: get input, process, output. Break complex tasks into small named steps:'),
+      pcode(`def get_input():
+    name = input("Enter student name: ")
+    grade = int(input("Enter grade (0-100): "))
+    return name, grade
+
+def classify(grade):
+    if grade >= 70:
+        return "Pass"
+    return "Fail"
+
+def display(name, result):
+    print(f"{name}: {result}")
+
+name, grade = get_input()
+result = classify(grade)
+display(name, result)`),
+      examTip('IB exam questions often ask you to trace code or fill in a trace table. Follow each line carefully and update variable values step by step. Do not skip ahead.')
+    )}
+    ${section('Reading Unfamiliar Code',
+      `<ol style="line-height:2;margin:0 0 0 1.5rem">
+        <li>Identify all variables and their initial values.</li>
+        <li>Follow the code line by line from the top.</li>
+        <li>When you reach a function call, trace into that function.</li>
+        <li>Note values returned from functions and where they are stored.</li>
+        <li>Use a trace table if the logic is complex.</li>
+      </ol>`
+    )}`;
+
+  case 'l6': return `
+    ${section('Selection in Programming',
+      def('Selection', 'A program structure that executes different code depending on whether a condition is true or false.'),
+      p('Without selection, a program would do exactly the same thing every time. Selection lets programs respond to different inputs.')
+    )}
+    ${section('if, elif, else',
+      pcode(`temperature = int(input("Temperature: "))
+
+if temperature > 35:
+    print("Very hot")
+elif temperature > 25:
+    print("Warm")
+elif temperature > 15:
+    print("Cool")
+else:
+    print("Cold")`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Keyword</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><code>if</code></td><td>First condition to test</td></tr>
+          <tr><td><code>elif</code></td><td>Additional condition, tested only if all above were False</td></tr>
+          <tr><td><code>else</code></td><td>Runs when all conditions above are False</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('Only the first matching branch executes. Once a condition is True, the remaining branches are skipped. Order matters.')
+    )}
+    ${section('Comparison Operators',
       `<div class="tbl-wrap"><table class="content-table">
         <thead><tr><th>Operator</th><th>Meaning</th><th>Example</th></tr></thead>
         <tbody>
-          <tr><td><code>==</code></td><td>Equal to (for int, double, char, boolean)</td><td><code>if (num == 3)</code></td></tr>
-          <tr><td><code>.equals()</code></td><td>Equal to (for Strings)</td><td><code>if (name.equals("Alice"))</code></td></tr>
-          <tr><td><code>!=</code></td><td>Not equal to</td><td><code>if (married != true)</code></td></tr>
-          <tr><td><code>&gt;</code></td><td>Greater than</td><td><code>if (num &gt; 20)</code></td></tr>
-          <tr><td><code>&lt;</code></td><td>Less than</td><td><code>if (num &lt; 15)</code></td></tr>
-          <tr><td><code>&gt;=</code></td><td>Greater than or equal to</td><td><code>if (age &gt;= 18)</code></td></tr>
-          <tr><td><code>&lt;=</code></td><td>Less than or equal to</td><td><code>if (age &lt;= 12)</code></td></tr>
+          <tr><td><code>==</code></td><td>Equal to</td><td><code>x == 5</code></td></tr>
+          <tr><td><code>!=</code></td><td>Not equal to</td><td><code>x != 0</code></td></tr>
+          <tr><td><code>&gt;</code></td><td>Greater than</td><td><code>age &gt; 18</code></td></tr>
+          <tr><td><code>&lt;</code></td><td>Less than</td><td><code>score &lt; 50</code></td></tr>
+          <tr><td><code>&gt;=</code></td><td>Greater than or equal to</td><td><code>age &gt;= 18</code></td></tr>
+          <tr><td><code>&lt;=</code></td><td>Less than or equal to</td><td><code>score &lt;= 100</code></td></tr>
         </tbody>
       </table></div>`,
-      examTip('<strong>Never</strong> use <code>=</code> in a condition: that is assignment. Use <code>==</code> to compare. Also: never compare Strings with <code>==</code>; always use <code>.equals()</code>.')
+      tip('Remember: <code>=</code> assigns a value; <code>==</code> compares two values. Using <code>=</code> in a condition is a very common bug.')
     )}
-    ${section('AND / OR Conditions',
-      jcode(`// AND: both conditions must be true
-if (num > 3 && num < 12) {
-    System.out.println("Between 3 and 12");
-}
+    ${section('Boolean Operators',
+      pcode(`# and: both conditions must be True
+if age >= 18 and has_id:
+    print("Entry allowed")
 
-// OR: at least one condition must be true
-if (age < 5 || age > 65) {
-    System.out.println("Reduced ticket price");
-}`)
+# or: at least one condition must be True
+if day == "Saturday" or day == "Sunday":
+    print("Weekend")
+
+# not: inverts the condition
+if not is_banned:
+    print("Welcome")`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Operator</th><th>True when</th></tr></thead>
+        <tbody>
+          <tr><td><code>and</code></td><td>Both sides are True</td></tr>
+          <tr><td><code>or</code></td><td>At least one side is True</td></tr>
+          <tr><td><code>not</code></td><td>The condition is False</td></tr>
+        </tbody>
+      </table></div>`
     )}
-    ${section('Switch / Case',
-      p('When testing a single variable against many specific values, <code>switch/case</code> is cleaner than a long if/else chain:'),
-      jcode(`switch (dayNumber) {
-    case 1:
-        System.out.println("Monday");
-        break;
-    case 2:
-        System.out.println("Tuesday");
-        break;
-    default:
-        System.out.println("Other day");
-        break;
-}`),
-      tip('Always include a <code>break</code> at the end of each case: without it, execution "falls through" to the next case.')
-    )}
-    ${section('Key Terms',
-      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
-        ${[
-          ['Selection','A construct that routes execution based on a condition.'],
-          ['== vs =','== compares values; = assigns a value.'],
-          ['.equals()','Method for comparing String values.'],
-          ['&&','Logical AND: both conditions must be true.'],
-          ['||','Logical OR: at least one condition must be true.'],
-          ['switch/case','Multi-way selection for testing one variable against specific values.'],
-        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
-      </div></div>`
+    ${section('Nested Selection',
+      pcode(`score = int(input("Score: "))
+is_bonus = input("Bonus round? (y/n): ") == "y"
+
+if score >= 50:
+    if is_bonus:
+        print("Pass with distinction!")
+    else:
+        print("Pass")
+else:
+    print("Fail")`),
+      tip('Nested <code>if</code> statements can often be flattened by combining conditions with <code>and</code>. Keep nesting shallow for readability.')
     )}`;
 
-  case 'l4': return `
-    ${section('Iteration: Repeating Code',
-      p('<strong>Iteration</strong> (looping) allows a program to repeat a block of code. There are two main types: <strong>count-controlled</strong> (for loop) and <strong>condition-controlled</strong> (while loop).'),
-      def('Iteration', 'Repeating a block of statements either a fixed number of times (count-controlled) or while a condition remains true (condition-controlled).')
+  case 'l7': return `
+    ${section('Why Use Loops?',
+      def('Iteration', 'A program structure that repeats a block of code either a fixed number of times (count-controlled) or until a condition becomes False (condition-controlled).'),
+      pcode(`# Without a loop (not scalable):
+print(1)
+print(2)
+print(3)
+
+# With a loop:
+for i in range(1, 4):
+    print(i)`)
     )}
-    ${section('FOR Loop (Count-Controlled)',
-      p('Use a <code>for</code> loop when you know <em>exactly</em> how many times to repeat:'),
-      jcode(`// Structure: for(initialise; condition; update)
-for (int i = 0; i < 3; i++) {
-    System.out.println("X");
-}
-// Output: X  X  X  (3 times)
+    ${section('for Loop (Count-Controlled)',
+      p('Use a <code>for</code> loop when you know exactly how many times to repeat, or when iterating over a sequence.'),
+      pcode(`# Count from 0 to 4
+for i in range(5):
+    print(i)          # 0 1 2 3 4
 
-// Printing i values
-for (int i = 0; i < 5; i++) {
-    System.out.println(i);
-}
-// Output: 0  1  2  3  4
+# Count from 1 to 10
+for i in range(1, 11):
+    print(i)
 
-// Counting in steps of 2
-for (int j = 2; j < 10; j = j + 2) {
-    System.out.println(j);
-}
-// Output: 2  4  6  8`),
+# Step by 5
+for i in range(0, 20, 5):
+    print(i)          # 0 5 10 15
+
+# Iterate over a list
+names = ["Alice", "Bob", "Charlie"]
+for name in names:
+    print(f"Hello, {name}!")`),
       `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Part</th><th>Description</th><th>Example</th></tr></thead>
+        <thead><tr><th>range() form</th><th>Values produced</th></tr></thead>
         <tbody>
-          <tr><td><strong>Initialise</strong></td><td>Create counter variable and set starting value</td><td><code>int i = 0</code></td></tr>
-          <tr><td><strong>Condition</strong></td><td>Loop continues while this is true</td><td><code>i &lt; 5</code></td></tr>
-          <tr><td><strong>Update</strong></td><td>What happens to the counter at end of each iteration</td><td><code>i++</code></td></tr>
-        </tbody>
-      </table></div>`,
-      examTip('The most common mistake: putting a semicolon after the <code>for</code> header: <code>for(int i=0; i&lt;5; i++);</code>, this creates an empty loop that does nothing, then runs the body once.')
-    )}
-    ${section('WHILE Loop (Condition-Controlled)',
-      p('Use a <code>while</code> loop when you do <em>not</em> know in advance how many times to repeat: you repeat as long as a condition stays true:'),
-      jcode(`Scanner kb = new Scanner(System.in);
-int score = 0;
-
-while (score < 10) {
-    System.out.println("Enter a score: ");
-    String s = kb.nextLine();
-    score = Integer.parseInt(s);
-}
-System.out.println("Score reached 10 or above!");`)
-    )}
-    ${section('Nested Loops and Random Numbers',
-      p('Loops can be placed inside other loops. Java\'s <code>Math.random()</code> generates a random decimal between 0 and 1. To get a random integer between <em>min</em> and <em>max</em> (inclusive):'),
-      jcode(`// Random integer formula: min + (int)(Math.random() * ((max - min) + 1))
-int random1to10 = 1 + (int)(Math.random() * ((10 - 1) + 1));
-
-// Print a random number 5 times
-for (int i = 0; i < 5; i++) {
-    int roll = 1 + (int)(Math.random() * 6); // dice 1-6
-    System.out.println(roll);
-}`)
-    )}
-    ${section('FOR vs WHILE',
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th></th><th>FOR loop</th><th>WHILE loop</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Use when</strong></td><td>Number of iterations is known</td><td>Number of iterations is unknown</td></tr>
-          <tr><td><strong>Counter</strong></td><td>Built into the loop header</td><td>Must manage manually</td></tr>
-          <tr><td><strong>Example</strong></td><td>Print 10 lines</td><td>Keep asking until valid input</td></tr>
+          <tr><td><code>range(n)</code></td><td>0, 1, 2, ..., n-1</td></tr>
+          <tr><td><code>range(a, b)</code></td><td>a, a+1, ..., b-1</td></tr>
+          <tr><td><code>range(a, b, step)</code></td><td>a, a+step, ..., stopping before b</td></tr>
         </tbody>
       </table></div>`
     )}
-    ${section('Key Terms',
-      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
-        ${[
-          ['Iteration','Repeating a block of code (looping).'],
-          ['for loop','Count-controlled loop: use when iterations are known.'],
-          ['while loop','Condition-controlled loop: repeats until condition is false.'],
-          ['i++','Shorthand for i = i + 1 (increment by 1).'],
-          ['Math.random()','Returns a random double between 0.0 (inclusive) and 1.0 (exclusive).'],
-          ['Infinite loop','A loop whose condition never becomes false: a bug to avoid.'],
-        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
-      </div></div>`
+    ${section('while Loop (Condition-Controlled)',
+      p('Use a <code>while</code> loop when you do not know in advance how many times to repeat.'),
+      pcode(`# Keep asking until valid input
+score = -1
+while score < 0 or score > 100:
+    score = int(input("Enter a score (0-100): "))
+print(f"Valid score: {score}")
+
+# Countdown
+count = 5
+while count > 0:
+    print(count)
+    count -= 1
+print("Blastoff!")`),
+      examTip('Every <code>while</code> loop must contain code that can eventually make the condition False. If the condition never becomes False, you have an <strong>infinite loop</strong>.')
+    )}
+    ${section('Nested Loops',
+      p('A loop inside another loop. The inner loop completes all its iterations for each single iteration of the outer loop.'),
+      pcode(`# Multiplication table
+for i in range(1, 4):
+    for j in range(1, 4):
+        print(f"{i} x {j} = {i*j}")
+
+# Iterating a 2D list
+grid = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+for row in grid:
+    for cell in row:
+        print(cell, end=" ")
+    print()`)
+    )}
+    ${section('break and continue',
+      pcode(`# break: exit the loop immediately
+for i in range(10):
+    if i == 5:
+        break
+    print(i)    # 0 1 2 3 4
+
+# continue: skip the rest of this iteration
+for i in range(10):
+    if i % 2 == 0:
+        continue
+    print(i)    # 1 3 5 7 9`)
     )}`;
 
-  default: return `<div class="page-section"><p>Content coming soon.</p></div>`;
-  }
-}
+  case 'l8': return `
+    ${section('What is a Function?',
+      def('Function', 'A named, reusable block of code that performs a specific task. Functions take inputs (parameters), do work, and optionally return a result.'),
+      pcode(`def greet(name):
+    message = f"Hello, {name}!"
+    return message
 
-// ── B3 OOP Lesson content ─────────────────────────────────────────────────────
-function b3LessonContent(id) {
-  switch(id) {
+result = greet("Alice")
+print(result)    # Hello, Alice!`)
+    )}
+    ${section('Parameters and Return Values',
+      pcode(`# Multiple parameters
+def calculate_bmi(weight_kg, height_m):
+    bmi = weight_kg / (height_m ** 2)
+    return round(bmi, 1)
 
-  case 'l1': return `
-    ${section('What is Object-Oriented Programming?',
-      def('Object-Oriented Programming (OOP)', 'A programming paradigm that organises code around <strong>objects</strong> — entities that combine data (attributes) and behaviour (methods) in a single unit.'),
-      p('Before OOP, most programs were written in a <strong>procedural</strong> style — code was a sequence of instructions, and data was passed around between functions. OOP changes the model: instead of thinking about what the program <em>does</em>, you think about what <em>things</em> exist in your program and what they can do.'),
+# No parameters
+def print_header():
+    print("=" * 40)
+    print("Student Grade Report")
+    print("=" * 40)
+
+bmi = calculate_bmi(70, 1.75)
+print(bmi)   # 22.9`),
       `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Procedural</th><th>Object-Oriented</th></tr></thead>
+        <thead><tr><th>Term</th><th>Meaning</th><th>Example</th></tr></thead>
         <tbody>
-          <tr><td>Code is a sequence of instructions</td><td>Code is a collection of interacting objects</td></tr>
-          <tr><td>Data and functions are separate</td><td>Data and behaviour are bundled together</td></tr>
-          <tr><td>Functions act on data passed in</td><td>Objects act on their own internal data</td></tr>
-          <tr><td>Harder to model complex real-world things</td><td>Maps naturally to real-world entities</td></tr>
-        </tbody>
-      </table></div>`
-    )}
-    ${section('The Four Pillars of OOP',
-      p('OOP is built on four core concepts. You will study each in depth during this unit.'),
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Pillar</th><th>Meaning</th><th>Lesson</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Encapsulation</strong></td><td>Bundling data and methods together; hiding internal details</td><td>L4</td></tr>
-          <tr><td><strong>Abstraction</strong></td><td>Exposing only what is necessary; hiding complexity</td><td>L4</td></tr>
-          <tr><td><strong>Inheritance</strong></td><td>A class can extend another, inheriting its attributes and methods</td><td>B3.2 (HL)</td></tr>
-          <tr><td><strong>Polymorphism</strong></td><td>Different classes can be used through the same interface</td><td>B3.2 (HL)</td></tr>
-        </tbody>
-      </table></div>`
-    )}
-    ${section('Classes and Objects',
-      def('Class', 'A <strong>blueprint</strong> (template) that defines what attributes and methods an object of that type will have. A class is not itself an object — it is the description of one.'),
-      def('Object', 'An <strong>instance</strong> of a class. Creating an object from a class is called <em>instantiation</em>. Each object has its own copy of the attributes defined in the class.'),
-      p('Think of a class like a cookie cutter and objects like the cookies. The cutter defines the shape; each cookie is a separate, real thing made from that shape.'),
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Class (blueprint)</th><th>Objects (instances)</th></tr></thead>
-        <tbody>
-          <tr><td><code>Dog</code></td><td><code>fido</code>, <code>rex</code>, <code>bella</code></td></tr>
-          <tr><td><code>BankAccount</code></td><td><code>alicesAccount</code>, <code>bobsAccount</code></td></tr>
-          <tr><td><code>Car</code></td><td><code>myCar</code>, <code>taxiFleet[0]</code></td></tr>
-        </tbody>
-      </table></div>`
-    )}
-    ${section('Attributes and Methods',
-      def('Attribute', 'A variable that belongs to an object. It stores the <strong>state</strong> of the object (what it knows about itself). Also called an <em>instance variable</em> or <em>field</em>.'),
-      def('Method', 'A function that belongs to an object. It defines the <strong>behaviour</strong> of the object (what it can do).'),
-      p('A <code>Dog</code> class might have:'),
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Attributes (state)</th><th>Methods (behaviour)</th></tr></thead>
-        <tbody>
-          <tr><td><code>name</code></td><td><code>bark()</code></td></tr>
-          <tr><td><code>breed</code></td><td><code>fetch()</code></td></tr>
-          <tr><td><code>age</code></td><td><code>getAge()</code></td></tr>
+          <tr><td><strong>Parameter</strong></td><td>Variable in the function definition</td><td><code>def f(x):</code></td></tr>
+          <tr><td><strong>Argument</strong></td><td>Value passed when calling the function</td><td><code>f(42)</code></td></tr>
+          <tr><td><strong>Return value</strong></td><td>Value sent back to the caller</td><td><code>return result</code></td></tr>
         </tbody>
       </table></div>`,
-      p('A minimal class in both languages — just to show the shape:'),
-      h3('Java'),
-      jcode(`public class Dog {
-    String name;
-    int age;
-
-    void bark() {
-        System.out.println(name + " says: Woof!");
-    }
-}`),
-      h3('Python'),
-      pcode(`class Dog:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-
-    def bark(self):
-        print(self.name + " says: Woof!")`)
+      examTip('A function without a <code>return</code> statement returns <code>None</code>. If you store the result, that variable will hold <code>None</code>, which causes bugs later.')
     )}
-    ${section('Benefits of OOP',
-      `<ul class="lesson-list">
-        <li><strong>Reusability:</strong> Once a class is written, it can be used to create as many objects as needed — in this project or in future projects.</li>
-        <li><strong>Modularity:</strong> Each class is self-contained. You can change one class without breaking others.</li>
-        <li><strong>Maintainability:</strong> Code is easier to read, debug, and update when related data and behaviour live together.</li>
-        <li><strong>DRY (Don\'t Repeat Yourself):</strong> Common behaviour is defined once in a class, not repeated throughout the program.</li>
+    ${section('Variable Scope',
+      pcode(`total = 100   # global variable
+
+def add(x):
+    subtotal = x + 10   # local variable
+    return subtotal
+
+def update_total():
+    global total        # required to modify a global
+    total += 50
+
+print(total)     # 100
+add(5)
+# print(subtotal)  # NameError: subtotal is not defined here
+update_total()
+print(total)     # 150`),
+      tip('Avoid <code>global</code> when possible. Pass values in as parameters and return new values. This keeps functions independent and easy to test.')
+    )}
+    ${section('Modularisation',
+      def('Modularisation', 'The practice of breaking a large program into smaller, named functions, each responsible for one task.'),
+      pcode(`def read_data(filename):
+    with open(filename) as f:
+        return [line.strip() for line in f]
+
+def process(data):
+    return [item.upper() for item in data]
+
+def display(results):
+    for item in results:
+        print(item)
+
+data = read_data("input.txt")
+results = process(data)
+display(results)`),
+      tip('If a function is longer than about 20 lines, consider splitting it. Each function should do exactly one thing.')
+    )}`;
+
+  case 'l9': return `
+    ${section('Problem Set 1 Overview',
+      p('Problem Set 1 covers all IGCSE-level programming skills: variables, data types, strings, lists, sequence, selection, loops, and functions. Each exercise tests several of these skills together.'),
+      p('If you are confident in your Python from IGCSE, you may submit a <strong>mini project</strong> of your own design in place of exercises 1 to 5. Your project must clearly demonstrate all skills covered in lessons 2 to 8.'),
+      tip('All exercises must be implemented as functions with the exact names given below. The automated tests in your GitHub repository will check these function signatures.')
+    )}
+    ${section('Exercise 1: Temperature Tracker',
+      pcode(`def temperature_tracker():
+    # Read from: hk-temperatures-2024.txt (one integer per line)
+    # Return a tuple of four integers:
+    #   (average, highest, lowest, days_temperature_increased)
+    # average: rounded to the nearest integer
+    pass`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Return value</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>average</td><td>Average temperature, rounded to nearest integer</td></tr>
+          <tr><td>highest</td><td>Highest temperature in the dataset</td></tr>
+          <tr><td>lowest</td><td>Lowest temperature in the dataset</td></tr>
+          <tr><td>days_increased</td><td>Days where temperature was higher than the previous day</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Exercise 2: Spell Checker',
+      p('Count how many words in a story are spelled correctly, using a dictionary file. Ignore casing and punctuation.'),
+      pcode(`def spell_check():
+    # Read from: mystery-text.txt and dictionary.txt
+    # Return: integer (number of correctly spelled words)
+    pass`),
+      tip('Use <code>.lower()</code> to normalise case, and strip punctuation from each word before checking it against the dictionary.')
+    )}
+    ${section('Exercise 3: Maze Navigator',
+      p('Find the shortest path from S to E in a text-based grid using only up/down/left/right moves.'),
+      pcode(`def maze_navigator():
+    # Read from: maze-navigator.txt
+    # Grid key: . = open space, # = wall, S = start, E = end
+    # Return: integer (number of steps from S to E)
+    # Do not use recursion: simulate movement with loops (BFS)
+    pass`),
+      tip('Use a queue to implement breadth-first search. Track visited cells so you do not revisit them. The starting cell counts as 0 steps.')
+    )}
+    ${section('Exercise 4: Frequency Counter',
+      p('Count how often each word appears in a file, then return the words sorted by frequency, highest first. Ignore case and punctuation.'),
+      pcode(`def frequency_counter():
+    # Read from: frequency-counter.txt
+    # Return: list of strings in descending order of frequency
+    pass`),
+      tip('A Python dictionary is ideal for counting: use each word as a key and increment its value. Then sort by value.')
+    )}
+    ${section('Exercise 5: Robot Instructions',
+      p('A robot starts at (0, 0). Read movement instructions and determine its final position and total distance travelled.'),
+      pcode(`def robot_instructions():
+    # Read from: robot-instructions.txt
+    # Format: "UP 5", "LEFT 3", "DOWN 2", "RIGHT 4"
+    # Return: (x, y, total_distance)
+    pass`),
+      tip('Maintain three variables: x, y, and distance. Parse each line to extract the direction and number of steps.')
+    )}
+    ${section('Additional Challenges',
+      p('LeetCode problems to practise further:'),
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li><a href="https://leetcode.com/problems/two-sum/" target="_blank">LeetCode #1: Two Sum</a></li>
+        <li><a href="https://leetcode.com/problems/fizz-buzz/" target="_blank">LeetCode #412: Fizz Buzz</a></li>
+        <li><a href="https://leetcode.com/problems/palindrome-number/" target="_blank">LeetCode #9: Palindrome Number</a></li>
+        <li><a href="https://leetcode.com/problems/valid-palindrome/" target="_blank">LeetCode #125: Valid Palindrome</a></li>
+        <li><a href="https://leetcode.com/problems/merge-sorted-array/" target="_blank">LeetCode #88: Merge Sorted Array</a></li>
+        <li><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-array/" target="_blank">LeetCode #26: Remove Duplicates from Sorted Array</a></li>
+        <li><a href="https://leetcode.com/problems/count-and-say/" target="_blank">LeetCode #38: Count and Say</a></li>
       </ul>`,
-      examTip('Exam questions often ask you to <em>evaluate</em> OOP — be ready to give both advantages and disadvantages. A disadvantage is that OOP can add overhead for simple programs that do not need the full class structure.')
-    )}
-    ${practiceSect('Practice Questions', [
-      qa('What is the difference between a class and an object?', 'A <strong>class</strong> is a blueprint (template) that defines attributes and methods. An <strong>object</strong> is a specific instance of that class — a real thing created from the blueprint. Many objects can be created from a single class, each with their own state.'),
-      qa('Name the four pillars of OOP and give a one-sentence definition of each.', '<strong>Encapsulation</strong> — bundling data and methods, hiding internal state. <strong>Abstraction</strong> — exposing only what is necessary, hiding complexity. <strong>Inheritance</strong> — a subclass extends a parent class, inheriting its attributes and methods. <strong>Polymorphism</strong> — different objects can be used through the same interface, behaving differently.'),
-      qa('What is an attribute? What is a method?', 'An <strong>attribute</strong> is a variable belonging to an object that stores its state (e.g. name, age, balance). A <strong>method</strong> is a function belonging to an object that defines its behaviour (e.g. bark(), deposit(), getAge()).'),
-      qa('Give two advantages of using OOP over procedural programming.', 'Any two of: reusability (classes can be reused across projects), modularity (classes are self-contained, changes are localised), maintainability (easier to read and debug), DRY principle (behaviour defined once in a class).'),
-    ])}`;
+      p('HackerRank problems to practise further:'),
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li><a href="https://www.hackerrank.com/challenges/simple-array-sum/problem" target="_blank">Simple Array Sum</a></li>
+        <li><a href="https://www.hackerrank.com/challenges/compare-the-triplets/problem" target="_blank">Compare the Triplets</a></li>
+        <li><a href="https://www.hackerrank.com/challenges/a-very-big-sum/problem" target="_blank">A Very Big Sum</a></li>
+        <li><a href="https://www.hackerrank.com/challenges/diagonal-difference/problem" target="_blank">Diagonal Difference</a></li>
+        <li><a href="https://www.hackerrank.com/challenges/plus-minus/problem" target="_blank">Plus Minus</a></li>
+        <li><a href="https://www.hackerrank.com/challenges/staircase/problem" target="_blank">Staircase</a></li>
+        <li><a href="https://www.hackerrank.com/challenges/mini-max-sum/problem" target="_blank">Mini-Max Sum</a></li>
+        <li><a href="https://www.hackerrank.com/challenges/birthday-cake-candles/problem" target="_blank">Birthday Cake Candles</a></li>
+      </ul>`
+    )}`;
 
-  case 'l2': return `
-    ${section('Class Diagrams',
-      p('Before writing code, a good OOP designer draws a <strong>class diagram</strong>. This is a simple visual representation of a class that shows its name, attributes, and methods — without any implementation details.'),
-      p('The standard format is a three-section box:'),
-      `<pre class="code-block"><code>+-------------------------------+
-|          ClassName            |   Class name (PascalCase)
-+-------------------------------+
-|  - attribute1 : type          |   Attributes (- = private)
-|  - attribute2 : type          |
-+-------------------------------+
-|  + method1()                  |   Methods (+ = public)
-|  + method2() : returnType     |   return type after colon
-+-------------------------------+</code></pre>`,
-      tip('The <code>-</code> (minus) symbol means <strong>private</strong> — only accessible within the class. The <code>+</code> (plus) symbol means <strong>public</strong> — accessible from anywhere. You will learn more about this in Lesson 4 (Encapsulation).')
+  case 'l10': return `
+    ${section('What is an Exception?',
+      def('Exception', 'An error that occurs while a program is running. If not caught, it causes the program to crash and display a traceback message.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Exception</th><th>Common cause</th></tr></thead>
+        <tbody>
+          <tr><td><code>ValueError</code></td><td>Wrong type of value, e.g. <code>int("abc")</code></td></tr>
+          <tr><td><code>ZeroDivisionError</code></td><td>Dividing by zero</td></tr>
+          <tr><td><code>FileNotFoundError</code></td><td>File does not exist</td></tr>
+          <tr><td><code>IndexError</code></td><td>List index out of range</td></tr>
+          <tr><td><code>KeyError</code></td><td>Dictionary key not found</td></tr>
+          <tr><td><code>TypeError</code></td><td>Operation on the wrong type, e.g. <code>"a" + 1</code></td></tr>
+        </tbody>
+      </table></div>`
     )}
-    ${section('Identifying Attributes',
-      p('Attributes store the <strong>state</strong> of an object — the data it needs to remember. When designing a class, ask: <em>"What does this object need to know about itself?"</em>'),
-      `<ul class="lesson-list">
-        <li>Choose attributes that belong to <em>every</em> object of this type</li>
-        <li>Use appropriate data types (<code>int</code>, <code>double</code>, <code>String</code>, <code>boolean</code>)</li>
-        <li>Name attributes with <code>camelCase</code> starting with a lowercase letter</li>
-        <li>Keep them private (using <code>-</code> in diagrams) — exposed via methods</li>
+    ${section('try / except / finally',
+      def('Exception handling', 'Using try/except blocks to catch and respond to exceptions without crashing the program.'),
+      pcode(`try:
+    age = int(input("Enter age: "))
+    result = 100 / age
+    print(f"Result: {result}")
+except ValueError:
+    print("Please enter a valid number.")
+except ZeroDivisionError:
+    print("Age cannot be zero.")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+finally:
+    print("Program finished.")`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Block</th><th>Runs when</th></tr></thead>
+        <tbody>
+          <tr><td><code>try</code></td><td>Always: this is the code to attempt</td></tr>
+          <tr><td><code>except ExceptionType</code></td><td>When that specific exception is raised</td></tr>
+          <tr><td><code>except Exception as e</code></td><td>Catches any exception; stores it in e</td></tr>
+          <tr><td><code>finally</code></td><td>Always, whether an exception occurred or not</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('The <code>finally</code> block is for cleanup: closing files, logging out a user, ending a session. It always runs, even if an exception was raised.')
+    )}
+    ${section('Exercise 1: Student Grades Calculator',
+      p('The following program reads student grades from a CSV file. Multiple types of exception can occur. Add exception handling and fix any logic errors. Use a trace table to follow data for each student.'),
+      pcode(`def read_grades(filename):
+    with open(filename) as f:
+        lines = f.readlines()
+        for line in lines:
+            name, *grades = line.strip().split(',')
+            grade_list = [int(g) for g in grades]  # may raise ValueError
+            avg = sum(grade_list) / len(grade_list) # may raise ZeroDivisionError
+            print(f"{name} - Average: {avg:.2f}")
+
+try:
+    read_grades("grades.csv")
+except FileNotFoundError:
+    print("File not found. Please check the filename.")
+except ValueError as e:
+    print(f"Invalid grade value: {e}")
+except ZeroDivisionError:
+    print("No grades found for a student.")
+finally:
+    print("Grade processing completed.")`),
+      p('Sample CSV data:'),
+      pcode(`Alice,85,90,92
+Bob,80,abc,77
+Charlie,
+Daisy,100,95`)
+    )}
+    ${section('Exercise 2: ATM Simulator',
+      p('Create a basic ATM program. Raise exceptions for invalid inputs, overdrafts, and insufficient ATM cash. Use the <code>finally</code> block to end the session.'),
+      pcode(`def withdraw(balance):
+    amount = int(input("Enter amount to withdraw: "))
+    if amount > balance:
+        raise Exception("Insufficient funds.")
+    if amount > 1000:
+        raise Exception("ATM is out of cash.")
+    balance -= amount
+    print(f"Withdrawn: {amount}. Remaining balance: {balance}")
+    return balance
+
+balance = 500
+try:
+    balance = withdraw(balance)
+except ValueError:
+    print("Please enter a valid number.")
+except Exception as e:
+    print("Transaction error:", e)
+finally:
+    print("Transaction session ended.")`),
+      tip('Trace the program with these inputs in order: 200, 600, 1200, "abc". Note which blocks run for each input.')
+    )}
+    ${section('Debugging Techniques',
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li><strong>Print statements:</strong> insert <code>print(variable)</code> at key points to inspect values as the program runs.</li>
+        <li><strong>Breakpoints:</strong> click the gutter in VS Code next to a line number to pause execution there.</li>
+        <li><strong>Step through:</strong> use the debugger to run one line at a time and inspect all variables in the sidebar.</li>
+        <li><strong>Trace table:</strong> manually follow the code on paper, recording each variable change.</li>
+        <li><strong>Rubber duck debugging:</strong> explain your code out loud line by line. Errors often become obvious.</li>
+      </ul>`,
+      examTip('When asked to identify a bug in exam code, check: Is every variable initialised before use? Does the loop have a correct terminating condition? Is input being converted to the right type?')
+    )}`;
+
+  case 'l11': return `
+    ${section('Static vs Dynamic Data Structures',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th></th><th>Static</th><th>Dynamic</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Size</strong></td><td>Fixed at creation</td><td>Grows and shrinks at runtime</td></tr>
+          <tr><td><strong>Memory</strong></td><td>Allocated in advance</td><td>Allocated as needed</td></tr>
+          <tr><td><strong>Access speed</strong></td><td>Fast (direct index access)</td><td>Slightly slower due to pointer overhead</td></tr>
+          <tr><td><strong>Flexibility</strong></td><td>Inflexible: size cannot change</td><td>Flexible: size adjusts to data</td></tr>
+          <tr><td><strong>Example</strong></td><td>Fixed-size array</td><td>List, Stack, Queue, Linked List</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('Know this comparison for the exam. Static: fixed size, allocated upfront, memory efficient if size is predictable. Dynamic: flexible size, uses extra memory for bookkeeping (pointers).')
+    )}
+    ${section('The Stack: LIFO',
+      def('Stack', 'A dynamic data structure that follows Last In, First Out (LIFO) ordering. The most recently added item is the first to be removed.'),
+      p('Think of a stack of plates: you always add and remove from the top.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Operation</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><strong>push(x)</strong></td><td>Add x to the top of the stack</td></tr>
+          <tr><td><strong>pop()</strong></td><td>Remove and return the top item</td></tr>
+          <tr><td><strong>peek()</strong></td><td>Return the top item without removing it</td></tr>
+          <tr><td><strong>is_empty()</strong></td><td>Return True if the stack has no items</td></tr>
+          <tr><td><strong>size()</strong></td><td>Return the number of items in the stack</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Implementing a Stack in Python',
+      pcode(`class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if self.is_empty():
+            raise Exception("Stack underflow")
+        return self.items.pop()
+
+    def peek(self):
+        if self.is_empty():
+            raise Exception("Stack is empty")
+        return self.items[-1]
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def size(self):
+        return len(self.items)
+
+s = Stack()
+s.push(10)
+s.push(20)
+s.push(30)
+print(s.pop())   # 30  (last in, first out)
+print(s.peek())  # 20`),
+      tip('Python lists already behave like stacks: <code>append()</code> pushes, <code>pop()</code> pops. Wrapping them in a class gives a clean, named interface.')
+    )}
+    ${section('Applications of Stacks',
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li>Undo / redo in text editors</li>
+        <li>Browser back button (history is a stack)</li>
+        <li>Checking balanced brackets in code</li>
+        <li>Evaluating arithmetic expressions</li>
+        <li>The function call stack used by Python itself</li>
       </ul>`
     )}
-    ${section('Identifying Methods',
-      p('Methods define the <strong>behaviour</strong> of an object — what it can do. Ask: <em>"What should this object be able to do?"</em>'),
+    ${section('Practice Exercises',
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li><a href="https://leetcode.com/problems/valid-parentheses/" target="_blank">LeetCode #20: Valid Parentheses</a></li>
+        <li><a href="https://leetcode.com/problems/min-stack/" target="_blank">LeetCode #155: Min Stack</a></li>
+        <li><a href="https://www.hackerrank.com/challenges/balanced-brackets/problem" target="_blank">HackerRank: Balanced Brackets</a></li>
+        <li><a href="https://adventofcode.com/2021/day/10" target="_blank">Advent of Code 2021 Day 10: Syntax Scoring</a></li>
+      </ul>`
+    )}`;
+
+  case 'l12': return `
+    ${section('The Queue: FIFO',
+      def('Queue', 'A dynamic data structure that follows First In, First Out (FIFO) ordering. The first item added is the first item removed.'),
+      p('Think of a queue at a shop: the first person to join the line is the first to be served.'),
       `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Method type</th><th>Purpose</th><th>Example</th></tr></thead>
+        <thead><tr><th>Operation</th><th>What it does</th></tr></thead>
         <tbody>
-          <tr><td><strong>Constructor</strong></td><td>Creates a new object and sets initial attribute values</td><td><code>BankAccount(owner, balance)</code></td></tr>
-          <tr><td><strong>Getter</strong></td><td>Returns the value of a private attribute</td><td><code>getBalance()</code></td></tr>
-          <tr><td><strong>Setter</strong></td><td>Updates the value of a private attribute (with validation)</td><td><code>setBalance(amount)</code></td></tr>
-          <tr><td><strong>Other behaviour</strong></td><td>Does something meaningful with the object\'s data</td><td><code>deposit(amount)</code>, <code>withdraw(amount)</code></td></tr>
+          <tr><td><strong>enqueue(x)</strong></td><td>Add x to the back of the queue</td></tr>
+          <tr><td><strong>dequeue()</strong></td><td>Remove and return the front item</td></tr>
+          <tr><td><strong>peek()</strong></td><td>Return the front item without removing it</td></tr>
+          <tr><td><strong>is_empty()</strong></td><td>Return True if the queue has no items</td></tr>
+          <tr><td><strong>size()</strong></td><td>Return the number of items in the queue</td></tr>
         </tbody>
       </table></div>`,
-      def('Constructor', 'A special method that runs automatically when an object is created. Its job is to initialise the object\'s attributes with starting values.')
+      examTip('Stack = LIFO (last in, first out). Queue = FIFO (first in, first out). This distinction is a standard exam question.')
     )}
-    ${section('Naming Conventions',
+    ${section('Implementing a Queue in Python',
+      pcode(`from collections import deque
+
+class Queue:
+    def __init__(self):
+        self.items = deque()
+
+    def enqueue(self, item):
+        self.items.append(item)
+
+    def dequeue(self):
+        if self.is_empty():
+            raise Exception("Queue underflow")
+        return self.items.popleft()
+
+    def peek(self):
+        if self.is_empty():
+            raise Exception("Queue is empty")
+        return self.items[0]
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def size(self):
+        return len(self.items)
+
+q = Queue()
+q.enqueue("Alice")
+q.enqueue("Bob")
+q.enqueue("Charlie")
+print(q.dequeue())  # Alice  (first in, first out)
+print(q.peek())     # Bob`),
+      tip('<code>collections.deque</code> is more efficient than a plain list here because <code>popleft()</code> is O(1). With a list, <code>pop(0)</code> is O(n) as all remaining items shift along.')
+    )}
+    ${section('Stack vs Queue',
       `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Thing</th><th>Convention</th><th>Example</th></tr></thead>
+        <thead><tr><th></th><th>Stack</th><th>Queue</th></tr></thead>
         <tbody>
-          <tr><td>Class</td><td><code>PascalCase</code> (each word capitalised)</td><td><code>BankAccount</code>, <code>StudentRecord</code></td></tr>
-          <tr><td>Attribute / variable</td><td><code>camelCase</code> (first word lowercase)</td><td><code>accountBalance</code>, <code>ownerName</code></td></tr>
-          <tr><td>Method</td><td><code>camelCase</code>, usually a verb</td><td><code>deposit()</code>, <code>getBalance()</code></td></tr>
-        </tbody>
-      </table></div>`,
-      examTip('IB exam questions frequently ask you to draw or interpret a class diagram. Make sure you can draw the three-section box, use <code>+/-</code> visibility symbols, and write attribute types correctly (e.g. <code>- balance : double</code>).')
-    )}
-    ${section('Worked Example: BankAccount Class',
-      p('Design a <code>BankAccount</code> class that stores an owner\'s name and balance, and supports deposit and withdrawal.'),
-      `<pre class="code-block"><code>+--------------------------------+
-|          BankAccount           |
-+--------------------------------+
-|  - ownerName : String          |
-|  - balance : double            |
-+--------------------------------+
-|  + BankAccount(name, balance)  |
-|  + getOwnerName() : String     |
-|  + getBalance() : double       |
-|  + deposit(amount : double)    |
-|  + withdraw(amount : double)   |
-+--------------------------------+</code></pre>`,
-      h3('Java — class structure (design only)'),
-      jcode(`public class BankAccount {
-    private String ownerName;
-    private double balance;
-
-    public BankAccount(String name, double balance) { ... }
-    public String getOwnerName() { ... }
-    public double getBalance() { ... }
-    public void deposit(double amount) { ... }
-    public void withdraw(double amount) { ... }
-}`),
-      h3('Python — class structure (design only)'),
-      pcode(`class BankAccount:
-    def __init__(self, name, balance):  # constructor
-        ...
-    def get_owner_name(self):
-        ...
-    def get_balance(self):
-        ...
-    def deposit(self, amount):
-        ...
-    def withdraw(self, amount):
-        ...`)
-    )}
-    ${practiceSect('Practice Questions', [
-      qa('What are the three sections of a class diagram?', '1. <strong>Class name</strong> (top). 2. <strong>Attributes</strong> (middle) — with visibility symbols and data types. 3. <strong>Methods</strong> (bottom) — with visibility symbols, parameters, and return types.'),
-      qa('What does the - symbol mean in a class diagram? What about +?', '<strong>-</strong> means <em>private</em> — the attribute or method can only be accessed from within the class. <strong>+</strong> means <em>public</em> — it can be accessed from outside the class.'),
-      qa('What is a constructor and why is it needed?', 'A constructor is a special method that runs automatically when an object is created. It sets the initial values of the object\'s attributes so the object starts in a valid, known state.'),
-      qa('Design a class diagram for a Student class that stores a name, ID number, and grade. Include a constructor and a method to print details.', '<pre class="code-block" style="font-size:.82rem"><code>+------------------------------+\n|           Student            |\n+------------------------------+\n|  - name : String             |\n|  - idNumber : int            |\n|  - grade : double            |\n+------------------------------+\n|  + Student(name, id, grade)  |\n|  + getName() : String        |\n|  + getGrade() : double       |\n|  + printDetails()            |\n+------------------------------+</code></pre>'),
-    ])}`;
-
-  case 'l3': return `
-    ${section('Defining a Class in Java',
-      p('A class definition in Java has three core parts: the <strong>class declaration</strong>, <strong>attributes</strong> (fields), and the <strong>constructor + methods</strong>.'),
-      jcode(`public class Dog {
-
-    // Attributes (instance variables)
-    private String name;
-    private String breed;
-    private int age;
-
-    // Constructor
-    public Dog(String name, String breed, int age) {
-        this.name = name;
-        this.breed = breed;
-        this.age = age;
-    }
-
-    // Method
-    public void bark() {
-        System.out.println(name + " says: Woof!");
-    }
-
-    // Getter
-    public int getAge() {
-        return age;
-    }
-}`)
-    )}
-    ${section('Defining a Class in Python',
-      p('Python uses <code>__init__</code> as the constructor. Every instance method (including <code>__init__</code>) must have <code>self</code> as its first parameter.'),
-      pcode(`class Dog:
-
-    # Constructor
-    def __init__(self, name, breed, age):
-        self.name = name    # instance attributes
-        self.breed = breed
-        self.age = age
-
-    # Method
-    def bark(self):
-        print(self.name + " says: Woof!")
-
-    # Getter
-    def get_age(self):
-        return self.age`)
-    )}
-    ${section('The Constructor and this / self',
-      def('Constructor', 'A special method called automatically when an object is created. It sets up the object\'s initial state by assigning values to attributes.'),
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th></th><th>Java</th><th>Python</th></tr></thead>
-        <tbody>
-          <tr><td>Constructor name</td><td>Same as the class</td><td>Always <code>__init__</code></td></tr>
-          <tr><td>Self reference</td><td><code>this.attribute = value</code></td><td><code>self.attribute = value</code></td></tr>
-          <tr><td>Return type declared?</td><td>No</td><td>No</td></tr>
-        </tbody>
-      </table></div>`,
-      tip('<code>this</code> (Java) and <code>self</code> (Python) both refer to the <strong>current object</strong>. In a constructor, they distinguish between a parameter and an instance attribute with the same name: <code>this.name = name</code> assigns the parameter <code>name</code> to the instance attribute <code>this.name</code>.')
-    )}
-    ${section('Creating (Instantiating) Objects',
-      p('Once a class is defined, you create objects from it. Each object gets its own copy of every attribute.'),
-      h3('Java — use the <code>new</code> keyword'),
-      jcode(`Dog fido = new Dog("Fido", "Labrador", 3);
-Dog rex  = new Dog("Rex", "German Shepherd", 5);
-
-fido.bark();                        // Fido says: Woof!
-rex.bark();                         // Rex says: Woof!
-System.out.println(fido.getAge()); // 3`),
-      h3('Python — call the class like a function'),
-      pcode(`fido = Dog("Fido", "Labrador", 3)
-rex  = Dog("Rex", "German Shepherd", 5)
-
-fido.bark()            # Fido says: Woof!
-rex.bark()             # Rex says: Woof!
-print(fido.get_age())  # 3`)
-    )}
-    ${section('Dot Notation',
-      def('Dot notation', 'The syntax <code>object.attribute</code> or <code>object.method()</code> used to access an object\'s members.'),
-      jcode(`Dog fido = new Dog("Fido", "Labrador", 3);
-fido.bark();            // calls the bark() method on fido
-int n = fido.getAge();  // calls getAge(), stores result in n`),
-      pcode(`fido = Dog("Fido", "Labrador", 3)
-fido.bark()             # calls bark() on fido
-n = fido.get_age()      # calls get_age(), stores result in n`),
-      examTip('A common exam mistake: calling a method on the class itself rather than on an object. <code>Dog.bark()</code> will fail — you need <code>fido.bark()</code>.')
-    )}
-    ${section('Multiple Objects, Independent State',
-      p('Every object has its own <strong>independent copy</strong> of each attribute. Changing one object does not affect any other.'),
-      jcode(`Dog fido = new Dog("Fido", "Labrador", 3);
-Dog rex  = new Dog("Rex", "German Shepherd", 5);
-// fido and rex share the class blueprint but NOT their data`),
-      pcode(`fido = Dog("Fido", "Labrador", 3)
-rex  = Dog("Rex", "German Shepherd", 5)
-# fido and rex share the class blueprint but NOT their data`)
-    )}
-    ${practiceSect('Practice Questions', [
-      qa('What keyword does Java use to create a new object? What does Python use instead?', 'Java uses the <code>new</code> keyword: <code>Dog fido = new Dog("Fido", "Labrador", 3);</code>. Python calls the class like a function: <code>fido = Dog("Fido", "Labrador", 3)</code>.'),
-      qa('What is the role of <code>this</code> in Java and <code>self</code> in Python?', 'Both refer to the <strong>current object</strong>. They are used inside methods to refer to the object\'s own attributes and to distinguish instance attributes from parameters with the same name (e.g. <code>this.name = name</code>).'),
-      qa('If you create two objects from the same class, do they share attribute values?', 'No. Each object has its own <strong>independent copy</strong> of every attribute. Changing one object\'s attribute does not affect the other.'),
-      qa('Write Java code to create a BankAccount for Alice with balance 500.00 and print her balance.', '<code>BankAccount alice = new BankAccount("Alice", 500.00);<br>System.out.println(alice.getBalance());</code>'),
-      qa('Write Python code to do the same.', '<code>alice = BankAccount("Alice", 500.00)<br>print(alice.get_balance())</code>'),
-    ])}`;
-
-  case 'l4': return `
-    ${section('What is Encapsulation?',
-      def('Encapsulation', 'The bundling of data (attributes) and the methods that operate on that data into a single unit (a class), combined with restricting direct access to the object\'s internal state.'),
-      def('Information Hiding', 'The principle that an object\'s internal data should not be directly accessible from outside the class. Access is controlled through public methods.'),
-      p('Think of a vending machine: you interact through buttons (the public interface), but you cannot reach inside and change the prices. The internal mechanism is hidden.')
-    )}
-    ${section('Access Modifiers in Java',
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Modifier</th><th>Accessible from</th><th>Use case</th></tr></thead>
-        <tbody>
-          <tr><td><code>private</code></td><td>Within the class only</td><td>All attributes should be private</td></tr>
-          <tr><td><code>public</code></td><td>Anywhere</td><td>Methods intended for external use</td></tr>
-          <tr><td><code>protected</code></td><td>Class + subclasses</td><td>Used with inheritance (B3.2)</td></tr>
-        </tbody>
-      </table></div>`,
-      tip('Standard OOP rule: make all attributes <code>private</code>, make most methods <code>public</code>. This is the <em>private-data, public-interface</em> pattern.')
-    )}
-    ${section('Access Conventions in Python',
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Convention</th><th>Meaning</th><th>Example</th></tr></thead>
-        <tbody>
-          <tr><td>No prefix</td><td>Public — accessible from anywhere</td><td><code>self.name</code></td></tr>
-          <tr><td><code>_single_underscore</code></td><td>Private by convention — do not access externally</td><td><code>self._balance</code></td></tr>
-          <tr><td><code>__double_underscore</code></td><td>Name-mangled — harder to access externally</td><td><code>self.__pin</code></td></tr>
-        </tbody>
-      </table></div>`,
-      examTip('IB questions may ask you to "explain information hiding". Key points: (1) attributes are private, (2) access is via public methods only, (3) this allows validation and prevents invalid data being set directly.')
-    )}
-    ${section('Getters and Setters',
-      def('Getter', 'A public method that <strong>returns</strong> the value of a private attribute (also called an <em>accessor</em>).'),
-      def('Setter', 'A public method that <strong>updates</strong> the value of a private attribute, optionally including validation (also called a <em>mutator</em>).'),
-      h3('Java — full BankAccount with encapsulation'),
-      jcode(`public class BankAccount {
-    private String ownerName;
-    private double balance;
-
-    public BankAccount(String name, double balance) {
-        this.ownerName = name;
-        this.balance = balance;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double amount) {
-        if (amount >= 0) {
-            balance = amount;
-        } else {
-            System.out.println("Error: balance cannot be negative.");
-        }
-    }
-
-    public void deposit(double amount) {
-        if (amount > 0) balance += amount;
-    }
-
-    public void withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-        } else {
-            System.out.println("Insufficient funds or invalid amount.");
-        }
-    }
-}`),
-      h3('Python — convention-based encapsulation'),
-      pcode(`class BankAccount:
-    def __init__(self, name, balance):
-        self._owner_name = name
-        self._balance = balance
-
-    def get_balance(self):
-        return self._balance
-
-    def set_balance(self, amount):
-        if amount >= 0:
-            self._balance = amount
-        else:
-            print("Error: balance cannot be negative.")
-
-    def deposit(self, amount):
-        if amount > 0:
-            self._balance += amount
-
-    def withdraw(self, amount):
-        if 0 < amount <= self._balance:
-            self._balance -= amount
-        else:
-            print("Insufficient funds or invalid amount.")`)
-    )}
-    ${section('Why Use Private + Getters/Setters?',
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th>Direct access (bad)</th><th>Via setter (good)</th></tr></thead>
-        <tbody>
-          <tr><td><code>account.balance = -500;</code></td><td><code>account.setBalance(-500);</code> → rejected</td></tr>
-          <tr><td>No validation possible</td><td>Setter checks: amount &ge; 0</td></tr>
-          <tr><td>Any code can corrupt data</td><td>Data changes only via controlled methods</td></tr>
-        </tbody>
-      </table></div>`,
-      tip('Encapsulation protects data integrity. A setter acts as a <em>gatekeeper</em> — it can reject invalid values before they reach the attribute.')
-    )}
-    ${practiceSect('Practice Questions', [
-      qa('What is the difference between encapsulation and information hiding?', '<strong>Encapsulation</strong> is the broader concept: bundling data and methods into a class. <strong>Information hiding</strong> is a specific technique within encapsulation: marking attributes as private so external code cannot access them directly. Information hiding is achieved through encapsulation.'),
-      qa('Why should attributes be declared private?', 'Private attributes prevent external code from setting invalid values directly. Access is controlled through public methods (getters and setters), which can include validation — e.g. a setter can reject a negative balance.'),
-      qa('What is a getter? What is a setter? Give a Java example of each.', 'A <strong>getter</strong> returns the value of a private attribute: <code>public double getBalance() { return balance; }</code>. A <strong>setter</strong> updates it with optional validation: <code>public void setBalance(double a) { if (a &gt;= 0) balance = a; }</code>'),
-      qa('In Python, what naming convention indicates a private attribute?', 'A <strong>single underscore prefix</strong>: <code>self._balance</code>. This signals to programmers not to access it directly from outside the class. Python does not enforce this — it is a convention only.'),
-      qa('Explain why a setter is better than allowing direct attribute access.', 'A setter can include <strong>validation logic</strong>. For example, <code>setAge()</code> can check the value is positive before assigning it. Direct access bypasses all validation and can leave the object in an invalid state.'),
-    ])}`;
-
-  case 'l5': return `
-    ${section('Instance vs Class Level',
-      def('Instance variable (non-static)', 'A variable that belongs to a specific <strong>object</strong>. Every object created from the class has its own independent copy. Declared without <code>static</code> in Java; assigned via <code>self.</code> in Python.'),
-      def('Class variable (static)', 'A variable that belongs to the <strong>class itself</strong>, shared by all objects of that class. There is only one copy, regardless of how many objects exist. Declared with <code>static</code> in Java; defined at class level (not in <code>__init__</code>) in Python.'),
-      `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th></th><th>Instance variable</th><th>Class (static) variable</th></tr></thead>
-        <tbody>
-          <tr><td>Belongs to</td><td>Each individual object</td><td>The class itself</td></tr>
-          <tr><td>Copies</td><td>One per object</td><td>One shared copy for all objects</td></tr>
-          <tr><td>Typical use</td><td><code>name</code>, <code>balance</code>, <code>age</code></td><td>Object counter, constant, shared config</td></tr>
+          <tr><td><strong>Order</strong></td><td>LIFO</td><td>FIFO</td></tr>
+          <tr><td><strong>Add to</strong></td><td>Top (push)</td><td>Back (enqueue)</td></tr>
+          <tr><td><strong>Remove from</strong></td><td>Top (pop)</td><td>Front (dequeue)</td></tr>
+          <tr><td><strong>Real-world</strong></td><td>Stack of plates, undo history</td><td>Queue at a shop, print job queue</td></tr>
+          <tr><td><strong>Algorithm use</strong></td><td>DFS, expression evaluation</td><td>BFS, task scheduling</td></tr>
         </tbody>
       </table></div>`
     )}
-    ${section('Static vs Non-Static Variables — Code',
-      p('The classic example: a counter that tracks how many objects have been created.'),
-      h3('Java'),
-      jcode(`public class Dog {
-    // Class variable — shared by ALL Dog objects
-    private static int totalDogs = 0;
+    ${section('Practice Exercises',
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li><a href="https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/" target="_blank">LeetCode #1700: Number of Students Unable to Eat Lunch</a></li>
+        <li><a href="https://www.hackerrank.com/challenges/queue-using-two-stacks/problem" target="_blank">HackerRank: Queue using Two Stacks</a></li>
+        <li><a href="https://adventofcode.com/2019/day/5" target="_blank">Advent of Code 2019 Day 5: Sunny with a Chance of Asteroids</a></li>
+      </ul>`
+    )}`;
 
-    // Instance variables — unique to each Dog
-    private String name;
-    private int age;
-
-    public Dog(String name, int age) {
-        this.name = name;
-        this.age = age;
-        totalDogs++;   // increments the ONE shared counter
-    }
-
-    public static int getTotalDogs() {
-        return totalDogs;
-    }
-
-    public String getName() { return name; }
-}
-
-// Usage
-Dog fido = new Dog("Fido", 3);
-Dog rex  = new Dog("Rex", 5);
-System.out.println(Dog.getTotalDogs()); // 2`),
-      h3('Python'),
-      pcode(`class Dog:
-    total_dogs = 0   # class variable — defined at class level
-
-    def __init__(self, name, age):
-        self.name = name   # instance variables
-        self.age = age
-        Dog.total_dogs += 1
-
-    @staticmethod
-    def get_total_dogs():
-        return Dog.total_dogs
-
-fido = Dog("Fido", 3)
-rex  = Dog("Rex", 5)
-print(Dog.get_total_dogs())  # 2`)
+  case 'l13': return `
+    ${section('Why Measure Efficiency?',
+      p('Two programs can solve the same problem, but one might take 1 second and the other 3 hours. As data grows larger, efficiency differences become critical. <strong>Big O notation</strong> is a standard way to describe how an algorithm\'s time or memory usage grows as input size n grows.'),
+      def('Big O notation', 'A mathematical notation that describes the upper bound of an algorithm\'s time or space complexity as a function of input size n. It tells us how the number of operations grows, not the exact count.')
     )}
-    ${section('Static vs Non-Static Methods',
-      def('Instance method (non-static)', 'A method that operates on a specific object. Has access to <code>this</code> (Java) / <code>self</code> (Python) and the object\'s instance attributes. Most methods are instance methods.'),
-      def('Static method', 'A method that belongs to the class, not to any object. Has <strong>no access to instance attributes</strong>. Used for utility operations that do not depend on object state.'),
+    ${section('Common Complexities',
       `<div class="tbl-wrap"><table class="content-table">
-        <thead><tr><th></th><th>Instance method</th><th>Static method</th></tr></thead>
+        <thead><tr><th>Notation</th><th>Name</th><th>Example algorithm</th><th>n = 1000 (approx. ops)</th></tr></thead>
         <tbody>
-          <tr><td>Declaration</td><td>Normal; Python uses <code>self</code></td><td><code>static</code> in Java; <code>@staticmethod</code> in Python</td></tr>
-          <tr><td>Accesses instance data?</td><td>Yes — via <code>this</code> / <code>self</code></td><td>No — cannot use <code>this</code> / <code>self</code></td></tr>
-          <tr><td>Called on</td><td>An object: <code>fido.bark()</code></td><td>The class: <code>Dog.getTotalDogs()</code></td></tr>
-          <tr><td>Typical use</td><td>Read or change object state</td><td>Utility functions, counters, constants</td></tr>
+          <tr><td><code>O(1)</code></td><td>Constant</td><td>Access list[i]</td><td>1</td></tr>
+          <tr><td><code>O(log n)</code></td><td>Logarithmic</td><td>Binary search</td><td>10</td></tr>
+          <tr><td><code>O(n)</code></td><td>Linear</td><td>Linear search</td><td>1,000</td></tr>
+          <tr><td><code>O(n log n)</code></td><td>Linearithmic</td><td>Merge sort</td><td>10,000</td></tr>
+          <tr><td><code>O(n²)</code></td><td>Quadratic</td><td>Bubble sort, selection sort</td><td>1,000,000</td></tr>
+          <tr><td><code>O(2ⁿ)</code></td><td>Exponential</td><td>Naive recursive Fibonacci</td><td>~10³⁰¹</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('You are expected to state the Big O of linear search O(n), binary search O(log n), bubble sort O(n²), and selection sort O(n²). Be ready to justify each.')
+    )}
+    ${section('Calculating Big O',
+      `<ol style="line-height:2;margin:0 0 0 1.5rem">
+        <li><strong>Drop constants:</strong> O(2n) simplifies to O(n).</li>
+        <li><strong>Drop smaller terms:</strong> O(n² + n) simplifies to O(n²).</li>
+        <li><strong>A single loop over n items:</strong> O(n).</li>
+        <li><strong>A loop inside a loop, both over n items:</strong> O(n²).</li>
+        <li><strong>Halving the problem each step:</strong> O(log n).</li>
+      </ol>`,
+      pcode(`# O(1): constant time
+def get_first(lst):
+    return lst[0]
+
+# O(n): linear - one loop over all items
+def find_max(lst):
+    max_val = lst[0]
+    for item in lst:
+        if item > max_val:
+            max_val = item
+    return max_val
+
+# O(n^2): quadratic - nested loops, both over n items
+def has_duplicate(lst):
+    for i in range(len(lst)):
+        for j in range(i + 1, len(lst)):
+            if lst[i] == lst[j]:
+                return True
+    return False`)
+    )}
+    ${section('Time vs Space Complexity',
+      p('<strong>Time complexity</strong> measures how the number of operations grows. <strong>Space complexity</strong> measures how much additional memory is needed.'),
+      p('For the IB exam, focus on time complexity. Both bubble sort and selection sort are O(n²) time and O(1) space (in place). Binary search is O(log n) time but requires sorted data.')
+    )}`;
+
+  case 'l14': return `
+    ${section('Linear Search',
+      def('Linear search', 'An algorithm that checks each element in a list one by one, from start to end, until the target is found or the list is exhausted.'),
+      p('Linear search works on any list: sorted or unsorted. It is the only option when data is unsorted.')
+    )}
+    ${section('The Algorithm',
+      pcode(`def linear_search(lst, target):
+    for i in range(len(lst)):
+        if lst[i] == target:
+            return i      # return the index where found
+    return -1             # -1 means not found
+
+numbers = [64, 34, 25, 12, 22, 11, 90]
+print(linear_search(numbers, 25))   # 2
+print(linear_search(numbers, 99))   # -1`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Case</th><th>Complexity</th><th>When</th></tr></thead>
+        <tbody>
+          <tr><td>Best</td><td>O(1)</td><td>Target is the first element</td></tr>
+          <tr><td>Average</td><td>O(n)</td><td>Target is somewhere in the middle</td></tr>
+          <tr><td>Worst</td><td>O(n)</td><td>Target is last, or not found</td></tr>
         </tbody>
       </table></div>`
     )}
-    ${section('Static Method Example',
-      h3('Java'),
-      jcode(`public class MathUtils {
-    public static int square(int n) {
-        return n * n;
-    }
-
-    public static boolean isEven(int n) {
-        return n % 2 == 0;
-    }
-}
-
-// No object needed — called on the class directly
-System.out.println(MathUtils.square(4));   // 16
-System.out.println(MathUtils.isEven(7));   // false`),
-      h3('Python'),
-      pcode(`class MathUtils:
-
-    @staticmethod
-    def square(n):
-        return n * n
-
-    @staticmethod
-    def is_even(n):
-        return n % 2 == 0
-
-print(MathUtils.square(4))    # 16
-print(MathUtils.is_even(7))   # False`),
-      examTip('A common exam error: trying to access an instance attribute from inside a static method (e.g. <code>this.name</code> inside a static method). Static methods have no <code>this</code>/<code>self</code> — they belong to the class, not an object.')
+    ${section('Tracing a Linear Search',
+      p('Trace: search for 22 in <code>[64, 34, 25, 12, 22, 11, 90]</code>'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Step</th><th>i</th><th>lst[i]</th><th>Match?</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>0</td><td>64</td><td>No</td></tr>
+          <tr><td>2</td><td>1</td><td>34</td><td>No</td></tr>
+          <tr><td>3</td><td>2</td><td>25</td><td>No</td></tr>
+          <tr><td>4</td><td>3</td><td>12</td><td>No</td></tr>
+          <tr><td>5</td><td>4</td><td>22</td><td>Yes: return 4</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('Exam questions often ask you to show each comparison in a trace. Show every step: do not skip to the answer.')
     )}
-    ${section('When to Use Static',
-      `<ul class="lesson-list">
-        <li>Use a <strong>static variable</strong> when the data belongs to the class as a whole — e.g. a counter of all objects created, a constant like <code>MAX_SIZE</code>.</li>
-        <li>Use a <strong>static method</strong> when the logic does not depend on any object\'s state — e.g. utility functions (<code>square()</code>, <code>isEven()</code>).</li>
-        <li>Use an <strong>instance variable</strong> when each object needs its own value — e.g. <code>name</code>, <code>balance</code>.</li>
-        <li>Use an <strong>instance method</strong> when the behaviour reads or changes an object\'s state — e.g. <code>deposit()</code>, <code>bark()</code>.</li>
+    ${section('Practice Exercises',
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li>Modify linear search to return all indices where the target appears, not just the first.</li>
+        <li><a href="https://leetcode.com/problems/search-insert-position/" target="_blank">LeetCode #35: Search Insert Position</a></li>
+        <li><a href="https://www.hackerrank.com/challenges/icecream-parlor/problem" target="_blank">HackerRank: Ice Cream Parlor</a></li>
+      </ul>`
+    )}`;
+
+  case 'l15': return `
+    ${section('Binary Search',
+      def('Binary search', 'An efficient search algorithm that works on <strong>sorted</strong> lists by repeatedly halving the search space until the target is found or the search space is empty.'),
+      p('With each comparison, half the remaining elements are eliminated. A sorted list of one million items needs at most 20 comparisons.'),
+      examTip('Binary search only works on <strong>sorted</strong> data. If the list is unsorted, you must sort it first, which may make linear search faster overall.')
+    )}
+    ${section('The Algorithm',
+      pcode(`def binary_search(lst, target):
+    low = 0
+    high = len(lst) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        if lst[mid] == target:
+            return mid        # found
+        elif lst[mid] < target:
+            low = mid + 1     # target is in the right half
+        else:
+            high = mid - 1    # target is in the left half
+
+    return -1                 # not found
+
+numbers = [11, 12, 22, 25, 34, 64, 90]
+print(binary_search(numbers, 25))   # 3
+print(binary_search(numbers, 50))   # -1`)
+    )}
+    ${section('Tracing a Binary Search',
+      p('Trace: search for 22 in <code>[11, 12, 22, 25, 34, 64, 90]</code>'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Step</th><th>low</th><th>high</th><th>mid</th><th>lst[mid]</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>0</td><td>6</td><td>3</td><td>25</td><td>25 &gt; 22: high = 2</td></tr>
+          <tr><td>2</td><td>0</td><td>2</td><td>1</td><td>12</td><td>12 &lt; 22: low = 2</td></tr>
+          <tr><td>3</td><td>2</td><td>2</td><td>2</td><td>22</td><td>Found: return 2</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Linear vs Binary Search',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th></th><th>Linear Search</th><th>Binary Search</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Data requirement</strong></td><td>Any order</td><td>Must be sorted</td></tr>
+          <tr><td><strong>Time complexity</strong></td><td>O(n)</td><td>O(log n)</td></tr>
+          <tr><td><strong>Best case</strong></td><td>O(1)</td><td>O(1)</td></tr>
+          <tr><td><strong>1000 items, worst case</strong></td><td>1000 comparisons</td><td>~10 comparisons</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Practice Exercises',
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li><a href="https://leetcode.com/problems/binary-search/" target="_blank">LeetCode #704: Binary Search</a></li>
+        <li><a href="https://leetcode.com/problems/search-insert-position/" target="_blank">LeetCode #35: Search Insert Position</a></li>
+        <li><a href="https://www.hackerrank.com/challenges/icecream-parlor/problem" target="_blank">HackerRank: Ice Cream Parlor</a></li>
+      </ul>`
+    )}`;
+
+  case 'l16': return `
+    ${section('Bubble Sort',
+      def('Bubble sort', 'A sorting algorithm that repeatedly steps through a list, compares adjacent elements, and swaps them if they are in the wrong order. Larger values gradually move ("bubble") towards the end.'),
+      p('Bubble sort is simple to understand and trace, but slow for large datasets.')
+    )}
+    ${section('The Algorithm',
+      pcode(`def bubble_sort(lst):
+    n = len(lst)
+    for i in range(n - 1):           # n-1 passes
+        for j in range(n - 1 - i):   # inner range shrinks each pass
+            if lst[j] > lst[j + 1]:
+                lst[j], lst[j + 1] = lst[j + 1], lst[j]
+    return lst
+
+numbers = [64, 34, 25, 12, 22]
+print(bubble_sort(numbers))   # [12, 22, 25, 34, 64]`)
+    )}
+    ${section('Tracing Bubble Sort',
+      p('Trace: sort <code>[64, 34, 25, 12, 22]</code>. Each row shows the list after a complete pass.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Pass</th><th>List after pass</th><th>What happened</th></tr></thead>
+        <tbody>
+          <tr><td>Pass 1</td><td>[34, 25, 12, 22, <strong>64</strong>]</td><td>64 bubbled to the end</td></tr>
+          <tr><td>Pass 2</td><td>[25, 12, 22, <strong>34</strong>, 64]</td><td>34 in position</td></tr>
+          <tr><td>Pass 3</td><td>[12, 22, <strong>25</strong>, 34, 64]</td><td>25 in position</td></tr>
+          <tr><td>Pass 4</td><td>[<strong>12</strong>, 22, 25, 34, 64]</td><td>Sorted</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('Exam questions often ask for the state after each <em>pass</em>, not after each swap. Show the complete list after each full outer-loop iteration.')
+    )}
+    ${section('Optimised Bubble Sort',
+      p('If no swaps occur during a pass, the list is already sorted. A flag lets us stop early:'),
+      pcode(`def bubble_sort_optimised(lst):
+    n = len(lst)
+    for i in range(n - 1):
+        swapped = False
+        for j in range(n - 1 - i):
+            if lst[j] > lst[j + 1]:
+                lst[j], lst[j + 1] = lst[j + 1], lst[j]
+                swapped = True
+        if not swapped:
+            break   # list is already sorted
+    return lst`)
+    )}
+    ${section('Complexity',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Case</th><th>Time</th><th>Space</th></tr></thead>
+        <tbody>
+          <tr><td>Best (sorted, optimised)</td><td>O(n)</td><td>O(1)</td></tr>
+          <tr><td>Average</td><td>O(n²)</td><td>O(1)</td></tr>
+          <tr><td>Worst (reverse sorted)</td><td>O(n²)</td><td>O(1)</td></tr>
+        </tbody>
+      </table></div>`,
+      tip('Bubble sort is O(1) space because it sorts in place: no extra list is created.')
+    )}
+    ${section('Practice Exercises',
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li><a href="https://www.hackerrank.com/challenges/30-sorting/problem" target="_blank">HackerRank 30 Days of Code: Day 20 Sorting</a></li>
+        <li><a href="https://leetcode.com/problems/sort-colors/" target="_blank">LeetCode #75: Sort Colors</a></li>
+        <li><a href="https://leetcode.com/problems/merge-sorted-array/" target="_blank">LeetCode #88: Merge Sorted Array</a></li>
+        <li><a href="https://adventofcode.com/2020/day/5" target="_blank">Advent of Code 2020 Day 5: Binary Boarding</a></li>
+      </ul>`
+    )}`;
+
+  case 'l17': return `
+    ${section('Selection Sort',
+      def('Selection sort', 'A sorting algorithm that divides the list into a sorted left portion and an unsorted right portion. On each pass it finds the minimum value in the unsorted portion and swaps it into position.'),
+      p('Selection sort makes at most n swaps (one per pass), compared to up to n² swaps for bubble sort.')
+    )}
+    ${section('The Algorithm',
+      pcode(`def selection_sort(lst):
+    n = len(lst)
+    for i in range(n - 1):
+        min_index = i                    # assume current position holds the minimum
+        for j in range(i + 1, n):
+            if lst[j] < lst[min_index]:
+                min_index = j            # found a smaller value
+        if min_index != i:
+            lst[i], lst[min_index] = lst[min_index], lst[i]
+    return lst
+
+numbers = [64, 25, 12, 22, 11]
+print(selection_sort(numbers))   # [11, 12, 22, 25, 64]`)
+    )}
+    ${section('Tracing Selection Sort',
+      p('Trace: sort <code>[64, 25, 12, 22, 11]</code>'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Pass (i)</th><th>Minimum found</th><th>List after swap</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>11 at index 4</td><td>[<strong>11</strong>, 25, 12, 22, 64]</td></tr>
+          <tr><td>1</td><td>12 at index 2</td><td>[11, <strong>12</strong>, 25, 22, 64]</td></tr>
+          <tr><td>2</td><td>22 at index 3</td><td>[11, 12, <strong>22</strong>, 25, 64]</td></tr>
+          <tr><td>3</td><td>25 at index 3</td><td>[11, 12, 22, <strong>25</strong>, 64]</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Bubble Sort vs Selection Sort',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th></th><th>Bubble Sort</th><th>Selection Sort</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Time complexity</strong></td><td>O(n²)</td><td>O(n²)</td></tr>
+          <tr><td><strong>Maximum swaps</strong></td><td>O(n²)</td><td>O(n)</td></tr>
+          <tr><td><strong>Space</strong></td><td>O(1)</td><td>O(1)</td></tr>
+          <tr><td><strong>Best case</strong></td><td>O(n) (optimised)</td><td>O(n²) always</td></tr>
+          <tr><td><strong>Stable sort?</strong></td><td>Yes</td><td>No</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('The IB exam may ask you to compare these two algorithms. Key distinction: selection sort makes far fewer swaps (useful if swapping is expensive), but bubble sort with optimisation can detect a sorted list faster.')
+    )}
+    ${section('Practice Exercises',
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li>Modify selection sort to sort in descending order.</li>
+        <li><a href="https://leetcode.com/problems/sort-colors/" target="_blank">LeetCode #75: Sort Colors</a></li>
+        <li><a href="https://leetcode.com/problems/merge-sorted-array/" target="_blank">LeetCode #88: Merge Sorted Array</a></li>
+      </ul>`
+    )}`;
+
+  case 'l18': return `
+    ${hlNote('Lessons 18 to 20 cover B2.4.4 and B2.4.5: Recursion. This is Higher Level content.')}
+    ${section('What is Recursion?',
+      def('Recursion', 'A technique where a function solves a problem by calling itself with a smaller or simpler version of the same problem, until a base case is reached.'),
+      p('Recursion is an alternative to iteration for problems that have a naturally self-similar structure: trees, grids, divide-and-conquer, and backtracking.')
+    )}
+    ${section('Base Case and Recursive Case',
+      p('Every recursive function needs two parts:'),
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li><strong>Base case:</strong> the simplest input, where the function returns a value directly without calling itself again.</li>
+        <li><strong>Recursive case:</strong> calls itself with a smaller input, moving towards the base case.</li>
       </ul>`,
-      tip('Java\'s built-in <code>Math</code> class uses static methods throughout: <code>Math.sqrt()</code>, <code>Math.pow()</code>, <code>Math.random()</code> — none require an object because they just perform calculations.')
+      pcode(`def factorial(n):
+    if n == 0:               # base case: 0! = 1
+        return 1
+    return n * factorial(n - 1)   # recursive case
+
+print(factorial(5))   # 120
+# 5 * 4 * 3 * 2 * 1 = 120`),
+      examTip('Always identify the base case first. Ask: "What is the simplest possible input, and what should the function return for it?" Without a base case, the function calls itself forever (RecursionError).')
     )}
-    ${practiceSect('Practice Questions', [
-      qa('What is the difference between a static variable and an instance variable?', 'An <strong>instance variable</strong> belongs to each individual object — every object has its own separate copy. A <strong>static variable</strong> belongs to the class itself and is shared by all objects — there is only one copy regardless of how many objects exist.'),
-      qa('If you increment a static counter in a constructor, what happens each time a new object is created?', 'The <strong>shared counter increases by 1</strong>. Because all objects share one static variable, creating any new object updates the same counter. After creating 3 objects, the counter is 3.'),
-      qa('Can a static method access instance attributes? Why or why not?', 'No. A static method belongs to the <strong>class</strong>, not to any specific object. It has no <code>this</code>/<code>self</code> reference, so it cannot access instance attributes.'),
-      qa('Write a Java method signature for a static method called isPositive that takes an int and returns a boolean.', '<code>public static boolean isPositive(int n) { return n &gt; 0; }</code>'),
-      qa('In the Dog class example, why is totalDogs declared static but name is not?', '<code>totalDogs</code> tracks how many Dog objects exist — this belongs to the class as a whole. <code>name</code> is personal to each individual dog — every Dog object needs its own separate name value.'),
-    ])}`;
+    ${section('Tracing the Call Stack',
+      p('Each recursive call adds a new frame to the call stack. The frames resolve from the innermost outward:'),
+      pcode(`factorial(4)
+  -> 4 * factorial(3)
+       -> 3 * factorial(2)
+            -> 2 * factorial(1)
+                 -> 1 * factorial(0)
+                      -> return 1      # base case
+                 -> return 1 * 1 = 1
+            -> return 2 * 1 = 2
+       -> return 3 * 2 = 6
+  -> return 4 * 6 = 24`),
+      tip('Python\'s default recursion limit is 1000 calls. For problems requiring very deep recursion, use iteration or increase the limit with <code>sys.setrecursionlimit()</code>.')
+    )}
+    ${section('Fibonacci Numbers',
+      p('The Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13... Each number is the sum of the two before it.'),
+      pcode(`def fibonacci(n):
+    if n <= 1:                           # base cases
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+for i in range(8):
+    print(fibonacci(i), end=" ")   # 0 1 1 2 3 5 8 13`),
+      tip('Naive recursive Fibonacci is O(2ⁿ): extremely slow for large n because the same values are recalculated many times. For large n, use a loop or memoisation.')
+    )}`;
+
+  case 'l19': return `
+    ${hlNote('This lesson covers B2.4.5: constructing and tracing recursive algorithms.')}
+    ${section('Recursive Binary Search',
+      p('Binary search can be written recursively. Each call works on a smaller slice of the list:'),
+      pcode(`def binary_search(lst, target, low, high):
+    if low > high:               # base case: not found
+        return -1
+    mid = (low + high) // 2
+    if lst[mid] == target:       # base case: found
+        return mid
+    elif lst[mid] < target:
+        return binary_search(lst, target, mid + 1, high)
+    else:
+        return binary_search(lst, target, low, mid - 1)
+
+numbers = [11, 12, 22, 25, 34, 64, 90]
+print(binary_search(numbers, 25, 0, len(numbers) - 1))  # 3`),
+      examTip('The two base cases are: (1) low > high: the target is not in the list; (2) lst[mid] == target: found. The recursive cases halve the remaining search space.')
+    )}
+    ${section('Quicksort',
+      def('Quicksort', 'A divide-and-conquer sorting algorithm. It picks a pivot, partitions the list into elements less than and greater than the pivot, then recursively sorts each partition.'),
+      pcode(`def quicksort(lst):
+    if len(lst) <= 1:    # base case: lists of 0 or 1 are already sorted
+        return lst
+    pivot = lst[len(lst) // 2]
+    left  = [x for x in lst if x < pivot]
+    mid   = [x for x in lst if x == pivot]
+    right = [x for x in lst if x > pivot]
+    return quicksort(left) + mid + quicksort(right)
+
+numbers = [3, 6, 8, 10, 1, 2, 1]
+print(quicksort(numbers))   # [1, 1, 2, 3, 6, 8, 10]`),
+      tip('Quicksort averages O(n log n) time. Its worst case is O(n²) when the pivot is always the smallest or largest element. In practice it is often faster than merge sort.')
+    )}
+    ${section('Recursive Sum of Digits',
+      pcode(`def digit_sum(n):
+    if n < 10:               # base case: single digit
+        return n
+    return (n % 10) + digit_sum(n // 10)
+
+print(digit_sum(123))    # 6   (1 + 2 + 3)
+print(digit_sum(9999))   # 36  (9 + 9 + 9 + 9)`),
+      p('Try: <a href="https://www.hackerrank.com/challenges/recursive-digit-sum/problem" target="_blank">HackerRank: Recursive Digit Sum</a>')
+    )}
+    ${section('Practice Exercises',
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li><a href="https://www.hackerrank.com/challenges/30-recursion/problem" target="_blank">HackerRank 30 Days of Code: Day 9 Recursion 3</a></li>
+        <li><a href="https://leetcode.com/problems/fibonacci-number/" target="_blank">LeetCode #509: Fibonacci Number</a></li>
+        <li><a href="https://leetcode.com/problems/binary-search/" target="_blank">LeetCode #704: Binary Search</a> (implement a recursive solution)</li>
+        <li><a href="https://www.hackerrank.com/challenges/recursive-digit-sum/problem" target="_blank">HackerRank: Recursive Digit Sum</a></li>
+        <li><a href="https://leetcode.com/problems/palindrome-number/" target="_blank">LeetCode #9: Palindrome Number</a> (recursive solution)</li>
+        <li><a href="https://leetcode.com/problems/find-greatest-common-divisor-of-array/" target="_blank">LeetCode #1979: Find GCD of Array</a> (use GCD(a,b) = GCD(b, a mod b))</li>
+        <li>Quicksort: implement and test on the 10,000 unsorted integers dataset provided by your teacher.</li>
+      </ul>`
+    )}`;
+
+  case 'l20': return `
+    ${hlNote('This lesson covers B2.4.5: advanced recursive applications including depth-first search and backtracking.')}
+    ${section('Depth-First Search (DFS)',
+      def('Depth-First Search (DFS)', 'A recursive algorithm that explores a graph or grid by going as deep as possible along one path before backtracking and trying another.'),
+      p('DFS is used to explore connected regions in a grid, find paths in mazes, and count connected areas.'),
+      pcode(`def flood_fill(image, r, c, original, new_color):
+    # Base cases: out of bounds, or not the target colour
+    if r < 0 or r >= len(image): return
+    if c < 0 or c >= len(image[0]): return
+    if image[r][c] != original: return
+    image[r][c] = new_color     # colour this cell
+    flood_fill(image, r + 1, c, original, new_color)  # down
+    flood_fill(image, r - 1, c, original, new_color)  # up
+    flood_fill(image, r, c + 1, original, new_color)  # right
+    flood_fill(image, r, c - 1, original, new_color)  # left`),
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li><a href="https://leetcode.com/problems/flood-fill/" target="_blank">LeetCode #733: Flood Fill</a></li>
+        <li><a href="https://leetcode.com/problems/max-area-of-island/" target="_blank">LeetCode #695: Max Area of Island</a></li>
+        <li><a href="https://adventofcode.com/2019/day/6" target="_blank">Advent of Code 2019 Day 6: Universal Orbit Map</a></li>
+      </ul>`
+    )}
+    ${section('Recursive Backtracking: Sudoku Solver',
+      p('Sudoku can be solved with recursive backtracking: try placing a digit, recurse to fill the rest. If a contradiction is reached, undo the placement and try the next digit.'),
+      pcode(`def is_valid(board, r, c, num):
+    if num in board[r]: return False
+    if num in [board[i][c] for i in range(9)]: return False
+    box_r, box_c = 3 * (r // 3), 3 * (c // 3)
+    for i in range(box_r, box_r + 3):
+        for j in range(box_c, box_c + 3):
+            if board[i][j] == num: return False
+    return True
+
+def solve(board):
+    for r in range(9):
+        for c in range(9):
+            if board[r][c] == 0:
+                for num in range(1, 10):
+                    if is_valid(board, r, c, num):
+                        board[r][c] = num
+                        if solve(board):
+                            return True
+                        board[r][c] = 0   # backtrack
+                return False
+    return True`),
+      p('Starting board (0 represents an empty cell):'),
+      pcode(`sudoku = [
+    [ 8, 0, 0, 2, 6, 0, 0, 0, 4 ],
+    [ 0, 1, 0, 0, 8, 3, 0, 6, 2 ],
+    [ 2, 6, 0, 7, 4, 0, 1, 0, 0 ],
+    [ 0, 0, 6, 0, 7, 8, 2, 1, 0 ],
+    [ 0, 0, 4, 0, 3, 2, 0, 8, 0 ],
+    [ 0, 2, 0, 0, 0, 9, 0, 0, 7 ],
+    [ 7, 4, 0, 0, 1, 6, 0, 2, 0 ],
+    [ 0, 3, 0, 8, 0, 4, 0, 7, 1 ],
+    [ 0, 0, 1, 0, 2, 7, 0, 0, 6 ]
+]`)
+    )}
+    ${section('Full Exercise List',
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li><a href="https://leetcode.com/problems/flood-fill/" target="_blank">LeetCode #733: Flood Fill (DFS)</a></li>
+        <li><a href="https://leetcode.com/problems/max-area-of-island/" target="_blank">LeetCode #695: Max Area of Island (DFS)</a></li>
+        <li><a href="https://adventofcode.com/2019/day/6" target="_blank">Advent of Code 2019 Day 6: Universal Orbit Map</a></li>
+        <li>Sudoku solver using recursive backtracking (puzzle provided above)</li>
+        <li>Quicksort: sort the 10,000 unsorted integers dataset (from your teacher)</li>
+      </ul>`
+    )}`;
+
+  case 'l21': return `
+    ${section('Why Use Files?',
+      p('Programs that use files can store data <strong>persistently</strong>: the data survives after the program ends. Files are used to read large datasets, log results, and share data between programs.'),
+      p('All five exercises in Problem Set 1 read from files. This lesson covers the tools to do that.')
+    )}
+    ${section('Reading Files',
+      pcode(`# Method 1: read the whole file as one string
+with open("data.txt") as f:
+    content = f.read()
+
+# Method 2: iterate line by line (memory efficient)
+with open("data.txt") as f:
+    for line in f:
+        print(line.strip())
+
+# Method 3: read all lines into a list
+with open("data.txt") as f:
+    lines = f.readlines()   # list of strings, each with a trailing newline`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Method</th><th>Returns</th><th>Best for</th></tr></thead>
+        <tbody>
+          <tr><td><code>.read()</code></td><td>One string</td><td>Small files</td></tr>
+          <tr><td><code>.readlines()</code></td><td>List of strings</td><td>When you need all lines in memory</td></tr>
+          <tr><td><code>for line in f</code></td><td>One line at a time</td><td>Large files</td></tr>
+        </tbody>
+      </table></div>`,
+      tip('Always use <code>with open(...) as f:</code>. This automatically closes the file when the block ends, even if an error occurs.')
+    )}
+    ${section('Writing Files',
+      pcode(`# Write mode: creates the file, or overwrites if it already exists
+with open("output.txt", "w") as f:
+    f.write("Line one\\n")
+    f.write("Line two\\n")
+
+# Append mode: adds to the end of an existing file
+with open("output.txt", "a") as f:
+    f.write("Line three\\n")
+
+# Write multiple lines at once
+lines = ["Apple\\n", "Banana\\n", "Cherry\\n"]
+with open("fruits.txt", "w") as f:
+    f.writelines(lines)`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Mode</th><th>Behaviour</th></tr></thead>
+        <tbody>
+          <tr><td><code>"r"</code></td><td>Read (default). FileNotFoundError if file is missing.</td></tr>
+          <tr><td><code>"w"</code></td><td>Write. Creates the file if needed; overwrites if it exists.</td></tr>
+          <tr><td><code>"a"</code></td><td>Append. Creates the file if needed; adds to the end.</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('Remember to include <code>\\n</code> at the end of each string you write with <code>f.write()</code>, otherwise all content will appear on one line.')
+    )}
+    ${section('Processing File Data',
+      p('The typical pattern for file processing: open the file, read each line, strip whitespace, convert and process:'),
+      pcode(`def average_from_file(filename):
+    total = 0
+    count = 0
+    with open(filename) as f:
+        for line in f:
+            value = int(line.strip())
+            total += value
+            count += 1
+    return total // count if count > 0 else 0`),
+      tip('Always call <code>.strip()</code> on each line before converting. A trailing newline will cause <code>int()</code> to raise a ValueError.')
+    )}
+    ${section('Practice Exercises',
+      `<ul style="line-height:2;margin:0 0 0 1.5rem">
+        <li><a href="https://adventofcode.com/2021/day/1" target="_blank">Advent of Code 2021 Day 1: Sonar Sweep</a></li>
+        <li><a href="https://adventofcode.com/2022/day/1" target="_blank">Advent of Code 2022 Day 1: Calorie Counting</a></li>
+        <li>Revisit all five exercises in Problem Set 1: each one reads from a file.</li>
+      </ul>`
+    )}`;
 
   default: return `<div class="page-section"><p>Content coming soon.</p></div>`;
   }
 }
+
 
 // ── IGCSE Unit 1 Lesson content ───────────────────────────────────────────────
 function igcseU1LessonContent(id) {
@@ -3870,9 +4420,10 @@ function renderIBDP() {
       <div class="tbl-wrap"><table class="content-table">
         <thead><tr><th>When</th><th>Milestone</th></tr></thead>
         <tbody>
-          <tr><td>Term 1 (Year 1)</td><td>Topic selection and initial scoping. Criteria A draft.</td></tr>
-          <tr><td>Term 2 (Year 1)</td><td>Design phase: Criteria B and C. Algorithm planning.</td></tr>
-          <tr><td>Term 3 (Year 1)</td><td>Development begins: core algorithms implemented.</td></tr>
+          <tr><td>Term 3 (Year 1)</td><td>Topic selection and initial scoping. Criteria A draft.</td></tr>
+          <tr><td>Term 3 (Year 1)</td><td>Design phase: Criteria B and attempt to start C. Algorithm planning.</td></tr>
+          <tr><td>Term 1 (Year 2)</td><td>Design Continue Criterion B + Start Criterion C (if not already). Algorithm planning.</td></tr>
+          <tr><td>Term 1 (Year 1)</td><td>Development begins: core algorithms implemented.</td></tr>
           <tr><td>Term 1 (Year 2)</td><td>Development complete. Testing and video recording.</td></tr>
           <tr><td>Term 2 (Year 2)</td><td>Criterion D written. Criterion E drafted.</td></tr>
           <tr><td>Term 2 (Year 2): Final</td><td>Full submission due to teacher for internal moderation.</td></tr>
@@ -4027,7 +4578,7 @@ function renderB2Lesson(lessonId) {
         ${bc([{href:'#home',label:'Home'},{href:'#ibdp',label:'IB DP'},{href:'#ibdp/b2',label:'B2: Programming'},{label:`Lesson ${lesson.num}`}])}
         <div class="lesson-meta">
           <span class="lesson-num">Lesson ${lesson.num}</span>
-          <span class="badge badge-sl">SL</span><span class="badge badge-hl">HL</span>
+          ${badge(lesson.level)}
           <span class="lesson-ref">${lesson.ref}</span>
         </div>
         <h1>${lesson.title}</h1>
