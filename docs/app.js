@@ -4,50 +4,59 @@
 const SQL_KEYWORDS = /\b(SELECT|FROM|WHERE|JOIN|INNER|LEFT|RIGHT|OUTER|ON|AND|OR|NOT|IN|AS|DISTINCT|ORDER|BY|ASC|DESC|GROUP|HAVING|BETWEEN|LIKE|NULL|IS|INSERT|INTO|VALUES|UPDATE|SET|DELETE|CREATE|TABLE|DATABASE|ALTER|ADD|DROP|COLUMN|INDEX|VIEW|MATERIALIZED|REFERENCES|PRIMARY|FOREIGN|KEY|CONSTRAINT|BEGIN|COMMIT|ROLLBACK|TRANSACTION|NOT NULL|UNIQUE|DEFAULT|INTEGER|INT|VARCHAR|CHAR|CHARACTER|DATE|TIME|BOOLEAN|REAL|DECIMAL|NUMERIC)\b/gi;
 const SQL_FNS = /\b(COUNT|SUM|AVG|MIN|MAX|COALESCE|IFNULL|NOW|LENGTH|UPPER|LOWER)\b/gi;
 
+// Stash comments/strings as placeholders so later keyword passes never touch their HTML attributes.
+function makePH() {
+  const store = [];
+  const ph = html => { const k = `\x00${store.length}\x00`; store.push(html); return k; };
+  const restore = s => s.replace(/\x00(\d+)\x00/g, (_, i) => store[+i]);
+  return { ph, restore };
+}
+
 function sql(code) {
   const esc = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return `<pre class="code-block"><code>${
-    esc
-      .replace(/(--[^\n]*)/g, '<span class="cmt">$1</span>')
-      .replace(/'([^']*)'/g, `<span class="str">'$1'</span>`)
-      .replace(/\b(\d+\.?\d*)\b/g, '<span class="num">$1</span>')
-      .replace(SQL_FNS, '<span class="fn">$&</span>')
-      .replace(SQL_KEYWORDS, '<span class="kw">$&</span>')
-  }</code></pre>`;
+  const { ph, restore } = makePH();
+  let s = esc;
+  s = s.replace(/(--[^\n]*)/g, m => ph(`<span class="cmt">${m}</span>`));
+  s = s.replace(/'([^']*)'/g, (_, c) => ph(`<span class="str">'${c}'</span>`));
+  s = s.replace(/\b(\d+\.?\d*)\b/g, (_, n) => ph(`<span class="num">${n}</span>`));
+  s = s.replace(SQL_FNS, '<span class="fn">$&</span>');
+  s = s.replace(SQL_KEYWORDS, '<span class="kw">$&</span>');
+  return `<pre class="code-block"><code>${restore(s)}</code></pre>`;
 }
 
 function pcode(code) {
   const esc = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const KW = /\b(def|return|if|elif|else|for|while|in|not|and|or|True|False|None|import|from|class|pass|break|continue|try|except|finally|with|as|lambda|print|input|int|float|str|bool|len|range|list|dict|set|append|lower|upper)\b/g;
-  return `<pre class="code-block"><code>${
-    esc
-      .replace(/#[^\n]*/g, m => `<span class="cmt">${m}</span>`)
-      .replace(/"([^"]*)"/g, `<span class="str">"$1"</span>`)
-      .replace(/'([^']*)'/g, `<span class="str">'$1'</span>`)
-      .replace(/\b(\d+\.?\d*)\b/g, '<span class="num">$1</span>')
-      .replace(KW, '<span class="kw">$&</span>')
-  }</code></pre>`;
+  const { ph, restore } = makePH();
+  let s = esc;
+  s = s.replace(/#[^\n]*/g, m => ph(`<span class="cmt">${m}</span>`));
+  s = s.replace(/"([^"]*)"/g, (_, c) => ph(`<span class="str">"${c}"</span>`));
+  s = s.replace(/'([^']*)'/g, (_, c) => ph(`<span class="str">'${c}'</span>`));
+  s = s.replace(/\b(\d+\.?\d*)\b/g, (_, n) => ph(`<span class="num">${n}</span>`));
+  s = s.replace(KW, '<span class="kw">$&</span>');
+  return `<pre class="code-block"><code>${restore(s)}</code></pre>`;
 }
 
 function bash(code) {
   const esc = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return `<pre class="code-block"><code>${
-    esc.replace(/#[^\n]*/g, m => `<span class="cmt">${m}</span>`)
-       .replace(/"([^"]*)"/g, `<span class="str">"$1"</span>`)
-  }</code></pre>`;
+  const { ph, restore } = makePH();
+  let s = esc;
+  s = s.replace(/#[^\n]*/g, m => ph(`<span class="cmt">${m}</span>`));
+  s = s.replace(/"([^"]*)"/g, (_, c) => ph(`<span class="str">"${c}"</span>`));
+  return `<pre class="code-block"><code>${restore(s)}</code></pre>`;
 }
 
 function jcode(code) {
   const esc = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const KW = /\b(public|class|static|void|int|double|boolean|char|String|if|else|for|while|do|return|new|import|null|true|false|switch|case|break|default|try|catch|throws|this|extends|implements|interface|abstract)\b/g;
-  return `<pre class="code-block"><code>${
-    esc
-      .replace(/\/\/[^\n]*/g, m => `<span class="cmt">${m}</span>`)
-      .replace(/"([^"]*)"/g, `<span class="str">"$1"</span>`)
-      .replace(/'([^']*)'/g, `<span class="str">'$1'</span>`)
-      .replace(/\b(\d+\.?\d*)\b/g, '<span class="num">$1</span>')
-      .replace(KW, '<span class="kw">$&</span>')
-  }</code></pre>`;
+  const { ph, restore } = makePH();
+  let s = esc;
+  s = s.replace(/\/\/[^\n]*/g, m => ph(`<span class="cmt">${m}</span>`));
+  s = s.replace(/"([^"]*)"/g, (_, c) => ph(`<span class="str">"${c}"</span>`));
+  s = s.replace(/'([^']*)'/g, (_, c) => ph(`<span class="str">'${c}'</span>`));
+  s = s.replace(/\b(\d+\.?\d*)\b/g, (_, n) => ph(`<span class="num">${n}</span>`));
+  s = s.replace(KW, '<span class="kw">$&</span>');
+  return `<pre class="code-block"><code>${restore(s)}</code></pre>`;
 }
 
 // ── HTML helpers ─────────────────────────────────────────────────────────────
