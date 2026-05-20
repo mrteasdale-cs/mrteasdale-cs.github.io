@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Java Practicals</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src/lucas/ALLINONEALOGORITHM.java</name>
+			<type>1</type>
+			<locationURI>PARENT-9-PROJECT_LOC/Student%20Work/Y12/Searching%20and%20Sorting/Topic_4_-_Searching_and_Sorting_Java_Practical_-_Part_3_/Jeong_SeungHeon_Lucas_-12749848/ALLINONEALOGORITHM.java</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>

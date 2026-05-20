@@ -278,9 +278,9 @@ img { max-width: 100%; display: block; }
 /* ── Home Cards ────────────────────────────────────────── */
 .home-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
   gap: 1.5rem;
-  max-width: 780px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 .home-card {
@@ -684,6 +684,46 @@ a.card, .card-link {
   transition: color var(--t);
 }
 .back-link:hover { color: var(--teal); }
+
+/* ── Lesson prev/next nav ──────────────────────────────── */
+.lesson-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--grey-200);
+}
+.lesson-nav-btn {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  padding: .9rem 1.2rem;
+  border: 1.5px solid var(--grey-200);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--grey-700);
+  background: var(--grey-50);
+  transition: border-color var(--t), background var(--t), color var(--t);
+  min-width: 0;
+  max-width: 48%;
+}
+.lesson-nav-btn:hover {
+  border-color: var(--teal);
+  background: var(--white);
+  color: var(--teal);
+}
+.lesson-nav-btn.next { text-align: right; margin-left: auto; }
+.lesson-nav-label {
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--grey-400);
+}
+.lesson-nav-btn:hover .lesson-nav-label { color: var(--teal); opacity: .7; }
+.lesson-nav-title { font-size: .9rem; font-weight: 600; }
 
 /* ── Section header ────────────────────────────────────── */
 .section-header { margin-bottom: 1.5rem; }

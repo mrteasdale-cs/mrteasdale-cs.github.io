@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Main
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=numElements
+comment2.target=int[]\ createArray(int)
+comment2.text=\r\n\r\n\ @param\ numElements\ -\ accepts\ the\ number\ of\ elements\ to\ create\ an\ int\ array\r\n\ @return\ returns\ the\ elements\ array\ with\ random\ numbers\r\n
+comment3.params=elementsArr
+comment3.target=void\ printArray(int[])
+comment3.text=\r\n\r\n\ @param\ elementsArr\ -\ takes\ an\ int\ array\ of\ elements\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ no\ return\ -\ prints\ out\ array\r\n
+numComments=4

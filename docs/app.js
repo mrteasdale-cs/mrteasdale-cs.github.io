@@ -16,6 +16,27 @@ function sql(code) {
   }</code></pre>`;
 }
 
+function pcode(code) {
+  const esc = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const KW = /\b(def|return|if|elif|else|for|while|in|not|and|or|True|False|None|import|from|class|pass|break|continue|try|except|finally|with|as|lambda|print|input|int|float|str|bool|len|range|list|dict|set|append|lower|upper)\b/g;
+  return `<pre class="code-block"><code>${
+    esc
+      .replace(/#[^\n]*/g, m => `<span class="cmt">${m}</span>`)
+      .replace(/"([^"]*)"/g, `<span class="str">"$1"</span>`)
+      .replace(/'([^']*)'/g, `<span class="str">'$1'</span>`)
+      .replace(/\b(\d+\.?\d*)\b/g, '<span class="num">$1</span>')
+      .replace(KW, '<span class="kw">$&</span>')
+  }</code></pre>`;
+}
+
+function bash(code) {
+  const esc = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return `<pre class="code-block"><code>${
+    esc.replace(/#[^\n]*/g, m => `<span class="cmt">${m}</span>`)
+       .replace(/"([^"]*)"/g, `<span class="str">"$1"</span>`)
+  }</code></pre>`;
+}
+
 function jcode(code) {
   const esc = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const KW = /\b(public|class|static|void|int|double|boolean|char|String|if|else|for|while|do|return|new|import|null|true|false|switch|case|break|default|try|catch|throws|this|extends|implements|interface|abstract)\b/g;
@@ -177,6 +198,28 @@ const A3_LESSONS = [
   {id:'l13', num:13, title:'Data Mining and Distributed Databases', ref:'A3.4.3, A3.4.4', level:'hl'},
 ];
 
+// ── A1 Lesson definitions ─────────────────────────────────────────────────────
+const A1_LESSONS = [
+  {id:'l1', num:1, title:'CPU Components',                   ref:'A1.1.1–A1.1.3', level:'sl-hl'},
+  {id:'l2', num:2, title:'Memory and Storage',               ref:'A1.1.4–A1.1.6', level:'sl-hl'},
+  {id:'l3', num:3, title:'The Fetch-Decode-Execute Cycle',   ref:'A1.1.7',         level:'sl-hl'},
+  {id:'l4', num:4, title:'External Storage & Compression',   ref:'A1.1.8–A1.1.9', level:'sl-hl'},
+  {id:'l5', num:5, title:'GPUs and Cloud Services',          ref:'A1.1.10–A1.1.11',level:'sl-hl'},
+];
+
+// ── Programming lesson definitions ────────────────────────────────────────────
+const PROG_LESSONS = [
+  {id:'l1', num:1, title:'Searching Algorithms',    ref:'Linear & Binary Search'},
+  {id:'l2', num:2, title:'Sorting Algorithms',      ref:'Bubble Sort'},
+  {id:'l3', num:3, title:'Input Validation',        ref:'Range & Presence Check'},
+];
+
+// ── Cyber Security topic definitions ─────────────────────────────────────────
+const CYBER_TOPICS = [
+  {id:'unit4', code:'4', title:'Linux Host Security',         desc:'Hardening a Linux host: removing unnecessary software and services, using nmap and netstat for port scanning and monitoring.'},
+  {id:'unit5', code:'5', title:'Devices & Infrastructure',    desc:'NAT, VPN, web threat protection, network access control, network segmentation, and types of network attack.'},
+];
+
 // ── B1 Lesson definitions ─────────────────────────────────────────────────────
 const B1_LESSONS = [
   {id:'l1', num:1, title:'Constructing Problem Specifications', ref:'B1.1.1', level:'sl-hl'},
@@ -201,6 +244,710 @@ const IGCSE_U1_LESSONS = [
   {id:'l5', num:5, title:'Representing Sound',     ref:'1.1.5'},
   {id:'l6', num:6, title:'File Compression',       ref:'1.1.6'},
 ];
+
+// ── A1 Lesson content ─────────────────────────────────────────────────────────
+function a1LessonContent(id) {
+  switch(id) {
+
+  case 'l1': return `
+    ${section('What is the CPU?',
+      p('The <strong>Central Processing Unit (CPU)</strong> is the brain of the computer. It executes instructions and coordinates all other hardware components. The CPU has three core parts: the <strong>Control Unit (CU)</strong>, the <strong>Arithmetic Logic Unit (ALU)</strong>, and <strong>Registers</strong>.'),
+      def('CPU (Central Processing Unit)', 'The primary component of a computer that processes instructions. It executes program code by continuously fetching, decoding, and executing instructions.')
+    )}
+    ${section('Control Unit (CU)',
+      def('Control Unit', 'Manages all operations inside the processor. Controls the fetch-decode-execute cycle and coordinates communication between memory, the ALU, and I/O devices.'),
+      `<div class="two-col-list">
+        ${[
+          ['Coordinates the cycle','Manages each stage of the fetch-decode-execute cycle.'],
+          ['Signals other units','Sends control signals via the control bus to direct read/write operations.'],
+          ['Decodes instructions','Interprets the binary instruction in the Instruction Register.'],
+        ].map(([k,v]) => `<div class="list-item li-benefit"><span class="li-icon">→</span><div><strong>${k}</strong> — ${v}</div></div>`).join('')}
+      </div>`
+    )}
+    ${section('Arithmetic Logic Unit (ALU)',
+      def('ALU (Arithmetic Logic Unit)', 'Performs all arithmetic operations (add, subtract, multiply, divide) and logical comparisons (AND, OR, XOR, NOT). Works with the CU to process instructions.'),
+      tip('The ALU also increments the Program Counter during each fetch stage — it is not just for maths!')
+    )}
+    ${section('Registers',
+      p('Registers are small, extremely fast memory locations <em>inside</em> the CPU used to hold temporary data during processing. They operate at CPU speed — much faster than RAM.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Register</th><th>Abbreviation</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Program Counter</td><td>PC</td><td>Holds the address of the <strong>next</strong> instruction to fetch</td></tr>
+          <tr><td>Instruction Register</td><td>IR</td><td>Holds the <strong>current</strong> instruction being executed</td></tr>
+          <tr><td>Memory Address Register</td><td>MAR</td><td>Holds the memory address to be accessed (read or written)</td></tr>
+          <tr><td>Memory Data Register</td><td>MDR</td><td>Holds data being transferred to or from memory</td></tr>
+          <tr><td>Accumulator</td><td>AC</td><td>Stores intermediate results from the ALU</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('Know the difference between MAR and MDR: MAR holds an <em>address</em>; MDR holds the <em>data</em> at (or going to) that address.')
+    )}
+    ${section('Buses',
+      p('Buses are electrical pathways that carry data and signals between components:'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Bus</th><th>Carries</th><th>Direction</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Address Bus</strong></td><td>Memory addresses from CPU to RAM</td><td>One-way (CPU → Memory)</td></tr>
+          <tr><td><strong>Data Bus</strong></td><td>Actual data/instructions</td><td>Two-way</td></tr>
+          <tr><td><strong>Control Bus</strong></td><td>Control signals (read/write, clock)</td><td>Two-way</td></tr>
+        </tbody>
+      </table></div>`,
+      tip('The width of the address bus determines how much RAM a CPU can address. A 32-bit address bus can address 2³² = 4 GB of RAM.')
+    )}
+    ${section('Cores',
+      def('Core', 'A single processing unit within a CPU that can independently execute instructions. Modern CPUs have multiple cores.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Single-core</strong></td><td>Processes one instruction stream at a time</td></tr>
+          <tr><td><strong>Multi-core</strong></td><td>Multiple cores execute tasks simultaneously, boosting multitasking performance</td></tr>
+          <tr><td><strong>Co-processor</strong></td><td>Specialized processor assisting the main CPU (e.g. GPU for graphics, DSP for audio)</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('More cores ≠ always faster. Speedup depends on how well the software is parallelised. A single-threaded program gains nothing from extra cores.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['CPU','The brain of the computer — fetches, decodes, and executes instructions.'],
+          ['CU','Control Unit — manages the fetch-decode-execute cycle.'],
+          ['ALU','Arithmetic Logic Unit — performs calculations and logical comparisons.'],
+          ['PC','Program Counter — address of the next instruction.'],
+          ['IR','Instruction Register — current instruction being executed.'],
+          ['MAR','Memory Address Register — address to access in RAM.'],
+          ['MDR','Memory Data Register — data being transferred to/from RAM.'],
+          ['Accumulator','Stores ALU results temporarily.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l2': return `
+    ${section('Primary Memory',
+      p('Primary memory is directly accessible by the CPU. It holds the instructions and data for programs currently running.'),
+      h3('RAM — Random Access Memory'),
+      def('RAM', 'Volatile primary memory that holds instructions and data for running programs. Data is lost when power is removed.'),
+      `<div class="two-col-list">
+        ${[
+          ['Volatile','All data is lost when the computer powers off.'],
+          ['Fast access','Much faster than secondary storage — CPU accesses it directly.'],
+          ['Temporary','Holds only currently active programs and data.'],
+        ].map(([k,v]) => `<div class="list-item li-benefit"><span class="li-icon">•</span><div><strong>${k}</strong> — ${v}</div></div>`).join('')}
+      </div>`,
+      h3('ROM — Read-Only Memory'),
+      def('ROM', 'Non-volatile primary memory that stores permanent firmware (e.g. BIOS). Contents are not lost when power is removed.'),
+      p('ROM stores the <strong>BIOS</strong> (Basic Input/Output System) — the firmware that initializes hardware and loads the operating system on startup.'),
+      tip('Modern computers use <strong>flash ROM</strong> (UEFI) which can be updated — but is still non-volatile and boots the system.')
+    )}
+    ${section('Cache Memory',
+      def('Cache', 'Small, very fast memory built into or close to the CPU. Stores recently and frequently used instructions/data to reduce the time the CPU waits for RAM.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Level</th><th>Size</th><th>Speed</th><th>Location</th></tr></thead>
+        <tbody>
+          <tr><td><strong>L1</strong></td><td>32–128 KB per core</td><td>Fastest</td><td>On the CPU die, per core</td></tr>
+          <tr><td><strong>L2</strong></td><td>256 KB – 2 MB per core</td><td>Fast</td><td>On the CPU die, per core</td></tr>
+          <tr><td><strong>L3</strong></td><td>2–64 MB shared</td><td>Slower than L1/L2</td><td>Shared across all cores</td></tr>
+        </tbody>
+      </table></div>`,
+      p('A <strong>cache hit</strong> occurs when the CPU finds the data in cache — fast. A <strong>cache miss</strong> forces retrieval from slower RAM.'),
+      examTip('Remember the hierarchy: Registers → L1 Cache → L2 Cache → L3 Cache → RAM → Secondary Storage. Each step is slower but larger.')
+    )}
+    ${section('Secondary Storage — HDD vs SSD',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Feature</th><th>HDD</th><th>SSD</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Technology</strong></td><td>Magnetic spinning disks + read/write heads</td><td>Flash memory, no moving parts</td></tr>
+          <tr><td><strong>Speed</strong></td><td>50–150 MB/s</td><td>200–500 MB/s (or 3,500+ MB/s for NVMe)</td></tr>
+          <tr><td><strong>Durability</strong></td><td>Prone to damage from shock</td><td>Resistant to shock</td></tr>
+          <tr><td><strong>Noise</strong></td><td>Audible (moving parts)</td><td>Silent</td></tr>
+          <tr><td><strong>Power</strong></td><td>Higher consumption</td><td>Lower consumption</td></tr>
+          <tr><td><strong>Cost per GB</strong></td><td>Cheaper</td><td>More expensive</td></tr>
+          <tr><td><strong>Capacity</strong></td><td>Up to several TB, affordable</td><td>Up to several TB, expensive</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Other Storage Types',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Type</th><th>Technology</th><th>Key use</th></tr></thead>
+        <tbody>
+          <tr><td>M.2 SSD</td><td>Flash — slots into motherboard</td><td>Faster than SATA SSD, minimal space</td></tr>
+          <tr><td>eMMC</td><td>NAND flash soldered to board</td><td>Budget phones and laptops</td></tr>
+          <tr><td>Optical (CD/DVD/Blu-Ray)</td><td>Laser read/write</td><td>Archiving, low cost per disc</td></tr>
+          <tr><td>Memory card (SD)</td><td>NAND flash</td><td>Cameras, portable devices</td></tr>
+          <tr><td>NAS</td><td>Multiple HDDs/SSDs + network</td><td>Centralised shared storage (businesses)</td></tr>
+        </tbody>
+      </table></div>`,
+      tip('NAS uses <strong>RAID</strong> (Redundant Array of Independent Disks) to combine multiple drives for redundancy and/or performance. If one drive fails, data is not lost.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['RAM','Volatile fast primary memory — loses data on power off.'],
+          ['ROM','Non-volatile memory storing firmware/BIOS.'],
+          ['Cache','Fast buffer memory between CPU and RAM — L1 fastest.'],
+          ['Cache hit','CPU finds needed data in cache — fast.'],
+          ['Cache miss','Data not in cache — must fetch from slower RAM.'],
+          ['HDD','Magnetic spinning disk storage — cheap, slow.'],
+          ['SSD','Flash memory storage — fast, durable, more expensive.'],
+          ['NAS','Network Attached Storage — shared multi-drive server.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l3': return `
+    ${section('The Fetch-Decode-Execute Cycle',
+      p('The <strong>fetch-decode-execute (FDE) cycle</strong> is the fundamental process by which a CPU executes every instruction in a program. It repeats continuously until the program ends.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Stage</th><th>What happens</th><th>Registers involved</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Fetch</strong></td><td>Copy next instruction from RAM into the CPU</td><td>PC → MAR → IR; PC incremented</td></tr>
+          <tr><td><strong>Decode</strong></td><td>CU interprets the instruction in the IR</td><td>IR, CU</td></tr>
+          <tr><td><strong>Execute</strong></td><td>Carry out the instruction (ALU calculation, memory read/write, branch)</td><td>ALU, AC, MDR, MAR</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('The PC is updated during or immediately after the FETCH stage — not after execute. This is a common exam trap.')
+    )}
+    ${section('Stage 1: Fetch — Step by Step',
+      `<ol style="line-height:2;margin:0 0 0 1.5rem">
+        <li>The <strong>PC</strong> holds the address of the next instruction (e.g. 0).</li>
+        <li>This address is copied to the <strong>MAR</strong> via the address bus.</li>
+        <li>The <strong>control bus</strong> sends a READ signal to RAM.</li>
+        <li>The instruction at that address is returned via the <strong>data bus</strong> to the <strong>MDR</strong>.</li>
+        <li>The instruction is copied from MDR to the <strong>IR</strong>.</li>
+        <li>The <strong>PC is incremented</strong> by the ALU (e.g. 0 → 1), ready for the next fetch.</li>
+      </ol>`
+    )}
+    ${section('Stage 2: Decode',
+      `<ol style="line-height:2;margin:0 0 0 1.5rem">
+        <li>The <strong>CU</strong> reads the instruction in the IR.</li>
+        <li>It identifies the <strong>opcode</strong> (operation, e.g. LDA = "load into accumulator") and the <strong>operand</strong> (data address, e.g. 4).</li>
+        <li>It prepares the necessary signals to carry out the operation.</li>
+      </ol>`
+    )}
+    ${section('Stage 3: Execute',
+      `<ol style="line-height:2;margin:0 0 0 1.5rem">
+        <li>The CU sends the relevant address (operand) to the <strong>MAR</strong>.</li>
+        <li>Data at that address is fetched into the <strong>MDR</strong> via the data bus.</li>
+        <li>The operation is carried out — e.g. data loaded into the <strong>Accumulator</strong>, or the ALU performs an arithmetic operation.</li>
+      </ol>`
+    )}
+    ${section('Little Man Computer (LMC)',
+      p('The <strong>Little Man Computer</strong> is a simple model CPU used to illustrate the FDE cycle. Programs are written in a simple assembly language.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Instruction</th><th>Code</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>INP</td><td>901</td><td>Input a value → accumulator</td></tr>
+          <tr><td>OUT</td><td>902</td><td>Output the accumulator value</td></tr>
+          <tr><td>LDA xx</td><td>5xx</td><td>Load value from memory address xx into accumulator</td></tr>
+          <tr><td>STA xx</td><td>3xx</td><td>Store accumulator to memory address xx</td></tr>
+          <tr><td>ADD xx</td><td>1xx</td><td>Add value at address xx to accumulator</td></tr>
+          <tr><td>SUB xx</td><td>2xx</td><td>Subtract value at address xx from accumulator</td></tr>
+          <tr><td>HLT</td><td>000</td><td>Halt the program</td></tr>
+          <tr><td>BRA xx</td><td>6xx</td><td>Branch (jump) to address xx unconditionally</td></tr>
+          <tr><td>BRZ xx</td><td>7xx</td><td>Branch to xx if accumulator = 0</td></tr>
+          <tr><td>BRP xx</td><td>8xx</td><td>Branch to xx if accumulator ≥ 0</td></tr>
+        </tbody>
+      </table></div>`,
+      p('Simulator: <a href="https://peterhigginson.co.uk/lmc" target="_blank" style="color:var(--teal)">peterhigginson.co.uk/lmc</a>')
+    )}
+    ${section('Worked Trace',
+      p('Program loaded at addresses 0–3, data at 4–5:'),
+      `<div class="code-block"><code>LDA 4   → 504 at address 0
+ADD 5   → 105 at address 1
+STA 5   → 305 at address 2
+HLT     → 000 at address 3
+DAT 23          (at address 4)
+DAT 12          (at address 5)</code></div>`,
+      p('<strong>Cycle 1:</strong> Fetch 504 (PC→0), Decode (opcode 5 = LDA, address 4), Execute (load 23 from addr 4 into AC). PC becomes 1.'),
+      p('<strong>Cycle 2:</strong> Fetch 105, Decode (ADD, addr 5), Execute (AC=23+12=35). PC becomes 2.'),
+      p('<strong>Cycle 3:</strong> Fetch 305, Decode (STA, addr 5), Execute (write 35 to addr 5). PC becomes 3.'),
+      p('<strong>Cycle 4:</strong> Fetch 000, Decode (HLT), Execute (halt).')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['FDE cycle','Fetch-Decode-Execute — the repeated process by which the CPU runs programs.'],
+          ['Opcode','The operation part of an instruction (e.g. LDA, ADD, HLT).'],
+          ['Operand','The data or address that the opcode acts on.'],
+          ['LMC','Little Man Computer — educational model CPU for tracing the FDE cycle.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l4': return `
+    ${section('External Storage',
+      p('External storage devices allow data to be stored outside the main computer system, enabling portability, backup, and sharing.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Type</th><th>Technology</th><th>Best for</th><th>Limitations</th></tr></thead>
+        <tbody>
+          <tr><td>External HDD</td><td>Magnetic spinning disk</td><td>Large, cheap backups and media archives</td><td>Slow, fragile if dropped</td></tr>
+          <tr><td>External SSD</td><td>Flash memory</td><td>Fast portable transfers, rugged use</td><td>More expensive per GB</td></tr>
+          <tr><td>Optical (CD/DVD/Blu-Ray)</td><td>Laser read/write</td><td>Data archiving, media distribution</td><td>Scratches, requires optical drive</td></tr>
+          <tr><td>Memory card (SD/microSD)</td><td>NAND flash</td><td>Cameras, phones, portable devices</td><td>Slower than SSD, can be lost</td></tr>
+          <tr><td>NAS</td><td>Multiple drives + network</td><td>Centralised shared storage in businesses</td><td>Requires network; complex to set up</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Data Compression',
+      def('Compression', 'The process of encoding data using fewer bits than the original, reducing file size for faster transmission and less storage use.'),
+      p('Two main types:'),
+      h3('Lossless Compression'),
+      def('Lossless', 'Compresses data without permanently removing any. The original can be perfectly restored. Used for text, databases, program files.'),
+      p('Example: <strong>Run-Length Encoding (RLE)</strong> — consecutive repeated values stored as (count, value): <code>AAAAA BBB CC D AA</code> → <code>5A 3B 2C 1D 2A</code>.'),
+      tip('RLE is effective on simple images with large areas of the same colour (logos, icons). It may <em>increase</em> file size for complex photographic images with few repeating patterns.'),
+      h3('Lossy Compression'),
+      def('Lossy', 'Permanently removes some data, typically in a way that is hard to perceive. Cannot restore original. Used for photos, audio, video.'),
+      p('Example: <strong>JPEG</strong> uses <em>transform coding</em> — the image is divided into 8×8 blocks, transformed to the frequency domain (DCT), high-frequency detail (less visible) is quantized away, then Huffman coded.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th></th><th>Lossless</th><th>Lossy</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Data loss</strong></td><td>None — perfectly restorable</td><td>Permanent — cannot recover</td></tr>
+          <tr><td><strong>File size reduction</strong></td><td>Moderate</td><td>Large (often 90%+)</td></tr>
+          <tr><td><strong>Use cases</strong></td><td>Text, code, databases, medical images</td><td>Photos, music, video</td></tr>
+          <tr><td><strong>Formats</strong></td><td>PNG, GIF, ZIP, FLAC</td><td>JPEG, MP3, MP4</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('Lossy compression must NOT be used for programs, text, or medical images — corrupting a single bit can cause errors. Lossless is required anywhere precision matters.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Compression','Reducing file size by encoding data more efficiently.'],
+          ['Lossless','Compression where original can be perfectly restored.'],
+          ['Lossy','Compression that permanently discards some data.'],
+          ['RLE','Run-Length Encoding — stores count + value for runs of repeated data.'],
+          ['NAS','Network Attached Storage — shared multi-drive network device.'],
+          ['RAID','Redundant Array of Independent Disks — combines drives for redundancy/speed.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l5': return `
+    ${section('What is a GPU?',
+      def('GPU (Graphics Processing Unit)', 'A specialized processor with thousands of small cores designed for parallel computation. Originally built for rendering graphics; now widely used for AI, ML, and scientific computing.'),
+      p('Unlike a CPU (which has a few powerful cores optimised for sequential tasks), a GPU has thousands of smaller cores that process many operations simultaneously.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th></th><th>CPU</th><th>GPU</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Cores</strong></td><td>Few, powerful (4–64)</td><td>Thousands, smaller</td></tr>
+          <tr><td><strong>Optimised for</strong></td><td>Sequential, complex logic</td><td>Parallel, repetitive calculations</td></tr>
+          <tr><td><strong>Best at</strong></td><td>Running the OS, single-threaded apps</td><td>Rendering, matrix maths, AI inference</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('The reason GPUs excel at machine learning is that neural networks rely heavily on <strong>matrix and vector multiplication</strong> — exactly the kind of parallel arithmetic GPUs are built for.')
+    )}
+    ${section('GPU Use Cases',
+      `<div class="two-col-list">
+        ${[
+          ['Graphics rendering','Processes millions of pixels simultaneously; applies shaders, textures, and lighting to 3D scenes.'],
+          ['Video processing','Encodes/decodes 4K and HD video streams efficiently.'],
+          ['Machine learning / AI','Matrix multiplications for training and running neural networks. Many GPUs can be run in parallel (GPU clusters).'],
+          ['Scientific research','Simulations (weather, physics, fluid dynamics) that require massive parallel computation.'],
+          ['Cryptocurrency mining','Parallel cryptographic hashing.'],
+        ].map(([k,v]) => `<div class="list-item li-benefit"><span class="li-icon">•</span><div><strong>${k}</strong> — ${v}</div></div>`).join('')}
+      </div>`
+    )}
+    ${section('Cloud Computing Services',
+      p('Cloud computing delivers IT resources over the internet on a pay-as-you-go basis. There are three main service models:'),
+      h3('SaaS — Software as a Service'),
+      def('SaaS', 'Delivers fully built software applications over the internet via a browser. No local install needed. Examples: Google Workspace (Gmail, Docs, Drive), Microsoft 365.'),
+      p('<strong>Advantages:</strong> Access from any device; automatic updates; subscription cost. <strong>Disadvantages:</strong> Requires internet; data security depends on provider.'),
+      h3('PaaS — Platform as a Service'),
+      def('PaaS', 'Provides a cloud platform (databases, middleware, dev tools) for developers to build and deploy applications without managing underlying servers. Example: Microsoft Azure App Service.'),
+      p('<strong>Advantages:</strong> Focus on code, not infrastructure; easy scaling. <strong>Disadvantages:</strong> Vendor lock-in; less control.'),
+      h3('IaaS — Infrastructure as a Service'),
+      def('IaaS', 'Provides virtualised computing resources (VMs, storage, networks) over the internet. Businesses rent infrastructure instead of buying hardware. Example: Amazon Web Services EC2.'),
+      p('<strong>Advantages:</strong> Full control over VMs; no upfront hardware cost; scalable. <strong>Disadvantages:</strong> Requires technical knowledge; user manages own security.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th></th><th>SaaS</th><th>PaaS</th><th>IaaS</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Who manages</strong></td><td>Provider manages everything</td><td>Provider manages platform</td><td>User manages apps + data</td></tr>
+          <tr><td><strong>Control</strong></td><td>Least</td><td>Medium</td><td>Most</td></tr>
+          <tr><td><strong>Who uses it</strong></td><td>End users / businesses</td><td>Developers</td><td>Sysadmins / DevOps</td></tr>
+          <tr><td><strong>Example</strong></td><td>Google Workspace</td><td>Azure App Service</td><td>AWS EC2</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('Remember the hierarchy: SaaS (least technical, most managed) → PaaS (developer-focused) → IaaS (most control, most technical). Match the level of control to the use case.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['GPU','Parallel processor with thousands of cores — graphics, AI, scientific computing.'],
+          ['SaaS','Software delivered as a web service — no install required.'],
+          ['PaaS','Platform for developers to build apps without managing servers.'],
+          ['IaaS','Virtualised infrastructure (VMs, storage, networking) rented over internet.'],
+          ['Middleware','Software connecting different apps so they can communicate.'],
+          ['Shader','GPU program that calculates colour/lighting effects for 3D rendering.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  default: return `<div class="page-section"><p>Content coming soon.</p></div>`;
+  }
+}
+
+// ── Programming lesson content ─────────────────────────────────────────────────
+function progLessonContent(id) {
+  switch(id) {
+
+  case 'l1': return `
+    ${section('Searching Algorithms',
+      p('A <strong>searching algorithm</strong> finds a target value within a data structure. We compare two approaches: <strong>linear search</strong> (simple, works on any list) and <strong>binary search</strong> (fast, requires a sorted list).'),
+      def('Linear Search', 'Check each element one by one from the start until the target is found or the list is exhausted. Time complexity: O(n).')
+    )}
+    ${section('Linear Search',
+      pcode(`numbers = [5, 7, 19, 21, 25, 82]
+search_num = int(input("Enter number: "))
+num_found = False
+i = 0
+while i < len(numbers) and not num_found:
+    if search_num == numbers[i]:
+        print("Found at index", i)
+        num_found = True
+    i = i + 1
+if not num_found:
+    print("Not found")`),
+      tip('Linear search works on <strong>unsorted</strong> lists. In the worst case it checks every element — O(n). For a list of 1,000,000 items, that could be 1,000,000 comparisons.')
+    )}
+    ${section('Binary Search',
+      def('Binary Search', 'Repeatedly halves the search space by comparing the target with the middle element. Only works on SORTED lists. Time complexity: O(log n).'),
+      pcode(`def binary_search(name_list, target):
+    lower = 0
+    upper = len(name_list) - 1
+    while lower <= upper:
+        mid = int((lower + upper) / 2)
+        if name_list[mid] == target:
+            return mid
+        elif name_list[mid] < target:
+            lower = mid + 1
+        else:
+            upper = mid - 1
+    return -1  # not found
+
+names = ["Aaron", "Beth", "Clive", "Dennis", "Egbert", "Francis",
+         "Gillian", "Hugh", "Icarus", "Jeremy", "Kyle", "Lachina"]
+to_find = input("Enter a name: ")
+position = binary_search(names, to_find)
+if position >= 0:
+    print(names[position], "found at index", position)
+else:
+    print("Name not found")`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th></th><th>Linear Search</th><th>Binary Search</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Requires sorted list</strong></td><td>No</td><td>Yes</td></tr>
+          <tr><td><strong>Worst case</strong></td><td>O(n) — check every element</td><td>O(log n) — halve each time</td></tr>
+          <tr><td><strong>1,000 items worst case</strong></td><td>1,000 comparisons</td><td>10 comparisons</td></tr>
+          <tr><td><strong>1,000,000 items worst case</strong></td><td>1,000,000 comparisons</td><td>20 comparisons</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('Always state that binary search requires a <strong>sorted</strong> list. If the list is not sorted, you must sort it first — which may make linear search more efficient for a single lookup.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Linear search','Check each element in order — O(n) — works on any list.'],
+          ['Binary search','Halve search space each step — O(log n) — sorted list only.'],
+          ['O(n)','Linear time — doubles with each doubling of input size.'],
+          ['O(log n)','Logarithmic time — grows very slowly; 1M items needs ~20 steps.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l2': return `
+    ${section('Sorting Algorithms',
+      p('A <strong>sorting algorithm</strong> arranges a list into a specified order (ascending or descending). Efficient sorting is important because many algorithms (like binary search) require sorted data.'),
+      def('Bubble Sort', 'Repeatedly steps through the list, comparing adjacent elements and swapping them if they are in the wrong order. After each full pass, the largest unsorted element "bubbles" to the end. Time complexity: O(n²).')
+    )}
+    ${section('Bubble Sort — How It Works',
+      p('Given: <code>["Carl", "Tamsin", "Eric", "Zoe", "Alan", "Mark"]</code>'),
+      p('Pass 1 compares adjacent pairs and swaps where out of order. After pass 1, the last item is in its correct position. This continues with one fewer comparison each pass:'),
+      pcode(`user_name = ["Carl", "Tamsin", "Eric", "Zoe", "Alan", "Mark"]
+num_items = 6
+while num_items > 1:
+    for count in range(num_items - 1):
+        if user_name[count] > user_name[count + 1]:
+            # Swap adjacent elements
+            temp = user_name[count]
+            user_name[count] = user_name[count + 1]
+            user_name[count + 1] = temp
+    num_items = num_items - 1
+print(user_name)`),
+      tip('The <code>temp</code> variable is essential — without it, one of the values would be overwritten before it can be saved.')
+    )}
+    ${section('Trace Table',
+      p('Tracing bubble sort on <code>[5, 3, 8, 1]</code>:'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Pass</th><th>After pass</th></tr></thead>
+        <tbody>
+          <tr><td>Pass 1</td><td>[3, 5, 1, <strong>8</strong>] — 8 in place</td></tr>
+          <tr><td>Pass 2</td><td>[3, 1, <strong>5</strong>, 8] — 5 in place</td></tr>
+          <tr><td>Pass 3</td><td>[1, <strong>3</strong>, 5, 8] — 3 in place</td></tr>
+          <tr><td>Sorted</td><td>[1, 3, 5, 8]</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('For a list of n items, bubble sort makes at most n-1 passes. Each pass requires n-1-(pass number) comparisons. Total comparisons: approximately n²/2 — hence O(n²).')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Bubble sort','O(n²) sort — swaps adjacent elements until list is ordered.'],
+          ['Pass','One full iteration through the list comparing adjacent pairs.'],
+          ['Swap','Exchange two elements — requires a temporary variable.'],
+          ['O(n²)','Quadratic time — doubling n quadruples the work.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'l3': return `
+    ${section('Input Validation',
+      p('<strong>Validation</strong> checks that data entered by a user meets certain rules <em>before</em> the program accepts it. It prevents invalid data from causing errors later.'),
+      def('Validation', 'A check performed on input data to ensure it is sensible, reasonable, and within expected bounds. It does not check whether data is correct — only that it conforms to defined rules.')
+    )}
+    ${section('Range Check',
+      def('Range Check', 'Ensures a numeric value falls within an acceptable minimum and maximum.'),
+      pcode(`# Range check: accept only values 0–10
+number = int(input("Enter a value between 0 and 10: "))
+while number < 0 or number > 10:
+    print("Your value was not between 0 and 10")
+    number = int(input("Enter value again: "))
+print("Number =", number)`)
+    )}
+    ${section('Presence Check',
+      def('Presence Check', 'Ensures that a required field has not been left empty.'),
+      pcode(`# Presence check: require user to enter something
+response = input("Enter your name (required): ")
+while response == "":
+    response = input("Name cannot be blank. Enter your name: ")
+print("Hello,", response)`)
+    )}
+    ${section('Type Check',
+      def('Type Check', 'Ensures input is of the correct data type (e.g. integer, string).'),
+      pcode(`# Type check using try/except
+valid = False
+while not valid:
+    try:
+        age = int(input("Enter your age: "))
+        valid = True
+    except ValueError:
+        print("Please enter a whole number.")
+print("Age entered:", age)`)
+    )}
+    ${section('Format Check',
+      def('Format Check', 'Ensures input matches a required pattern or format (e.g. email address, date, postcode).'),
+      pcode(`# Basic format check: postcode must be 7 characters
+postcode = input("Enter postcode (e.g. SW1A 1AA): ")
+while len(postcode) != 7:
+    postcode = input("Invalid format. Enter a 7-character postcode: ")
+print("Postcode:", postcode)`)
+    )}
+    ${section('Comparison of Validation Types',
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Validation type</th><th>Checks</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Range check</td><td>Value within min–max bounds</td><td>Age 0–120</td></tr>
+          <tr><td>Presence check</td><td>Field is not empty</td><td>Name must be entered</td></tr>
+          <tr><td>Type check</td><td>Correct data type</td><td>Price must be a number</td></tr>
+          <tr><td>Format check</td><td>Matches required pattern</td><td>Date as DD/MM/YYYY</td></tr>
+          <tr><td>Length check</td><td>Number of characters in range</td><td>Password 8–20 chars</td></tr>
+        </tbody>
+      </table></div>`,
+      examTip('Validation does NOT guarantee data is correct — a valid range check still accepts wrong-but-in-range data. For example, entering age 200 fails a range check, but entering 25 when you are 40 passes validation. Verification (e.g. typing a password twice) catches correct-data errors.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Validation','Checking input conforms to defined rules.'],
+          ['Range check','Value must be between a minimum and maximum.'],
+          ['Presence check','Field must not be empty.'],
+          ['Type check','Input must be the correct data type.'],
+          ['Format check','Input must match a specific pattern.'],
+          ['Verification','Checking data is correct (e.g. double-entry) — different from validation.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  default: return `<div class="page-section"><p>Content coming soon.</p></div>`;
+  }
+}
+
+// ── Cyber Security topic content ──────────────────────────────────────────────
+function cyberTopicContent(id) {
+  switch(id) {
+
+  case 'unit4': return `
+    ${section('Linux Host Security — Hardening a System',
+      p('Hardening a Linux host means reducing its attack surface by removing unnecessary software and services, closing unused network ports, and actively monitoring open connections.'),
+      def('Attack Surface', 'The total set of entry points through which an attacker could try to access a system. Reducing the attack surface means removing unnecessary software, services, and open ports.')
+    )}
+    ${section('Remove Unnecessary Software',
+      p('Unnecessary software occupies disk space and may introduce security vulnerabilities. Steps to identify and remove it:'),
+      bash(`# List installed RPM packages (Red Hat / CentOS / Fedora)
+yum list installed
+dnf list installed
+
+# List Debian packages
+apt list --installed
+dpkg --get-selections
+
+# Remove a package
+yum erase packagename
+dnf remove packagename
+apt remove packagename
+rpm -e packagename
+dpkg -r packagename`),
+      tip('If unsure whether a package is needed, check if any other service depends on it before removing it.')
+    )}
+    ${section('Check for Unnecessary Network Services',
+      p('Unnecessary network services waste resources and increase the attack surface. How to audit and disable them:'),
+      bash(`# List all active services
+systemctl --type=service --state=active
+
+# Research an unknown service
+man servicename
+
+# Disable a service (stop it starting on boot)
+systemctl disable servicename
+
+# Stop a running service immediately
+systemctl stop servicename`),
+      tip('Common services to evaluate: DNS, SNMP, DHCP, FTP, Telnet. Telnet transmits data in plaintext — always replace with SSH.')
+    )}
+    ${section('Port Scanning with NMAP',
+      def('NMAP', 'Network Mapper — an open-source tool for discovering hosts and services on a network by sending packets and analysing responses.'),
+      bash(`# Install nmap
+yum install nmap
+apt install nmap
+
+# Scan for open TCP ports on a host
+nmap -sT ipaddress
+
+# Scan for open UDP ports on a host
+nmap -sU ipaddress
+
+# After identifying unwanted open ports, disable the service
+systemctl disable servicename
+systemctl stop servicename`),
+      examTip('NMAP is a dual-use tool — it is used by both defenders (to audit their own systems) and attackers (to probe targets). In authorised security testing it is legitimate and essential.')
+    )}
+    ${section('Monitoring Connections with netstat',
+      def('netstat', 'A command-line tool that displays active network connections, listening ports, and network statistics.'),
+      bash(`# Show all listening and non-listening sockets
+netstat -a
+
+# Show only listening sockets
+netstat -l
+
+# Show statistics for each protocol
+netstat -s
+
+# Show network interface table
+netstat -i`),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Flag</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>-a</code></td><td>All sockets (listening and non-listening)</td></tr>
+          <tr><td><code>-l</code></td><td>Listening sockets only</td></tr>
+          <tr><td><code>-s</code></td><td>Protocol statistics (TCP, UDP, ICMP)</td></tr>
+          <tr><td><code>-i</code></td><td>Network interface statistics</td></tr>
+        </tbody>
+      </table></div>`
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['Attack surface','All possible entry points for an attacker on a system.'],
+          ['Hardening','Process of securing a system by reducing its attack surface.'],
+          ['systemctl','Linux command to start, stop, enable, and disable services.'],
+          ['NMAP','Network Mapper — scans hosts for open ports and services.'],
+          ['netstat','Shows active connections, listening ports, and network stats.'],
+          ['TCP scan','nmap -sT — probes for open TCP ports using connection requests.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  case 'unit5': return `
+    ${section('NAT — Network Address Translation',
+      def('NAT', 'A technique used by routers to allow multiple devices on a private network (LAN) to share a single public IP address when communicating with the internet (WAN).'),
+      p('IPv4 addresses are limited — not every device can have a globally routable public IP. A home or office router receives one public IP from the ISP and assigns private IPs (e.g. 192.168.x.x) to internal devices. NAT translates between these as packets leave and enter the network.'),
+      tip('NAT provides a basic level of security — devices on the internal network are not directly reachable from the internet because they do not have public IPs.')
+    )}
+    ${section('VPN — Virtual Private Network',
+      def('VPN', 'A technology that creates an encrypted tunnel over a public network (the internet), allowing remote users to connect securely as if they were on the private internal network.'),
+      p('VPNs are used by employees working remotely to securely access company resources. They encrypt all traffic between the device and the VPN server.'),
+      `<div class="callout callout-exam"><div class="callout-label">Exam Tip</div><p>Use <strong>IPSec over L2TP</strong> for VPNs. <strong>PPTP with MSCHAPv2</strong> is considered insecure and should not be used in modern deployments.</p></div>`
+    )}
+    ${section('Web Threat Protection',
+      p('Organisations deploy several types of device/service to protect against web-based threats:'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Protection type</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><strong>URL / Content Filter</strong></td><td>Blocks access to specific websites (e.g. social media, gambling). Enforces internet usage policy. Does not protect against malicious sites not on the blocklist.</td></tr>
+          <tr><td><strong>Web Threat Filter</strong></td><td>Blocks access to sites with known malicious content using a continuously updated list of dangerous URLs.</td></tr>
+          <tr><td><strong>Gateway Email Spam Filter</strong></td><td>Prevents spam, phishing, and malicious emails from reaching the network. Blocks specific senders and emails with known threats.</td></tr>
+          <tr><td><strong>Virus Scanner</strong></td><td>Identifies and removes infected content. Often combined with email scanning.</td></tr>
+          <tr><td><strong>Anti-phishing Software</strong></td><td>Scans content to identify and block phishing attempts.</td></tr>
+          <tr><td><strong>Encryption</strong></td><td>Makes data (e.g. emails) unreadable to anyone without the decryption key.</td></tr>
+        </tbody>
+      </table></div>`,
+      h3('Proxy Servers'),
+      def('Proxy', 'A server that sits between clients and the internet, forwarding requests on behalf of clients. Can be used for content filtering, anonymity, or caching.'),
+      p('<strong>Transparent proxies:</strong> Redirect requests without the user\'s knowledge — no client configuration needed. <strong>Forward proxies:</strong> Used to filter content or mask a user\'s identity.')
+    )}
+    ${section('Network Access Control (NAC)',
+      def('NAC', 'A policy-driven system that checks whether a device meets security requirements before allowing it to connect to the network. Non-compliant devices are placed in a restricted zone.'),
+      p('<strong>BYOD (Bring Your Own Device)</strong> policies allow personal devices on the company network — but NAC enforces that these devices must meet security standards (updated OS, antivirus, etc.) before access is granted.'),
+      `<div class="two-col-list">
+        ${[
+          ['Prevent zero-day attacks','Devices without latest patches go to restricted zone.'],
+          ['Role-based controls','Different network access based on user role.'],
+          ['Encrypt traffic','Ensures sensitive data is protected in transit.'],
+          ['Identity management','Verifies user/device identity before granting access.'],
+        ].map(([k,v]) => `<div class="list-item li-benefit"><span class="li-icon">✓</span><div><strong>${k}</strong> — ${v}</div></div>`).join('')}
+      </div>`
+    )}
+    ${section('Network Segmentation and Threats',
+      h3('Network Segmentation'),
+      def('Network Segmentation', 'Dividing a network into separate zones so that if one segment is compromised, the damage is contained and does not spread to the rest of the network.'),
+      p('Most common method: <strong>VLANs (Virtual Local Area Networks)</strong>. Zones are often classified by trust level: low (public-facing like web servers — also called <strong>DMZ / demilitarised zone</strong>), medium, high (internal sensitive systems).'),
+      h3('Types of Network Attack'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Active</strong></td><td>Attacker actively tries to compromise or disrupt the system (e.g. malware, DoS, SQL injection)</td></tr>
+          <tr><td><strong>Passive</strong></td><td>Attacker silently gathers information without disrupting traffic (e.g. packet sniffing, eavesdropping)</td></tr>
+          <tr><td><strong>External</strong></td><td>Attack originates from outside the network perimeter</td></tr>
+          <tr><td><strong>Internal (Insider threat)</strong></td><td>Attack from someone inside the network — often the most damaging</td></tr>
+        </tbody>
+      </table></div>`,
+      h3('Threat Focus Points'),
+      `<div class="two-col-list">
+        ${[
+          ['Entry points','Identify all possible attack vectors: public servers, WiFi, personal devices, USB ports.'],
+          ['Inherent vulnerabilities','Systems without proper security controls (outdated OS, unpatched software).'],
+          ['Documentation','Document all assets — you cannot protect what you do not know you have.'],
+          ['Network baseline','Establish normal traffic patterns so anomalies (unusual loads, unexpected connections) can be detected.'],
+        ].map(([k,v]) => `<div class="list-item li-benefit"><span class="li-icon">•</span><div><strong>${k}</strong> — ${v}</div></div>`).join('')}
+      </div>`,
+      tip('User education is one of the most effective security measures — phishing succeeds primarily because of human error, not technical failure.')
+    )}
+    ${section('Key Terms',
+      `<div class="key-terms-box"><h3>Quick Reference</h3><div class="key-terms-grid">
+        ${[
+          ['NAT','Translates private IPs to a shared public IP — allows LAN devices to reach the internet.'],
+          ['VPN','Encrypted tunnel over the internet for secure remote access.'],
+          ['DMZ','Demilitarised zone — low-trust network segment for public-facing servers.'],
+          ['VLAN','Virtual LAN — logical network segment for isolation.'],
+          ['NAC','Network Access Control — checks device compliance before granting access.'],
+          ['BYOD','Bring Your Own Device — personal devices on corporate networks.'],
+          ['Passive attack','Gathers data without disrupting traffic (e.g. packet sniffing).'],
+          ['Active attack','Attempts to modify, disrupt, or compromise systems.'],
+        ].map(([k,v]) => `<div class="key-term"><span class="kt-name">${k}</span><span class="kt-def">${v}</span></div>`).join('')}
+      </div></div>`
+    )}`;
+
+  default: return `<div class="page-section"><p>Content coming soon.</p></div>`;
+  }
+}
 
 // ── B1 Lesson content ─────────────────────────────────────────────────────────
 function b1LessonContent(id) {
@@ -2042,6 +2789,7 @@ function renderB1Lesson(lessonId) {
     <div class="lesson-body">
       <a href="#ibdp/b1" class="back-link">← Back to B1: Computational Thinking</a>
       ${content}
+      ${lessonNav(B1_LESSONS, lessonId, 'ibdp/b1')}
     </div>`;
 }
 
@@ -2069,6 +2817,7 @@ function renderB2Lesson(lessonId) {
     <div class="lesson-body">
       <a href="#ibdp/b2" class="back-link">← Back to B2: Programming</a>
       ${content}
+      ${lessonNav(B2_LESSONS, lessonId, 'ibdp/b2')}
     </div>`;
 }
 
@@ -2147,6 +2896,7 @@ function renderA3Lesson(lessonId) {
     <div class="lesson-body">
       <a href="#ibdp/a3" class="back-link">← Back to A3: Databases</a>
       ${content}
+      ${lessonNav(A3_LESSONS, lessonId, 'ibdp/a3')}
     </div>`;
 }
 
@@ -2239,6 +2989,7 @@ function renderIGCSEUnit1Lesson(lessonId) {
     <div class="lesson-body">
       <a href="#igcse/unit1" class="back-link">← Back to Unit 1: Data Representation</a>
       ${content}
+      ${lessonNav(IGCSE_U1_LESSONS, lessonId, 'igcse/unit1')}
     </div>`;
 }
 
@@ -2253,6 +3004,26 @@ function render404() {
     <div class="page-section">
       <a href="#home" class="back-link">← Back to home</a>
     </div>`;
+}
+
+// ── Lesson prev/next nav ─────────────────────────────────────────────────────
+function lessonNav(lessons, currentId, basePath) {
+  const idx  = lessons.findIndex(l => l.id === currentId);
+  const prev = lessons[idx - 1];
+  const next = lessons[idx + 1];
+  const btnPrev = prev
+    ? `<a href="#${basePath}/${prev.id}" class="lesson-nav-btn prev">
+         <span class="lesson-nav-label">← Previous</span>
+         <span class="lesson-nav-title">Lesson ${prev.num}: ${prev.title}</span>
+       </a>`
+    : `<span></span>`;
+  const btnNext = next
+    ? `<a href="#${basePath}/${next.id}" class="lesson-nav-btn next">
+         <span class="lesson-nav-label">Next →</span>
+         <span class="lesson-nav-title">Lesson ${next.num}: ${next.title}</span>
+       </a>`
+    : `<span></span>`;
+  return `<div class="lesson-nav">${btnPrev}${btnNext}</div>`;
 }
 
 // ── Nav helpers ───────────────────────────────────────────────────────────────
