@@ -652,48 +652,129 @@ GROUP BY o.OfficerID, o.FirstName, o.LastName;`)
   // ── Lesson 11: Transactions (HL) ──────────────────────────────────────────
   case 'l11': return `
     ${hlNote('This lesson covers A3.3.6: transactions. This is Higher Level content.')}
+    <div class="lesson-section" style="padding-bottom:0">
+      <a href="resources/ibdp/tok/a3_l11_db_transactions_tok.html" target="_blank" rel="noopener"
+         style="display:inline-flex;align-items:center;gap:.55rem;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;font-weight:700;font-size:.9rem;padding:.6rem 1.1rem;border-radius:10px;text-decoration:none;box-shadow:0 4px 14px rgba(124,58,237,.28);">
+        <span style="font-size:1.1rem">💬</span> Open TOK Interactive Slides
+      </a>
+    </div>
     ${section('What is a Transaction?',
       def('Transaction', 'A sequence of one or more SQL operations that are treated as a single unit. Either all operations succeed (COMMIT) or all are undone (ROLLBACK).'),
-      p('Classic example: a bank transfer. Deducting £100 from Account A and adding £100 to Account B must either both succeed or both fail: a partial update would leave the accounts in an inconsistent state.')
+      p('The classic example is a <strong>bank transfer</strong>. Sending £100 from Alice to Bob requires two separate UPDATE statements: subtract from Alice and add to Bob. Both must succeed together, or neither should happen. If the system crashes between the two steps, the database must not be left in a half-finished state.'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Step</th><th>SQL</th><th>Effect on Alice</th><th>Effect on Bob</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><code>UPDATE ... SET Balance = Balance - 100 WHERE AccountID = 'Alice'</code></td><td>£1000 → £900</td><td>Unchanged so far</td></tr>
+          <tr><td>2</td><td><code>UPDATE ... SET Balance = Balance + 100 WHERE AccountID = 'Bob'</code></td><td>£900 (final)</td><td>£600 → £700</td></tr>
+          <tr><td>3</td><td><code>COMMIT;</code></td><td colspan="2">Both changes become permanent</td></tr>
+        </tbody>
+      </table></div>`,
+      tip('A database should never show a "half-finished truth." Transactions are the mechanism that prevents this.')
     )}
     ${section('ACID Properties',
-      p('ACID is the set of properties that guarantee reliable transaction processing:'),
+      p('ACID is the set of four properties that guarantee reliable transaction processing:'),
       `<div class="two-col-list">
         ${[
-          ['Atomicity','The transaction is all-or-nothing. If any operation fails, the entire transaction is rolled back.'],
-          ['Consistency','A transaction brings the database from one valid state to another. All constraints remain satisfied.'],
-          ['Isolation','Concurrent transactions execute as if they were serial: no intermediate states are visible to other transactions.'],
-          ['Durability','Once committed, changes persist even if the system crashes immediately afterwards.'],
+          ['Atomicity','The transaction is all-or-nothing. If any operation fails, every change made so far is rolled back, as if the transaction never happened.'],
+          ['Consistency','A transaction moves the database from one valid state to another. All data integrity rules (constraints, foreign keys, data types) must still hold after the transaction.'],
+          ['Isolation','While a transaction is in progress, its partial changes are hidden from other transactions. Concurrent transactions behave as if they ran one after the other.'],
+          ['Durability','Once a transaction is committed, the changes persist permanently, even if the system crashes immediately afterwards. The DBMS uses a transaction log (write-ahead log) to guarantee this.'],
         ].map(([k,v]) => `<div class="list-item li-neutral"><span class="li-icon">${k[0]}</span><div><strong>${k}</strong>: ${v}</div></div>`).join('')}
       </div>`,
-      examTip('The exam will ask you to "describe the role of ACID". Cover all four properties, each with a one-sentence explanation. The most commonly confused are Atomicity vs Consistency: atomicity is about all-or-nothing; consistency is about maintaining database rules.')
+      examTip('The exam will ask you to "describe the role of ACID." Cover all four properties, each with a one-sentence explanation. The most commonly confused are Atomicity vs Consistency: Atomicity is about all-or-nothing; Consistency is about maintaining database rules.')
     )}
     ${section('Transaction Control Language (TCL)',
-      p('TCL commands control when changes are saved or undone:'),
-      sql(`-- Begin a transaction
-BEGIN TRANSACTION;
-
-  UPDATE ACCOUNT SET Balance = Balance - 100 WHERE AccountID = 'A01';
-  UPDATE ACCOUNT SET Balance = Balance + 100 WHERE AccountID = 'A02';
-
--- If everything succeeded, save the changes
-COMMIT;`),
-      sql(`-- If something went wrong, undo all changes since BEGIN
-BEGIN TRANSACTION;
-
-  UPDATE ACCOUNT SET Balance = Balance - 100 WHERE AccountID = 'A01';
-  -- Error detected here...
-
-ROLLBACK;`),
+      p('TCL commands control when changes become permanent or are undone:'),
       `<div class="tbl-wrap"><table class="content-table">
         <thead><tr><th>Command</th><th>Effect</th></tr></thead>
         <tbody>
-          <tr><td><code>BEGIN TRANSACTION</code></td><td>Marks the start of a transaction</td></tr>
-          <tr><td><code>COMMIT</code></td><td>Permanently saves all changes made since BEGIN</td></tr>
-          <tr><td><code>ROLLBACK</code></td><td>Undoes all changes made since BEGIN</td></tr>
+          <tr><td><code>BEGIN TRANSACTION</code></td><td>Marks the start of a transaction; all subsequent statements are part of this unit</td></tr>
+          <tr><td><code>COMMIT</code></td><td>Permanently saves all changes made since BEGIN; the transaction ends successfully</td></tr>
+          <tr><td><code>ROLLBACK</code></td><td>Undoes all changes made since BEGIN; the database returns to its state before the transaction</td></tr>
+          <tr><td><code>SAVEPOINT name</code></td><td>Creates a named checkpoint within a transaction; a partial rollback can return to this point</td></tr>
+          <tr><td><code>ROLLBACK TO name</code></td><td>Undoes changes back to the named savepoint without cancelling the whole transaction</td></tr>
         </tbody>
-      </table></div>`
-    )}`;
+      </table></div>`,
+      h3('Successful Transfer'),
+      sql(`BEGIN TRANSACTION;
+
+  UPDATE ACCOUNT SET Balance = Balance - 100 WHERE AccountID = 'Alice';
+  UPDATE ACCOUNT SET Balance = Balance + 100 WHERE AccountID = 'Bob';
+
+COMMIT;  -- both changes are now permanent`),
+      h3('Failed Transfer (ROLLBACK)'),
+      sql(`BEGIN TRANSACTION;
+
+  UPDATE ACCOUNT SET Balance = Balance - 100 WHERE AccountID = 'Alice';
+  -- system error, network failure, or business rule violation detected
+
+ROLLBACK;  -- Alice's balance is restored; no money is lost`),
+      h3('Using SAVEPOINT'),
+      sql(`BEGIN TRANSACTION;
+
+  INSERT INTO ORDER_LOG (OrderID, Status) VALUES (501, 'Pending');
+  SAVEPOINT after_log;  -- checkpoint created here
+
+  UPDATE STOCK SET Quantity = Quantity - 1 WHERE ProductID = 'P88';
+  -- stock check fails: product is out of stock
+
+ROLLBACK TO after_log;  -- undo only the UPDATE, keep the log entry
+
+COMMIT;  -- the log entry is saved; the stock table is unchanged`)
+    )}
+    ${section('What Happens Without a Transaction?',
+      p('If two separate UPDATE statements are run without a transaction wrapper and the system crashes between them:'),
+      `<div class="two-col-list">
+        <div class="list-item li-limit"><span class="li-icon">✗</span><div><strong>Without a transaction:</strong> Alice loses £100, Bob receives nothing. The total money in the system has decreased. The database is in an inconsistent, unrecoverable state.</div></div>
+        <div class="list-item li-benefit"><span class="li-icon">✓</span><div><strong>With a transaction + ROLLBACK:</strong> The DBMS detects the failure on restart using its transaction log. It rolls back the incomplete transaction. Alice's balance is fully restored and the database remains trustworthy.</div></div>
+      </div>`,
+      examTip('A common 4-mark question: "Explain how a transaction prevents data corruption in the event of a system failure during a bank transfer." Describe the two-step update, explain that without a transaction the first update could persist while the second does not, then explain how ROLLBACK restores the original state.')
+    )}
+    ${section('Concurrency and Isolation',
+      p('In a real system, many users run transactions simultaneously. Without isolation, one transaction can interfere with another. Three classic problems are:'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Problem</th><th>What Happens</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Dirty Read</strong></td><td>Transaction A reads data changed by Transaction B before B has committed. If B rolls back, A has read a value that never officially existed.</td><td>A reads a balance already deducted by B, but B is then rolled back.</td></tr>
+          <tr><td><strong>Non-repeatable Read</strong></td><td>Transaction A reads the same row twice and gets different values because Transaction B committed a change between the two reads.</td><td>A checks a ticket price, B updates it, A reads it again and gets a different price.</td></tr>
+          <tr><td><strong>Phantom Read</strong></td><td>Transaction A runs the same query twice and gets different numbers of rows because Transaction B inserted or deleted rows between the two queries.</td><td>A counts available seats, B books one, A counts again and gets a lower number.</td></tr>
+        </tbody>
+      </table></div>`,
+      p('DBMSs provide <strong>isolation levels</strong> that trade performance against protection from these problems:'),
+      `<div class="tbl-wrap"><table class="content-table">
+        <thead><tr><th>Isolation Level</th><th>Dirty Read</th><th>Non-repeatable Read</th><th>Phantom Read</th></tr></thead>
+        <tbody>
+          <tr><td>Read Uncommitted</td><td>Possible</td><td>Possible</td><td>Possible</td></tr>
+          <tr><td>Read Committed</td><td>Prevented</td><td>Possible</td><td>Possible</td></tr>
+          <tr><td>Repeatable Read</td><td>Prevented</td><td>Prevented</td><td>Possible</td></tr>
+          <tr><td>Serializable</td><td>Prevented</td><td>Prevented</td><td>Prevented</td></tr>
+        </tbody>
+      </table></div>`,
+      tip('Serializable isolation is the safest but the slowest. Most production systems use Read Committed or Repeatable Read as a balance between correctness and performance.')
+    )}
+    ${section('TOK Connection: Trust and Knowledge in Databases',
+      p('Transactions are a technical solution to a philosophical problem: how can we trust that a record is true?'),
+      `<div class="two-col-list">
+        ${[
+          ['Reliability vs Truth','A COMMIT makes a record reliable (it will not change unexpectedly), but reliability is not the same as truth. The committed value could still be wrong if the input data was wrong.'],
+          ['Hidden complexity','The system hides the multi-step nature of a transfer. Users see only the final result. Technology creates trust by concealing the mechanism.'],
+          ['Accountability','If a COMMIT fails silently due to a software bug, who is responsible for the false record? The programmer? The DBMS vendor? The user?'],
+          ['Human memory vs machine record','Should people trust a database record more than their own memory of a transaction? What gives a computer record its authority?'],
+        ].map(([k,v]) => `<div class="list-item li-neutral"><span class="li-icon">◆</span><div><strong>${k}</strong>: ${v}</div></div>`).join('')}
+      </div>`,
+      `<div class="callout callout-tip"><div class="callout-label">TOK Discussion</div><p>Open the interactive slides above for a visual walkthrough of the bank transfer example and four discussion questions that connect database transactions to the TOK theme of knowledge and technology.</p></div>`
+    )}
+    ${practiceSect('Check Your Understanding', [
+      qa('What does ACID stand for, and what does each property guarantee?',
+        '<strong>A</strong>tomicity: all-or-nothing; <strong>C</strong>onsistency: database rules are maintained; <strong>I</strong>solation: concurrent transactions do not interfere; <strong>D</strong>urability: committed changes survive crashes.'),
+      qa('Describe what happens during a bank transfer if the system crashes after the first UPDATE but before COMMIT, when the two UPDATEs are inside a transaction.',
+        'The DBMS detects the incomplete transaction on restart using its write-ahead log and automatically performs a ROLLBACK. Both accounts are restored to their original balances. No money is lost.'),
+      qa('Why would you use SAVEPOINT instead of just ROLLBACK?',
+        'SAVEPOINT lets you undo only part of a transaction, rolling back to a named checkpoint without cancelling the entire transaction. This is useful when some operations (like logging) should be kept even if a later step fails.'),
+      qa('What is a dirty read, and which isolation level prevents it?',
+        'A dirty read occurs when Transaction A reads data written by Transaction B before B has committed. If B rolls back, A has read a value that never officially existed. Read Committed isolation level (and above) prevents dirty reads.'),
+    ])}`;
+
 
   // ── Lesson 12: Alternatives and Warehouses (HL) ───────────────────────────
   case 'l12': return `
