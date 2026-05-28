@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="slides-format" content="viewport">
+  <title>Transactions and Commit: Bank Transfer Example</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-bg: #F0F7FF;
+      --color-bg-deep: #E8F4FD;
+      --color-surface: #FFFFFF;
+      --color-text: #10233D;
+      --color-text-secondary: #35506F;
+      --color-text-muted: #6B84A0;
+      --color-accent-1: #2563EB;
+      --color-accent-2: #F97066;
+      --color-accent-3: #D4A574;
+      --color-glass-bg: rgba(255,255,255,0.82);
+      --color-glass-border: rgba(16,35,61,0.08);
+      --color-vignette: rgba(0,0,0,0.05);
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+  </style>
+  <style>
+    :root { --color-bg: #F0F7FF; --color-text: #10233D; --glow-color-rgb: 37,99,235; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--color-bg); }
+    body { font-family: var(--font-body); color: var(--color-text); overflow: hidden; width: 100vw; height: 100vh; }
+    .deck { width: 100vw; height: 100vh; position: relative; }
+    .slide { position: absolute; inset: 0; opacity: 0; transform: scale(.97); transition: opacity .6s ease, transform .6s ease; pointer-events: none; overflow: hidden; display:flex; align-items:center; justify-content:center; }
+    .slide.active { opacity: 1; transform: scale(1); pointer-events: all; }
+    .slide>.content { position: relative; z-index: 2; width: 100%; max-width: 1120px; padding: clamp(1.5rem, 4vw, 4rem); }
+    .gradient-mesh { position:absolute; inset:0; z-index:0; overflow:hidden; }
+    .blob { position:absolute; border-radius:50%; filter: blur(70px); animation: float 12s ease-in-out infinite; }
+    .blob:nth-child(2){ animation-duration:16s; }
+    .blob:nth-child(3){ animation-duration:20s; }
+    @keyframes float { 0%,100%{ transform:translate(0,0) scale(1);} 50%{ transform:translate(35px,-25px) scale(1.08);} }
+    .slide::before{content:'';position:absolute;inset:0;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.025;pointer-events:none;}
+    .slide::after{content:'';position:absolute;inset:0;z-index:1;background:radial-gradient(circle at center, transparent 50%, rgba(0,0,0,.05) 100%);pointer-events:none;}
+    .reveal { opacity: 0; transform: translateY(20px); }
+    .nav-controls { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 100; display:flex; align-items:center; gap:14px; background: rgba(255,255,255,.75); border:1px solid rgba(16,35,61,.08); backdrop-filter: blur(10px); padding:10px 18px; border-radius:999px; }
+    .nav-btn { width:38px; height:38px; border:none; border-radius:50%; cursor:pointer; background:#fff; color:#2563EB; font-size:20px; }
+    .slide-dots { display:flex; gap:8px; }
+    .dot { width:10px; height:10px; border-radius:50%; background:rgba(16,35,61,.16); cursor:pointer; }
+    .dot.active { background:#2563EB; transform:scale(1.2); }
+    .slide-counter { font-size:.85rem; color:#6B84A0; min-width:42px; text-align:center; }
+    .codebox { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background:#0F172A; color:#E2E8F0; border-radius:20px; padding:1rem 1.2rem; line-height:1.45; font-size:.95rem; box-shadow: 0 20px 40px rgba(15,23,42,.18); }
+    .card { background: rgba(255,255,255,.82); border:1px solid rgba(16,35,61,.08); border-radius:22px; padding:1.15rem 1.15rem; box-shadow:0 12px 30px rgba(37,99,235,.08); }
+    .bank { display:grid; grid-template-columns:1fr auto 1fr; gap:20px; align-items:center; }
+    .acct { background: linear-gradient(135deg, #ffffff, #eef5ff); border:1px solid rgba(37,99,235,.15); border-radius:24px; padding:1.4rem; min-height: 180px; box-shadow:0 18px 40px rgba(37,99,235,.10); }
+    .big { font-size: 2.7rem; font-weight: 800; color:#2563EB; }
+    .arrow { font-size:3rem; color:#F97066; font-weight:800; }
+    .question { border-left:4px solid #F97066; }
+    .particle-canvas { position:absolute; inset:0; z-index:1; }
+  </style>
+</head>
+<body>
+<div class="deck">
+  <div class="slide active" data-slide="1">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:460px;height:460px;top:-120px;right:-90px;background:#2563EB;opacity:.16"></div>
+      <div class="blob" style="width:330px;height:330px;bottom:-80px;left:-40px;background:#F97066;opacity:.13"></div>
+      <div class="blob" style="width:220px;height:220px;top:38%;left:16%;background:#D4A574;opacity:.10"></div>
+    </div>
+    <canvas class="particle-canvas"></canvas>
+    <div class="content text-center">
+      <div class="reveal" style="font-size:110px; line-height:1;">🏦</div>
+      <h1 class="reveal font-display text-[clamp(2.4rem,6vw,4.8rem)] font-extrabold tracking-tight text-accent-1">Transactions and Commit</h1>
+      <p class="reveal text-[clamp(1rem,1.8vw,1.35rem)] text-text-secondary mt-3">A bank transfer example for IB Computer Science and TOK</p>
+      <div class="reveal mt-8 inline-block card text-left" style="max-width:720px;">
+        <div class="text-sm uppercase tracking-[0.18em] text-text-muted mb-2">Big idea</div>
+        <div class="text-xl font-semibold">A transaction keeps a multi-step update together, and <span style="color:#2563EB; font-weight:800;">COMMIT</span> makes it permanent.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="2">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:330px;height:330px;top:-80px;right:-60px;background:#2563EB;opacity:.08"></div>
+      <div class="blob" style="width:260px;height:260px;bottom:-50px;left:-40px;background:#F97066;opacity:.08"></div>
+    </div>
+    <div class="content">
+      <h2 class="reveal font-display text-5xl font-extrabold tracking-tight mb-8">The bank transfer</h2>
+      <div class="bank">
+        <div class="acct reveal">
+          <div class="text-sm uppercase tracking-[0.14em] text-text-muted">Alice</div>
+          <div class="big">1000</div>
+          <div class="text-lg text-text-secondary">Before transfer</div>
+          <div class="mt-5 text-sm text-text-muted">Step 1: subtract 100</div>
+        </div>
+        <div class="arrow reveal">→</div>
+        <div class="acct reveal">
+          <div class="text-sm uppercase tracking-[0.14em] text-text-muted">Bob</div>
+          <div class="big">600</div>
+          <div class="text-lg text-text-secondary">Before transfer</div>
+          <div class="mt-5 text-sm text-text-muted">Step 2: add 100</div>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-5 mt-8">
+        <div class="card reveal"><div class="text-sm uppercase tracking-[0.14em] text-text-muted">SQL</div><div class="text-lg font-semibold mt-2">START TRANSACTION;</div></div>
+        <div class="card reveal"><div class="text-sm uppercase tracking-[0.14em] text-text-muted">Action</div><div class="text-lg font-semibold mt-2">Two updates, one logical task</div></div>
+        <div class="card reveal"><div class="text-sm uppercase tracking-[0.14em] text-text-muted">Finish</div><div class="text-lg font-semibold mt-2">COMMIT; saves both</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="3">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:350px;height:350px;top:-90px;right:-70px;background:#2563EB;opacity:.09"></div>
+      <div class="blob" style="width:240px;height:240px;bottom:-30px;left:-20px;background:#D4A574;opacity:.08"></div>
+    </div>
+    <div class="content">
+      <div class="grid grid-cols-2 gap-8 items-start">
+        <div>
+          <h2 class="reveal font-display text-5xl font-extrabold tracking-tight mb-6">SQL example</h2>
+          <div class="codebox reveal">
+START TRANSACTION;<br><br>
+UPDATE accounts<br>
+SET balance = balance - 100<br>
+WHERE id = 1;<br><br>
+UPDATE accounts<br>
+SET balance = balance + 100<br>
+WHERE id = 2;<br><br>
+COMMIT;
+          </div>
+        </div>
+        <div class="grid gap-5">
+          <div class="card reveal"><div class="text-sm uppercase tracking-[0.14em] text-text-muted">Atomicity</div><div class="text-lg font-semibold mt-2">Both updates happen together, or neither happens.</div></div>
+          <div class="card reveal"><div class="text-sm uppercase tracking-[0.14em] text-text-muted">Consistency</div><div class="text-lg font-semibold mt-2">The data still follows the rules after the transfer.</div></div>
+          <div class="card reveal"><div class="text-sm uppercase tracking-[0.14em] text-text-muted">Durability</div><div class="text-lg font-semibold mt-2">After COMMIT, the result stays saved even after a crash.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="4">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:320px;height:320px;top:-70px;right:-60px;background:#F97066;opacity:.10"></div>
+      <div class="blob" style="width:260px;height:260px;bottom:-40px;left:-40px;background:#2563EB;opacity:.08"></div>
+    </div>
+    <canvas class="particle-canvas"></canvas>
+    <div class="content">
+      <h2 class="reveal font-display text-5xl font-extrabold tracking-tight mb-8">What if the system crashes?</h2>
+      <div class="grid grid-cols-2 gap-6">
+        <div class="card reveal">
+          <div class="text-sm uppercase tracking-[0.14em] text-text-muted">Without a transaction</div>
+          <ul class="mt-4 text-lg leading-8 text-text-secondary">
+            <li>• Alice loses 100.</li>
+            <li>• Bob does not receive 100.</li>
+            <li>• The database becomes inconsistent.</li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <div class="text-sm uppercase tracking-[0.14em] text-text-muted">With transaction + rollback</div>
+          <ul class="mt-4 text-lg leading-8 text-text-secondary">
+            <li>• The failed transfer is undone.</li>
+            <li>• Alice keeps her original balance.</li>
+            <li>• The database remains trustworthy.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card reveal mt-7" style="border-left:6px solid #F97066;">
+        <div class="text-xl font-semibold">Key teaching line: a database should never show a “half-finished truth.”</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="5">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:350px;height:350px;top:-80px;right:-50px;background:#2563EB;opacity:.08"></div>
+      <div class="blob" style="width:250px;height:250px;bottom:-60px;left:-20px;background:#F97066;opacity:.08"></div>
+    </div>
+    <div class="content">
+      <h2 class="reveal font-display text-5xl font-extrabold tracking-tight mb-8">TOK discussion</h2>
+      <div class="grid grid-cols-2 gap-5">
+        <div class="card question reveal"><div class="text-lg font-semibold">How do we know the balance shown on screen is true?</div></div>
+        <div class="card question reveal"><div class="text-lg font-semibold">Should people trust computer records more than human memory?</div></div>
+        <div class="card question reveal"><div class="text-lg font-semibold">If a commit fails silently, who is responsible for the false knowledge?</div></div>
+        <div class="card question reveal"><div class="text-lg font-semibold">To what extent does technology create trust by hiding complexity?</div></div>
+      </div>
+      <div class="card reveal mt-7">
+        <div class="text-sm uppercase tracking-[0.14em] text-text-muted">Class link</div>
+        <div class="text-xl font-semibold mt-2">Computer science builds reliable systems, but TOK asks whether reliability is the same as truth.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="6">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:430px;height:430px;top:-110px;right:-100px;background:#2563EB;opacity:.16"></div>
+      <div class="blob" style="width:300px;height:300px;bottom:-70px;left:-30px;background:#F97066;opacity:.13"></div>
+      <div class="blob" style="width:200px;height:200px;top:44%;left:18%;background:#D4A574;opacity:.10"></div>
+    </div>
+    <canvas class="particle-canvas"></canvas>
+    <div class="content text-center">
+      <div class="reveal" style="font-size:96px; line-height:1;">💬</div>
+      <h2 class="reveal font-display text-[clamp(2.4rem,5.5vw,4.5rem)] font-extrabold tracking-tight text-accent-1">Questions for students</h2>
+      <div class="grid grid-cols-1 gap-4 mt-8 text-left" style="max-width:820px; margin: 0 auto;">
+        <div class="card reveal">1. Why is a bank transfer a good example of a transaction?</div>
+        <div class="card reveal">2. What does COMMIT do in this example?</div>
+        <div class="card reveal">3. What could happen if the system crashes after the first update?</div>
+        <div class="card reveal">4. How does this example connect to trust and knowledge in TOK?</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="nav-controls">
+  <button class="nav-btn" onclick="changeSlide(-1)">&#8249;</button>
+  <div class="slide-dots" id="dots"></div>
+  <button class="nav-btn" onclick="changeSlide(1)">&#8250;</button>
+  <span class="slide-counter" id="counter">1 / 6</span>
+</div>
+<script>
+let current = 1;
+const total = document.querySelectorAll('.slide').length;
+const dotsContainer = document.getElementById('dots');
+const counter = document.getElementById('counter');
+for (let i = 1; i <= total; i++) { const dot = document.createElement('div'); dot.className = 'dot' + (i === 1 ? ' active' : ''); dot.onclick = () => goToSlide(i); dotsContainer.appendChild(dot); }
+function goToSlide(n){ const prev=document.querySelector('.slide.active'); const next=document.querySelector(`.slide[data-slide="${n}"]`); if(prev) prev.classList.remove('active'); if(next){ next.classList.add('active'); animateSlide(next);} current=n; updateNav(); }
+function changeSlide(dir){ let next=current+dir; if(next<1) next=total; if(next>total) next=1; goToSlide(next); }
+function updateNav(){ document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active', i+1===current)); counter.textContent = `${current} / ${total}`; }
+document.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight' || e.key===' '){ e.preventDefault(); changeSlide(1);} if(e.key==='ArrowLeft'){ e.preventDefault(); changeSlide(-1);} });
+let touchStartX = 0; document.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX); document.addEventListener('touchend', e => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1); });
+function animateSlide(slide){ slide.querySelectorAll('.reveal').forEach((el,i)=>{ el.style.transition='none'; el.style.opacity='0'; el.style.transform='translateY(20px)'; el.offsetHeight; const delay=i*0.08; el.style.transition=`opacity .35s ease ${delay}s, transform .35s ease ${delay}s`; el.style.opacity='1'; el.style.transform='translateY(0)'; }); }
+function initParticles(canvas){ if(!canvas) return; const ctx = canvas.getContext('2d'); function resize(){ canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight; } resize(); window.addEventListener('resize', resize); const particles = Array.from({length: 26}, () => ({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, vx:(Math.random()-.5)*.35, vy:(Math.random()-.5)*.35, s:Math.random()*2+0.8 })); function draw(){ ctx.clearRect(0,0,canvas.width,canvas.height); for(const p of particles){ p.x += p.vx; p.y += p.vy; if(p.x<0||p.x>canvas.width) p.vx*=-1; if(p.y<0||p.y>canvas.height) p.vy*=-1; ctx.beginPath(); ctx.arc(p.x,p.y,p.s,0,Math.PI*2); ctx.fillStyle='rgba(37,99,235,0.18)'; ctx.fill(); } requestAnimationFrame(draw); } draw(); }
+document.querySelectorAll('.particle-canvas').forEach(initParticles);
+animateSlide(document.querySelector('.slide.active')); updateNav();
+</script>
+</body>
+</html>
